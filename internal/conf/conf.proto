@@ -1,0 +1,121 @@
+syntax = "proto3";
+package kratos.api;
+
+option go_package = "bubble-admin-go-kratos/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Server server = 1;
+  Data data = 2;
+  App app = 3;
+}
+
+message Server {
+  message HTTP {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  message GRPC {
+    string network = 1;
+    string addr = 2;
+    google.protobuf.Duration timeout = 3;
+  }
+  HTTP http = 1;
+  GRPC grpc = 2;
+}
+
+message Data {
+  message Database {
+    string driver = 1;
+    string source = 2;
+    // 连接池配置
+    int32 max_idle_conns = 3;
+    int32 max_open_conns = 4;
+    google.protobuf.Duration conn_max_lifetime = 5;
+  }
+  message Redis {
+    // 移除 network 字段
+    string addr = 2;
+    google.protobuf.Duration read_timeout = 3;
+    google.protobuf.Duration write_timeout = 4;
+    string password = 6;
+    int32 database = 7;
+    int32 pool_size = 8;
+  }
+  message Sms {
+    string provider = 1; // aliyun, tencent
+    map<string, string> template_mapping = 2; // "otp_login" -> "SMS_123"
+    string access_key = 3;
+    string access_secret = 4;
+    string sign_name = 5;
+  }
+  message Email {
+    message SMTP {
+      string host = 1;
+      int32 port = 2;
+      string username = 3;
+      string password = 4;
+    }
+    string from = 1;
+    SMTP smtp = 2;
+    map<string, string> subject_mapping = 3;  // "otp_bind" -> "绑定验证码"
+  }
+  message Oss {
+    string endpoint = 1;
+    string access_key_id = 2;
+    string access_key_secret = 3;
+    string bucket = 4;
+    string region = 5;
+    string domain = 6;
+    bool use_https = 7;
+    string provider = 8;
+  }
+  Database database = 1;
+  Redis redis = 2;
+  Sms sms = 3;
+  Email email = 4;
+  Oss oss = 5;
+}
+
+message App {
+  message Auth {
+    message Passport {
+      bool auto_register = 1;
+    }
+    message JWT {
+      string secret = 1;
+      string store = 2;
+      int64 expire = 3;
+    }
+    repeated string public_paths = 1;
+    Passport passport = 2;
+    JWT jwt = 3;
+  }
+  message Otp {
+    message Scene {
+      google.protobuf.Duration expires_in = 1;      // 有效期(秒)
+      google.protobuf.Duration resend_interval = 2; // 重发间隔(秒)
+      string template_name = 3;  // 业务逻辑模板名
+      int32 code_length = 4; // 验证码长度
+    }
+    map<string, Scene> phone_scenes = 1; // 手机号场景
+    map<string, Scene> email_scenes = 2; // 邮箱场景
+  }
+  message Upload {
+    message Scene {
+      string path_prefix = 1;
+      bool is_private = 2;
+      int64 max_size = 3;
+      repeated string allowed_types = 4;
+    }
+    google.protobuf.Duration private_url_expires = 1;
+    map<string, Scene> scenes = 2;
+  }
+  Auth auth = 1;
+  string env = 2;
+  int64 worker_id = 3;
+  Otp otp = 4;
+  Upload upload = 5;
+}

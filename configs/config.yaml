@@ -1,0 +1,122 @@
+server:
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 60s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 1s
+data:
+  database:
+    driver: postgres
+    source: postgres://postgres:admin123@127.0.0.1:5432/bubble_boot?sslmode=disable&TimeZone=Asia/Shanghai
+  redis:
+    addr: 127.0.0.1:6379
+    password: "admin123"
+    database: 0
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+  oss:
+    endpoint: "oss-cn-beijing.aliyuncs.com"
+    access_key_id: "LTAI5tXXXXXX"
+    access_key_secret: "XXXXXXXXXXXX"
+    bucket: "bubble-admin"
+    region: "cn-beijing"
+    domain: "https://bubble-admin.oss-cn-beijing.aliyuncs.com"
+    use_https: true
+  # 短信供应商细节
+  sms:
+    provider: "aliyun" # 仅在 app.env 为 prod 时生效
+    access_key: "LTAI5tXXXXXX"
+    access_secret: "XXXXXXXXXXXX"
+    sign_name: "SOME_SIGN_NAME"
+    # 逻辑模板名 -> 供应商真实的模板 ID 映射
+    template_mapping:
+      "otp_register": "SMS_10000001"
+      "otp_login": "SMS_10000002"
+      "otp_bind": "SMS_10000003"
+      "otp_reset": "SMS_10000003"
+  # 邮件供应商细节
+  email:
+    from: abc@demo.com
+    smtp:
+      host: "smtp.qiye.aliyun.com"
+      port: 465
+      username: "no-reply@yourdomain.com"
+      password: "your_password"
+    # 逻辑模板名 -> 邮件标题映射
+    subject_mapping:
+      "email_bind": "【XX系统】绑定邮箱验证码"
+      "email_reset": "【XX系统】重置密码身份验证"
+app:
+  env: ${ENV:dev}
+  worker_id: ${NODE_ID:1}
+  auth:
+    public_paths:
+      - /api.passport.v1.Passport/Register
+      - /api.passport.v1.Passport/LoginByPassword
+      - /api.passport.v1.Passport/LoginBySms
+      - /api.passport.v1.Passport/ResetPassword
+      - /api.public.v1.Public/
+    passport:
+      auto_register: true # 手机验证码登录时自动注册
+    jwt:
+      secret: dffdbc4da2d152c578a40a6071c131ff2673c82fafe00e4502719d8371e9da3a
+      store: redis # 存储方式 redis
+      expire: 30 # token 过期时间（天）
+  otp:
+    # 手机号场景：注册、登录、修改绑定
+    phone_scenes:
+      register:
+        expires_in: 300s       # 5分钟有效
+        resend_interval: 60s   # 1分钟后可重发
+        template_name: "otp_register"
+        code_length: 6
+      login:
+        expires_in: 300s
+        resend_interval: 60s
+        template_name: "otp_login"
+        code_length: 6
+      bind:
+        expires_in: 300s
+        resend_interval: 120s  # 敏感操作，重发间隔设长一点
+        template_name: "otp_bind"
+        code_length: 6
+      reset:
+        expires_in: 300s
+        resend_interval: 120s  # 敏感操作，重发间隔设长一点
+        template_name: "otp_reset"
+        code_length: 6
+    # 邮箱场景：绑定邮箱、找回密码
+    email_scenes:
+      bind_email:
+        expires_in: 600s       # 邮件通常有效期长一点：10分钟
+        resend_interval: 60s
+        template_name: "email_bind"
+        code_length: 6
+      reset_pwd:
+        expires_in: 600s
+        resend_interval: 60s
+        template_name: "email_reset"
+        code_length: 6
+  upload:
+    # 私有文件URL默认过期时间
+    private_url_expires: 3600s
+    # 上传场景配置
+    scenes:
+      # 通用
+      common_image:
+        path_prefix: "common/image"
+        is_private: false
+        max_size: 10485760  # 10MB
+        allowed_types:
+          - "image/jpeg"
+          - "image/jpg"
+          - "image/png"
+      avatar:
+        path_prefix: "avatar"
+        is_private: false
+        max_size: 10485760  # 10MB
+        allowed_types:
+          - "image/jpeg"
+          - "image/jpg"
+          - "image/png"
