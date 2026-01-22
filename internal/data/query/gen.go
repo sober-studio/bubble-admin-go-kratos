@@ -16,34 +16,79 @@ import (
 )
 
 var (
-	Q    = new(Query)
-	User *user
+	Q                    = new(Query)
+	SysDept              *sysDept
+	SysPackage           *sysPackage
+	SysPackagePermission *sysPackagePermission
+	SysPermission        *sysPermission
+	SysRole              *sysRole
+	SysRolePermission    *sysRolePermission
+	SysTenant            *sysTenant
+	SysUser              *sysUser
+	SysUserRole          *sysUserRole
+	User                 *user
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
+	SysDept = &Q.SysDept
+	SysPackage = &Q.SysPackage
+	SysPackagePermission = &Q.SysPackagePermission
+	SysPermission = &Q.SysPermission
+	SysRole = &Q.SysRole
+	SysRolePermission = &Q.SysRolePermission
+	SysTenant = &Q.SysTenant
+	SysUser = &Q.SysUser
+	SysUserRole = &Q.SysUserRole
 	User = &Q.User
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
-		db:   db,
-		User: newUser(db, opts...),
+		db:                   db,
+		SysDept:              newSysDept(db, opts...),
+		SysPackage:           newSysPackage(db, opts...),
+		SysPackagePermission: newSysPackagePermission(db, opts...),
+		SysPermission:        newSysPermission(db, opts...),
+		SysRole:              newSysRole(db, opts...),
+		SysRolePermission:    newSysRolePermission(db, opts...),
+		SysTenant:            newSysTenant(db, opts...),
+		SysUser:              newSysUser(db, opts...),
+		SysUserRole:          newSysUserRole(db, opts...),
+		User:                 newUser(db, opts...),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
-	User user
+	SysDept              sysDept
+	SysPackage           sysPackage
+	SysPackagePermission sysPackagePermission
+	SysPermission        sysPermission
+	SysRole              sysRole
+	SysRolePermission    sysRolePermission
+	SysTenant            sysTenant
+	SysUser              sysUser
+	SysUserRole          sysUserRole
+	User                 user
 }
 
 func (q *Query) Available() bool { return q.db != nil }
 
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
-		db:   db,
-		User: q.User.clone(db),
+		db:                   db,
+		SysDept:              q.SysDept.clone(db),
+		SysPackage:           q.SysPackage.clone(db),
+		SysPackagePermission: q.SysPackagePermission.clone(db),
+		SysPermission:        q.SysPermission.clone(db),
+		SysRole:              q.SysRole.clone(db),
+		SysRolePermission:    q.SysRolePermission.clone(db),
+		SysTenant:            q.SysTenant.clone(db),
+		SysUser:              q.SysUser.clone(db),
+		SysUserRole:          q.SysUserRole.clone(db),
+		User:                 q.User.clone(db),
 	}
 }
 
@@ -57,18 +102,45 @@ func (q *Query) WriteDB() *Query {
 
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
-		db:   db,
-		User: q.User.replaceDB(db),
+		db:                   db,
+		SysDept:              q.SysDept.replaceDB(db),
+		SysPackage:           q.SysPackage.replaceDB(db),
+		SysPackagePermission: q.SysPackagePermission.replaceDB(db),
+		SysPermission:        q.SysPermission.replaceDB(db),
+		SysRole:              q.SysRole.replaceDB(db),
+		SysRolePermission:    q.SysRolePermission.replaceDB(db),
+		SysTenant:            q.SysTenant.replaceDB(db),
+		SysUser:              q.SysUser.replaceDB(db),
+		SysUserRole:          q.SysUserRole.replaceDB(db),
+		User:                 q.User.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
-	User IUserDo
+	SysDept              ISysDeptDo
+	SysPackage           ISysPackageDo
+	SysPackagePermission ISysPackagePermissionDo
+	SysPermission        ISysPermissionDo
+	SysRole              ISysRoleDo
+	SysRolePermission    ISysRolePermissionDo
+	SysTenant            ISysTenantDo
+	SysUser              ISysUserDo
+	SysUserRole          ISysUserRoleDo
+	User                 IUserDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
-		User: q.User.WithContext(ctx),
+		SysDept:              q.SysDept.WithContext(ctx),
+		SysPackage:           q.SysPackage.WithContext(ctx),
+		SysPackagePermission: q.SysPackagePermission.WithContext(ctx),
+		SysPermission:        q.SysPermission.WithContext(ctx),
+		SysRole:              q.SysRole.WithContext(ctx),
+		SysRolePermission:    q.SysRolePermission.WithContext(ctx),
+		SysTenant:            q.SysTenant.WithContext(ctx),
+		SysUser:              q.SysUser.WithContext(ctx),
+		SysUserRole:          q.SysUserRole.WithContext(ctx),
+		User:                 q.User.WithContext(ctx),
 	}
 }
 
