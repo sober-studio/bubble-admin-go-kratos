@@ -29,13 +29,23 @@ func (m *BaseModel) BeforeCreate(tx *gorm.DB) error {
 	if m.ID != 0 {
 		return nil
 	}
-	if globalIDGen == nil {
-		return nil
-	}
-	id, err := globalIDGen.NextID()
+	id, err := NextID()
 	if err != nil {
 		return err
 	}
-	m.ID = id
+	if id != 0 {
+		m.ID = id
+	}
 	return nil
+}
+
+type AuthField struct {
+	TenantID  int64 `gorm:"column:tenant_id;index;comment:租户ID" json:"tenant_id"`
+	CreatedBy int64 `gorm:"column:created_by;index;comment:创建者ID" json:"created_by"`
+	DeptID    int64 `gorm:"column:dept_id;index;comment:所属部门ID" json:"dept_id"`
+}
+
+type BaseAuthModel struct {
+	BaseModel
+	AuthField
 }

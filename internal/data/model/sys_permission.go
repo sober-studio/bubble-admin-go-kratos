@@ -2,7 +2,7 @@ package model
 
 // SysPermission 权限/菜单表
 type SysPermission struct {
-	BaseModel
+	BaseAuthModel
 	ParentID  int64  `gorm:"column:parent_id;type:bigint;default:0;comment:父权限 ID" json:"parent_id"`
 	Name      string `gorm:"column:name;type:varchar(64);not null;comment:权限名称" json:"name"`
 	Code      string `gorm:"column:code;type:varchar(64);not null;comment:权限编码" json:"code"`

@@ -5,6 +5,7 @@ import "time"
 // SysTenant 租户表
 type SysTenant struct {
 	BaseModel
+	CreatedBy  int64     `gorm:"column:created_by;index;comment:创建者ID" json:"created_by"`
 	Code       string    `gorm:"column:code;type:varchar(64);not null;comment:租户编码" json:"code"`
 	Name       string    `gorm:"column:name;type:varchar(128);not null;comment:租户名称" json:"name"`
 	PackageID  int64     `gorm:"column:package_id;type:bigint;comment:租户套餐 ID" json:"package_id"`
