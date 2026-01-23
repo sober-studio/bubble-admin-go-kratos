@@ -211,14 +211,15 @@ func (x *Data) GetOss() *Data_Oss {
 }
 
 type App struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	Auth          *App_Auth              `protobuf:"bytes,1,opt,name=auth,proto3" json:"auth,omitempty"`
-	Env           string                 `protobuf:"bytes,2,opt,name=env,proto3" json:"env,omitempty"`
-	WorkerId      int64                  `protobuf:"varint,3,opt,name=worker_id,json=workerId,proto3" json:"worker_id,omitempty"`
-	Otp           *App_Otp               `protobuf:"bytes,4,opt,name=otp,proto3" json:"otp,omitempty"`
-	Upload        *App_Upload            `protobuf:"bytes,5,opt,name=upload,proto3" json:"upload,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
+	state             protoimpl.MessageState `protogen:"open.v1"`
+	Auth              *App_Auth              `protobuf:"bytes,1,opt,name=auth,proto3" json:"auth,omitempty"`
+	Env               string                 `protobuf:"bytes,2,opt,name=env,proto3" json:"env,omitempty"`
+	WorkerId          int64                  `protobuf:"varint,3,opt,name=worker_id,json=workerId,proto3" json:"worker_id,omitempty"`
+	Otp               *App_Otp               `protobuf:"bytes,4,opt,name=otp,proto3" json:"otp,omitempty"`
+	Upload            *App_Upload            `protobuf:"bytes,5,opt,name=upload,proto3" json:"upload,omitempty"`
+	EnableMultiTenant bool                   `protobuf:"varint,6,opt,name=enable_multi_tenant,json=enableMultiTenant,proto3" json:"enable_multi_tenant,omitempty"`
+	unknownFields     protoimpl.UnknownFields
+	sizeCache         protoimpl.SizeCache
 }
 
 func (x *App) Reset() {
@@ -284,6 +285,13 @@ func (x *App) GetUpload() *App_Upload {
 		return x.Upload
 	}
 	return nil
+}
+
+func (x *App) GetEnableMultiTenant() bool {
+	if x != nil {
+		return x.EnableMultiTenant
+	}
+	return false
 }
 
 type Server_HTTP struct {
@@ -1346,14 +1354,14 @@ const file_conf_conf_proto_rawDesc = "" +
 	"\x06region\x18\x05 \x01(\tR\x06region\x12\x16\n" +
 	"\x06domain\x18\x06 \x01(\tR\x06domain\x12\x1b\n" +
 	"\tuse_https\x18\a \x01(\bR\buseHttps\x12\x1a\n" +
-	"\bprovider\x18\b \x01(\tR\bprovider\"\xd9\n" +
-	"\n" +
+	"\bprovider\x18\b \x01(\tR\bprovider\"\x89\v\n" +
 	"\x03App\x12(\n" +
 	"\x04auth\x18\x01 \x01(\v2\x14.kratos.api.App.AuthR\x04auth\x12\x10\n" +
 	"\x03env\x18\x02 \x01(\tR\x03env\x12\x1b\n" +
 	"\tworker_id\x18\x03 \x01(\x03R\bworkerId\x12%\n" +
 	"\x03otp\x18\x04 \x01(\v2\x13.kratos.api.App.OtpR\x03otp\x12.\n" +
-	"\x06upload\x18\x05 \x01(\v2\x16.kratos.api.App.UploadR\x06upload\x1a\x8e\x02\n" +
+	"\x06upload\x18\x05 \x01(\v2\x16.kratos.api.App.UploadR\x06upload\x12.\n" +
+	"\x13enable_multi_tenant\x18\x06 \x01(\bR\x11enableMultiTenant\x1a\x8e\x02\n" +
 	"\x04Auth\x12!\n" +
 	"\fpublic_paths\x18\x01 \x03(\tR\vpublicPaths\x129\n" +
 	"\bpassport\x18\x02 \x01(\v2\x1d.kratos.api.App.Auth.PassportR\bpassport\x12*\n" +

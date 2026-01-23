@@ -118,4 +118,5 @@ message App {
   int64 worker_id = 3;
   Otp otp = 4;
   Upload upload = 5;
+  bool enable_multi_tenant = 6;
 }
