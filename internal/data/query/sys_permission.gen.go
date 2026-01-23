@@ -27,6 +27,10 @@ func newSysPermission(db *gorm.DB, opts ...gen.DOOption) sysPermission {
 
 	tableName := _sysPermission.sysPermissionDo.TableName()
 	_sysPermission.ALL = field.NewAsterisk(tableName)
+	_sysPermission.ID = field.NewInt64(tableName, "id")
+	_sysPermission.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysPermission.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysPermission.DeletedAt = field.NewField(tableName, "deleted_at")
 	_sysPermission.ParentID = field.NewInt64(tableName, "parent_id")
 	_sysPermission.Name = field.NewString(tableName, "name")
 	_sysPermission.Code = field.NewString(tableName, "code")
@@ -44,11 +48,15 @@ type sysPermission struct {
 	sysPermissionDo
 
 	ALL       field.Asterisk
+	ID        field.Int64
+	CreatedAt field.Time
+	UpdatedAt field.Time
+	DeletedAt field.Field
 	ParentID  field.Int64
 	Name      field.String
 	Code      field.String
 	Type      field.String
-	APIPath   field.String // Kratos内部路径/API路径
+	APIPath   field.String
 	APIMethod field.String
 	Sort      field.Int32
 
@@ -67,6 +75,10 @@ func (s sysPermission) As(alias string) *sysPermission {
 
 func (s *sysPermission) updateTableName(table string) *sysPermission {
 	s.ALL = field.NewAsterisk(table)
+	s.ID = field.NewInt64(table, "id")
+	s.CreatedAt = field.NewTime(table, "created_at")
+	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.DeletedAt = field.NewField(table, "deleted_at")
 	s.ParentID = field.NewInt64(table, "parent_id")
 	s.Name = field.NewString(table, "name")
 	s.Code = field.NewString(table, "code")
@@ -90,7 +102,11 @@ func (s *sysPermission) GetFieldByName(fieldName string) (field.OrderExpr, bool)
 }
 
 func (s *sysPermission) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 8)
+	s.fieldMap = make(map[string]field.Expr, 11)
+	s.fieldMap["id"] = s.ID
+	s.fieldMap["created_at"] = s.CreatedAt
+	s.fieldMap["updated_at"] = s.UpdatedAt
+	s.fieldMap["deleted_at"] = s.DeletedAt
 	s.fieldMap["parent_id"] = s.ParentID
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["code"] = s.Code
@@ -98,7 +114,6 @@ func (s *sysPermission) fillFieldMap() {
 	s.fieldMap["api_path"] = s.APIPath
 	s.fieldMap["api_method"] = s.APIMethod
 	s.fieldMap["sort"] = s.Sort
-
 }
 
 func (s sysPermission) clone(db *gorm.DB) sysPermission {

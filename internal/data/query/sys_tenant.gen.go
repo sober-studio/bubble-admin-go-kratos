@@ -27,6 +27,10 @@ func newSysTenant(db *gorm.DB, opts ...gen.DOOption) sysTenant {
 
 	tableName := _sysTenant.sysTenantDo.TableName()
 	_sysTenant.ALL = field.NewAsterisk(tableName)
+	_sysTenant.ID = field.NewInt64(tableName, "id")
+	_sysTenant.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysTenant.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysTenant.DeletedAt = field.NewField(tableName, "deleted_at")
 	_sysTenant.Code = field.NewString(tableName, "code")
 	_sysTenant.Name = field.NewString(tableName, "name")
 	_sysTenant.PackageID = field.NewInt64(tableName, "package_id")
@@ -42,6 +46,10 @@ type sysTenant struct {
 	sysTenantDo
 
 	ALL        field.Asterisk
+	ID         field.Int64
+	CreatedAt  field.Time
+	UpdatedAt  field.Time
+	DeletedAt  field.Field
 	Code       field.String
 	Name       field.String
 	PackageID  field.Int64
@@ -63,6 +71,10 @@ func (s sysTenant) As(alias string) *sysTenant {
 
 func (s *sysTenant) updateTableName(table string) *sysTenant {
 	s.ALL = field.NewAsterisk(table)
+	s.ID = field.NewInt64(table, "id")
+	s.CreatedAt = field.NewTime(table, "created_at")
+	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.DeletedAt = field.NewField(table, "deleted_at")
 	s.Code = field.NewString(table, "code")
 	s.Name = field.NewString(table, "name")
 	s.PackageID = field.NewInt64(table, "package_id")
@@ -84,13 +96,16 @@ func (s *sysTenant) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysTenant) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 6)
+	s.fieldMap = make(map[string]field.Expr, 9)
+	s.fieldMap["id"] = s.ID
+	s.fieldMap["created_at"] = s.CreatedAt
+	s.fieldMap["updated_at"] = s.UpdatedAt
+	s.fieldMap["deleted_at"] = s.DeletedAt
 	s.fieldMap["code"] = s.Code
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["package_id"] = s.PackageID
 	s.fieldMap["expire_time"] = s.ExpireTime
 	s.fieldMap["status"] = s.Status
-
 }
 
 func (s sysTenant) clone(db *gorm.DB) sysTenant {

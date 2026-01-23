@@ -27,6 +27,10 @@ func newSysPackage(db *gorm.DB, opts ...gen.DOOption) sysPackage {
 
 	tableName := _sysPackage.sysPackageDo.TableName()
 	_sysPackage.ALL = field.NewAsterisk(tableName)
+	_sysPackage.ID = field.NewInt64(tableName, "id")
+	_sysPackage.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysPackage.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysPackage.DeletedAt = field.NewField(tableName, "deleted_at")
 	_sysPackage.Name = field.NewString(tableName, "name")
 	_sysPackage.Status = field.NewInt16(tableName, "status")
 	_sysPackage.Remark = field.NewString(tableName, "remark")
@@ -39,10 +43,14 @@ func newSysPackage(db *gorm.DB, opts ...gen.DOOption) sysPackage {
 type sysPackage struct {
 	sysPackageDo
 
-	ALL    field.Asterisk
-	Name   field.String
-	Status field.Int16
-	Remark field.String
+	ALL       field.Asterisk
+	ID        field.Int64
+	CreatedAt field.Time
+	UpdatedAt field.Time
+	DeletedAt field.Field
+	Name      field.String
+	Status    field.Int16
+	Remark    field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -59,6 +67,10 @@ func (s sysPackage) As(alias string) *sysPackage {
 
 func (s *sysPackage) updateTableName(table string) *sysPackage {
 	s.ALL = field.NewAsterisk(table)
+	s.ID = field.NewInt64(table, "id")
+	s.CreatedAt = field.NewTime(table, "created_at")
+	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.DeletedAt = field.NewField(table, "deleted_at")
 	s.Name = field.NewString(table, "name")
 	s.Status = field.NewInt16(table, "status")
 	s.Remark = field.NewString(table, "remark")
@@ -78,11 +90,14 @@ func (s *sysPackage) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysPackage) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 4)
+	s.fieldMap = make(map[string]field.Expr, 7)
+	s.fieldMap["id"] = s.ID
+	s.fieldMap["created_at"] = s.CreatedAt
+	s.fieldMap["updated_at"] = s.UpdatedAt
+	s.fieldMap["deleted_at"] = s.DeletedAt
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["status"] = s.Status
 	s.fieldMap["remark"] = s.Remark
-
 }
 
 func (s sysPackage) clone(db *gorm.DB) sysPackage {

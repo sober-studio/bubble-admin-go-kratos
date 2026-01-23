@@ -28,11 +28,13 @@ func newSysRolePermission(db *gorm.DB, opts ...gen.DOOption) sysRolePermission {
 	tableName := _sysRolePermission.sysRolePermissionDo.TableName()
 	_sysRolePermission.ALL = field.NewAsterisk(tableName)
 	_sysRolePermission.ID = field.NewInt64(tableName, "id")
-	_sysRolePermission.TenantID = field.NewInt64(tableName, "tenant_id")
+	_sysRolePermission.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysRolePermission.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysRolePermission.DeletedAt = field.NewField(tableName, "deleted_at")
 	_sysRolePermission.RoleID = field.NewInt64(tableName, "role_id")
 	_sysRolePermission.PermissionID = field.NewInt64(tableName, "permission_id")
 	_sysRolePermission.DataScope = field.NewString(tableName, "data_scope")
-	_sysRolePermission.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysRolePermission.TenantID = field.NewInt64(tableName, "tenant_id")
 
 	_sysRolePermission.fillFieldMap()
 
@@ -44,11 +46,13 @@ type sysRolePermission struct {
 
 	ALL          field.Asterisk
 	ID           field.Int64
-	TenantID     field.Int64
+	CreatedAt    field.Time
+	UpdatedAt    field.Time
+	DeletedAt    field.Field
 	RoleID       field.Int64
 	PermissionID field.Int64
-	DataScope    field.String // 数据范围: SELF(个人), DEPT(本部门), DEPT_SUB(本部门及下级), ALL(全租户)
-	CreatedAt    field.Time
+	DataScope    field.String
+	TenantID     field.Int64
 
 	fieldMap map[string]field.Expr
 }
@@ -66,11 +70,13 @@ func (s sysRolePermission) As(alias string) *sysRolePermission {
 func (s *sysRolePermission) updateTableName(table string) *sysRolePermission {
 	s.ALL = field.NewAsterisk(table)
 	s.ID = field.NewInt64(table, "id")
-	s.TenantID = field.NewInt64(table, "tenant_id")
+	s.CreatedAt = field.NewTime(table, "created_at")
+	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.DeletedAt = field.NewField(table, "deleted_at")
 	s.RoleID = field.NewInt64(table, "role_id")
 	s.PermissionID = field.NewInt64(table, "permission_id")
 	s.DataScope = field.NewString(table, "data_scope")
-	s.CreatedAt = field.NewTime(table, "created_at")
+	s.TenantID = field.NewInt64(table, "tenant_id")
 
 	s.fillFieldMap()
 
@@ -87,13 +93,15 @@ func (s *sysRolePermission) GetFieldByName(fieldName string) (field.OrderExpr, b
 }
 
 func (s *sysRolePermission) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 6)
+	s.fieldMap = make(map[string]field.Expr, 8)
 	s.fieldMap["id"] = s.ID
-	s.fieldMap["tenant_id"] = s.TenantID
+	s.fieldMap["created_at"] = s.CreatedAt
+	s.fieldMap["updated_at"] = s.UpdatedAt
+	s.fieldMap["deleted_at"] = s.DeletedAt
 	s.fieldMap["role_id"] = s.RoleID
 	s.fieldMap["permission_id"] = s.PermissionID
 	s.fieldMap["data_scope"] = s.DataScope
-	s.fieldMap["created_at"] = s.CreatedAt
+	s.fieldMap["tenant_id"] = s.TenantID
 }
 
 func (s sysRolePermission) clone(db *gorm.DB) sysRolePermission {

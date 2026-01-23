@@ -27,6 +27,10 @@ func newSysRole(db *gorm.DB, opts ...gen.DOOption) sysRole {
 
 	tableName := _sysRole.sysRoleDo.TableName()
 	_sysRole.ALL = field.NewAsterisk(tableName)
+	_sysRole.ID = field.NewInt64(tableName, "id")
+	_sysRole.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysRole.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysRole.DeletedAt = field.NewField(tableName, "deleted_at")
 	_sysRole.TenantID = field.NewInt64(tableName, "tenant_id")
 	_sysRole.Name = field.NewString(tableName, "name")
 	_sysRole.Code = field.NewString(tableName, "code")
@@ -39,10 +43,14 @@ func newSysRole(db *gorm.DB, opts ...gen.DOOption) sysRole {
 type sysRole struct {
 	sysRoleDo
 
-	ALL      field.Asterisk
-	TenantID field.Int64
-	Name     field.String
-	Code     field.String
+	ALL       field.Asterisk
+	ID        field.Int64
+	CreatedAt field.Time
+	UpdatedAt field.Time
+	DeletedAt field.Field
+	TenantID  field.Int64
+	Name      field.String
+	Code      field.String
 
 	fieldMap map[string]field.Expr
 }
@@ -59,6 +67,10 @@ func (s sysRole) As(alias string) *sysRole {
 
 func (s *sysRole) updateTableName(table string) *sysRole {
 	s.ALL = field.NewAsterisk(table)
+	s.ID = field.NewInt64(table, "id")
+	s.CreatedAt = field.NewTime(table, "created_at")
+	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.DeletedAt = field.NewField(table, "deleted_at")
 	s.TenantID = field.NewInt64(table, "tenant_id")
 	s.Name = field.NewString(table, "name")
 	s.Code = field.NewString(table, "code")
@@ -78,11 +90,14 @@ func (s *sysRole) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysRole) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 4)
+	s.fieldMap = make(map[string]field.Expr, 7)
+	s.fieldMap["id"] = s.ID
+	s.fieldMap["created_at"] = s.CreatedAt
+	s.fieldMap["updated_at"] = s.UpdatedAt
+	s.fieldMap["deleted_at"] = s.DeletedAt
 	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["code"] = s.Code
-
 }
 
 func (s sysRole) clone(db *gorm.DB) sysRole {

@@ -3,9 +3,11 @@ package main
 import (
 	"flag"
 	"os"
+	"strings"
 
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/conf"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/data"
+	"github.com/sober-studio/bubble-admin-go-kratos/internal/data/model"
 
 	"github.com/go-kratos/kratos/v2/config"
 	"github.com/go-kratos/kratos/v2/config/file"
@@ -85,6 +87,11 @@ func main() {
 			continue
 		}
 
+		// sys_ 开头的表采用 Code-First 模式，跳过从数据库生成模型
+		if strings.HasPrefix(tableName, "sys_") {
+			continue
+		}
+
 		// 检查表结构是否符合 BaseModel 的要求（包含 id, created_at, updated_at, deleted_at）
 		// 如果符合，则嵌入 BaseModel 并忽略重复字段
 		// 如果不符合（例如关联表或不带软删除的表），则按默认方式生成并输出警告
@@ -109,6 +116,19 @@ func main() {
 			g.ApplyBasic(g.GenerateModel(tableName))
 		}
 	}
+
+	// 对 sys_ 开头的 Code-First 模型生成 Query 代码
+	g.ApplyBasic(
+		model.SysDept{},
+		model.SysPackage{},
+		model.SysPackagePermission{},
+		model.SysPermission{},
+		model.SysRole{},
+		model.SysRolePermission{},
+		model.SysTenant{},
+		model.SysUser{},
+		model.SysUserRole{},
+	)
 
 	// 不再使用 GenerateAllTable，因为它不支持自定义 ModelOpt 列表
 	// g.GenerateAllTable()

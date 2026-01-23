@@ -27,6 +27,10 @@ func newSysDept(db *gorm.DB, opts ...gen.DOOption) sysDept {
 
 	tableName := _sysDept.sysDeptDo.TableName()
 	_sysDept.ALL = field.NewAsterisk(tableName)
+	_sysDept.ID = field.NewInt64(tableName, "id")
+	_sysDept.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysDept.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysDept.DeletedAt = field.NewField(tableName, "deleted_at")
 	_sysDept.TenantID = field.NewInt64(tableName, "tenant_id")
 	_sysDept.ParentID = field.NewInt64(tableName, "parent_id")
 	_sysDept.Name = field.NewString(tableName, "name")
@@ -42,6 +46,10 @@ type sysDept struct {
 	sysDeptDo
 
 	ALL       field.Asterisk
+	ID        field.Int64
+	CreatedAt field.Time
+	UpdatedAt field.Time
+	DeletedAt field.Field
 	TenantID  field.Int64
 	ParentID  field.Int64
 	Name      field.String
@@ -63,6 +71,10 @@ func (s sysDept) As(alias string) *sysDept {
 
 func (s *sysDept) updateTableName(table string) *sysDept {
 	s.ALL = field.NewAsterisk(table)
+	s.ID = field.NewInt64(table, "id")
+	s.CreatedAt = field.NewTime(table, "created_at")
+	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.DeletedAt = field.NewField(table, "deleted_at")
 	s.TenantID = field.NewInt64(table, "tenant_id")
 	s.ParentID = field.NewInt64(table, "parent_id")
 	s.Name = field.NewString(table, "name")
@@ -84,13 +96,16 @@ func (s *sysDept) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysDept) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 6)
+	s.fieldMap = make(map[string]field.Expr, 9)
+	s.fieldMap["id"] = s.ID
+	s.fieldMap["created_at"] = s.CreatedAt
+	s.fieldMap["updated_at"] = s.UpdatedAt
+	s.fieldMap["deleted_at"] = s.DeletedAt
 	s.fieldMap["tenant_id"] = s.TenantID
 	s.fieldMap["parent_id"] = s.ParentID
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["ancestors"] = s.Ancestors
 	s.fieldMap["sort"] = s.Sort
-
 }
 
 func (s sysDept) clone(db *gorm.DB) sysDept {

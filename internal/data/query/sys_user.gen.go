@@ -27,13 +27,20 @@ func newSysUser(db *gorm.DB, opts ...gen.DOOption) sysUser {
 
 	tableName := _sysUser.sysUserDo.TableName()
 	_sysUser.ALL = field.NewAsterisk(tableName)
-	_sysUser.TenantID = field.NewInt64(tableName, "tenant_id")
-	_sysUser.DeptID = field.NewInt64(tableName, "dept_id")
+	_sysUser.ID = field.NewInt64(tableName, "id")
+	_sysUser.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysUser.UpdatedAt = field.NewTime(tableName, "updated_at")
+	_sysUser.DeletedAt = field.NewField(tableName, "deleted_at")
 	_sysUser.Username = field.NewString(tableName, "username")
 	_sysUser.PasswordHash = field.NewString(tableName, "password_hash")
 	_sysUser.Name = field.NewString(tableName, "name")
 	_sysUser.Mobile = field.NewString(tableName, "mobile")
+	_sysUser.DeptID = field.NewInt64(tableName, "dept_id")
+	_sysUser.Avatar = field.NewString(tableName, "avatar")
 	_sysUser.Status = field.NewInt16(tableName, "status")
+	_sysUser.LoginFailedCount = field.NewInt(tableName, "login_failed_count")
+	_sysUser.LastLoginFailedAt = field.NewTime(tableName, "last_login_failed_at")
+	_sysUser.TenantID = field.NewInt64(tableName, "tenant_id")
 
 	_sysUser.fillFieldMap()
 
@@ -43,14 +50,21 @@ func newSysUser(db *gorm.DB, opts ...gen.DOOption) sysUser {
 type sysUser struct {
 	sysUserDo
 
-	ALL          field.Asterisk
-	TenantID     field.Int64
-	DeptID       field.Int64
-	Username     field.String
-	PasswordHash field.String
-	Name         field.String
-	Mobile       field.String
-	Status       field.Int16
+	ALL               field.Asterisk
+	ID                field.Int64
+	CreatedAt         field.Time
+	UpdatedAt         field.Time
+	DeletedAt         field.Field
+	Username          field.String
+	PasswordHash      field.String
+	Name              field.String
+	Mobile            field.String
+	DeptID            field.Int64
+	Avatar            field.String
+	Status            field.Int16
+	LoginFailedCount  field.Int
+	LastLoginFailedAt field.Time
+	TenantID          field.Int64
 
 	fieldMap map[string]field.Expr
 }
@@ -67,13 +81,20 @@ func (s sysUser) As(alias string) *sysUser {
 
 func (s *sysUser) updateTableName(table string) *sysUser {
 	s.ALL = field.NewAsterisk(table)
-	s.TenantID = field.NewInt64(table, "tenant_id")
-	s.DeptID = field.NewInt64(table, "dept_id")
+	s.ID = field.NewInt64(table, "id")
+	s.CreatedAt = field.NewTime(table, "created_at")
+	s.UpdatedAt = field.NewTime(table, "updated_at")
+	s.DeletedAt = field.NewField(table, "deleted_at")
 	s.Username = field.NewString(table, "username")
 	s.PasswordHash = field.NewString(table, "password_hash")
 	s.Name = field.NewString(table, "name")
 	s.Mobile = field.NewString(table, "mobile")
+	s.DeptID = field.NewInt64(table, "dept_id")
+	s.Avatar = field.NewString(table, "avatar")
 	s.Status = field.NewInt16(table, "status")
+	s.LoginFailedCount = field.NewInt(table, "login_failed_count")
+	s.LastLoginFailedAt = field.NewTime(table, "last_login_failed_at")
+	s.TenantID = field.NewInt64(table, "tenant_id")
 
 	s.fillFieldMap()
 
@@ -90,15 +111,21 @@ func (s *sysUser) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysUser) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 8)
-	s.fieldMap["tenant_id"] = s.TenantID
-	s.fieldMap["dept_id"] = s.DeptID
+	s.fieldMap = make(map[string]field.Expr, 14)
+	s.fieldMap["id"] = s.ID
+	s.fieldMap["created_at"] = s.CreatedAt
+	s.fieldMap["updated_at"] = s.UpdatedAt
+	s.fieldMap["deleted_at"] = s.DeletedAt
 	s.fieldMap["username"] = s.Username
 	s.fieldMap["password_hash"] = s.PasswordHash
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["mobile"] = s.Mobile
+	s.fieldMap["dept_id"] = s.DeptID
+	s.fieldMap["avatar"] = s.Avatar
 	s.fieldMap["status"] = s.Status
-
+	s.fieldMap["login_failed_count"] = s.LoginFailedCount
+	s.fieldMap["last_login_failed_at"] = s.LastLoginFailedAt
+	s.fieldMap["tenant_id"] = s.TenantID
 }
 
 func (s sysUser) clone(db *gorm.DB) sysUser {

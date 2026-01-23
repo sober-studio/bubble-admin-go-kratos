@@ -89,9 +89,19 @@ func NewDB(c *conf.Data, l log.Logger) *gorm.DB {
 	}
 
 	// 初始化完成后调用 AutoMigrate
-	// if err := db.AutoMigrate(); err != nil {
-	// 	log.NewHelper(l).Error(err)
-	// }
+	if err := db.AutoMigrate(
+		&model.SysDept{},
+		&model.SysPackage{},
+		&model.SysPackagePermission{},
+		&model.SysPermission{},
+		&model.SysRole{},
+		&model.SysRolePermission{},
+		&model.SysTenant{},
+		&model.SysUser{},
+		&model.SysUserRole{},
+	); err != nil {
+		log.NewHelper(l).Error(err)
+	}
 
 	// 配置连接池
 	sqlDB, err := db.DB()
