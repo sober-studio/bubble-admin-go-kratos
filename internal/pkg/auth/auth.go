@@ -24,15 +24,23 @@ var (
 // TokenService 令牌服务接口，用于生成和解析 JWT 令牌
 type TokenService interface {
 	// GenerateToken 生成令牌
-	GenerateToken(ctx context.Context, userID string) (string, error)
-	// ParseTokenFromTokenString 解析令牌，返回用户ID
-	ParseTokenFromTokenString(ctx context.Context, tokenStr string) (string, error)
-	// ParseTokenFromContext 解析令牌，返回用户ID
-	ParseTokenFromContext(ctx context.Context) (string, error)
+	GenerateToken(ctx context.Context, userID string, deptID int64, tenantID int64) (string, error)
+	// ParseTokenFromTokenString 解析令牌，返回 Claims
+	ParseTokenFromTokenString(ctx context.Context, tokenStr string) (*model.CustomClaims, error)
+	// ParseTokenFromContext 解析令牌，返回 Claims
+	ParseTokenFromContext(ctx context.Context) (*model.CustomClaims, error)
 	// GetUserIDFromTokenString 获取用户ID
 	GetUserIDFromTokenString(ctx context.Context, tokenStr string) (int64, error)
 	// GetUserIDFromContext 获取用户ID
 	GetUserIDFromContext(ctx context.Context) (int64, error)
+	// GetDeptIDFromTokenString 获取部门ID
+	GetDeptIDFromTokenString(ctx context.Context, tokenStr string) (int64, error)
+	// GetDeptIDFromContext 获取部门ID
+	GetDeptIDFromContext(ctx context.Context) (int64, error)
+	// GetTenantIDFromTokenString 获取租户ID
+	GetTenantIDFromTokenString(ctx context.Context, tokenStr string) (int64, error)
+	// GetTenantIDFromContext 获取租户ID
+	GetTenantIDFromContext(ctx context.Context) (int64, error)
 	// GetUserTokens 获取用户令牌
 	GetUserTokens(ctx context.Context, userID string) (*[]model.UserToken, error)
 	// RevokeToken 撤销令牌，如果 jti 为空，则从 context 中获取当前 token 的 jti
@@ -62,14 +70,18 @@ func NewJWTTokenService(secretKey string, ttl time.Duration, store store.TokenSt
 	}
 }
 
-func (s *JWTTokenService) GenerateToken(ctx context.Context, userID string) (string, error) {
+func (s *JWTTokenService) GenerateToken(ctx context.Context, userID string, deptID int64, tenantID int64) (string, error) {
 	jti := uuid.New().String()
 	now := time.Now()
-	claims := jwtv5.RegisteredClaims{
-		Subject:   userID,
-		ExpiresAt: jwtv5.NewNumericDate(now.Add(s.ttl)),
-		IssuedAt:  jwtv5.NewNumericDate(now),
-		ID:        jti,
+	claims := model.CustomClaims{
+		RegisteredClaims: jwtv5.RegisteredClaims{
+			Subject:   userID,
+			ExpiresAt: jwtv5.NewNumericDate(now.Add(s.ttl)),
+			IssuedAt:  jwtv5.NewNumericDate(now),
+			ID:        jti,
+		},
+		DeptID:   deptID,
+		TenantID: tenantID,
 	}
 	tokenStr, err := jwtv5.NewWithClaims(jwtv5.SigningMethodHS256, claims).SignedString(s.secretKey)
 	if err != nil {
@@ -80,6 +92,8 @@ func (s *JWTTokenService) GenerateToken(ctx context.Context, userID string) (str
 	token := &model.UserToken{
 		JTI:       jti,
 		UserID:    userID,
+		DeptID:    deptID,
+		TenantID:  tenantID,
 		IssuedAt:  now,
 		ExpiresAt: now.Add(s.ttl),
 		TokenStr:  tokenStr,
@@ -93,58 +107,90 @@ func (s *JWTTokenService) GenerateToken(ctx context.Context, userID string) (str
 	return tokenStr, nil
 }
 
-func (s *JWTTokenService) ParseTokenFromTokenString(ctx context.Context, tokenStr string) (string, error) {
-	t, err := jwtv5.ParseWithClaims(tokenStr, &jwtv5.RegisteredClaims{}, func(token *jwtv5.Token) (interface{}, error) {
+func (s *JWTTokenService) ParseTokenFromTokenString(ctx context.Context, tokenStr string) (*model.CustomClaims, error) {
+	t, err := jwtv5.ParseWithClaims(tokenStr, &model.CustomClaims{}, func(token *jwtv5.Token) (interface{}, error) {
 		return s.secretKey, nil
 	})
 	if err != nil || !t.Valid {
-		return "", ErrInvalidToken
+		return nil, ErrInvalidToken
 	}
-	claims, ok := t.Claims.(*jwtv5.RegisteredClaims)
+	claims, ok := t.Claims.(*model.CustomClaims)
 	if !ok {
-		return "", ErrInvalidToken
+		return nil, ErrInvalidToken
 	}
 
 	stored, err := s.store.GetToken(ctx, claims.ID)
 	if err != nil || stored.ExpiresAt.Before(time.Now()) {
-		return "", ErrTokenExpired
+		return nil, ErrTokenExpired
 	}
-	return stored.UserID, nil
+	return claims, nil
 }
 
-func (s *JWTTokenService) ParseTokenFromContext(ctx context.Context) (string, error) {
+func (s *JWTTokenService) ParseTokenFromContext(ctx context.Context) (*model.CustomClaims, error) {
 	claims, ok := jwt.FromContext(ctx)
 	if !ok {
 		log.Errorf("invalid token")
-		return "", ErrInvalidToken
+		return nil, ErrInvalidToken
 	}
-	registeredClaims, ok := claims.(*jwtv5.RegisteredClaims)
+	customClaims, ok := claims.(*model.CustomClaims)
 	if !ok {
 		log.Errorf("invalid token")
-		return "", ErrInvalidToken
+		return nil, ErrInvalidToken
 	}
 
-	stored, err := s.store.GetToken(ctx, registeredClaims.ID)
+	stored, err := s.store.GetToken(ctx, customClaims.ID)
 	if err != nil || stored.ExpiresAt.Before(time.Now()) {
-		return "", ErrTokenExpired
+		return nil, ErrTokenExpired
 	}
-	return stored.UserID, nil
+	return customClaims, nil
 }
 
 func (s *JWTTokenService) GetUserIDFromTokenString(ctx context.Context, tokenStr string) (int64, error) {
-	userID, err := s.ParseTokenFromTokenString(ctx, tokenStr)
+	claims, err := s.ParseTokenFromTokenString(ctx, tokenStr)
 	if err != nil {
 		return 0, err
 	}
-	return parseUserID(userID)
+	return parseUserID(claims.Subject)
 }
 
 func (s *JWTTokenService) GetUserIDFromContext(ctx context.Context) (int64, error) {
-	userID, err := s.ParseTokenFromContext(ctx)
+	claims, err := s.ParseTokenFromContext(ctx)
 	if err != nil {
 		return 0, err
 	}
-	return parseUserID(userID)
+	return parseUserID(claims.Subject)
+}
+
+func (s *JWTTokenService) GetDeptIDFromTokenString(ctx context.Context, tokenStr string) (int64, error) {
+	claims, err := s.ParseTokenFromTokenString(ctx, tokenStr)
+	if err != nil {
+		return 0, err
+	}
+	return claims.DeptID, nil
+}
+
+func (s *JWTTokenService) GetDeptIDFromContext(ctx context.Context) (int64, error) {
+	claims, err := s.ParseTokenFromContext(ctx)
+	if err != nil {
+		return 0, err
+	}
+	return claims.DeptID, nil
+}
+
+func (s *JWTTokenService) GetTenantIDFromTokenString(ctx context.Context, tokenStr string) (int64, error) {
+	claims, err := s.ParseTokenFromTokenString(ctx, tokenStr)
+	if err != nil {
+		return 0, err
+	}
+	return claims.TenantID, nil
+}
+
+func (s *JWTTokenService) GetTenantIDFromContext(ctx context.Context) (int64, error) {
+	claims, err := s.ParseTokenFromContext(ctx)
+	if err != nil {
+		return 0, err
+	}
+	return claims.TenantID, nil
 }
 
 func (s *JWTTokenService) GetUserTokens(ctx context.Context, userID string) (*[]model.UserToken, error) {
@@ -165,26 +211,26 @@ func (s *JWTTokenService) RevokeToken(ctx context.Context, jti string) error {
 	if !ok {
 		return ErrInvalidToken
 	}
-	registeredClaims, ok := claims.(*jwtv5.RegisteredClaims)
+	customClaims, ok := claims.(*model.CustomClaims)
 	if !ok {
 		return ErrInvalidToken
 	}
-	userID := registeredClaims.Subject
+	userID := customClaims.Subject
 
 	// 如果 jti 为空，则撤销当前 token
 	if jti == "" {
-		jti = registeredClaims.ID
+		jti = customClaims.ID
 	}
 
 	return s.store.DeleteUserToken(ctx, userID, jti)
 }
 
 func (s *JWTTokenService) RevokeAllTokens(ctx context.Context) error {
-	userID, err := s.ParseTokenFromContext(ctx)
+	claims, err := s.ParseTokenFromContext(ctx)
 	if err != nil {
 		return err
 	}
-	return s.store.DeleteUserTokens(ctx, userID)
+	return s.store.DeleteUserTokens(ctx, claims.Subject)
 }
 
 func (s *JWTTokenService) RevokeAllTokensByUserID(ctx context.Context, userID int64) error {

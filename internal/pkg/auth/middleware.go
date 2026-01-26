@@ -7,6 +7,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/auth/jwt"
 	"github.com/go-kratos/kratos/v2/middleware/selector"
 	jwtv5 "github.com/golang-jwt/jwt/v5"
+	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/auth/model"
 )
 
 // PathAccessConfig 路径访问配置
@@ -86,7 +87,7 @@ func JWTMiddleware(tokenService TokenService) middleware.Middleware {
 		},
 		jwt.WithSigningMethod(jwtv5.SigningMethodHS256),
 		jwt.WithClaims(func() jwtv5.Claims {
-			return &jwtv5.RegisteredClaims{}
+			return &model.CustomClaims{}
 		}),
 	)
 }
