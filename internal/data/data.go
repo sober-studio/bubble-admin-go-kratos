@@ -33,7 +33,7 @@ var ProviderSet = wire.NewSet(
 	// 数据库事务
 	wire.Bind(new(biz.Transaction), new(*Data)),
 	// 数据存储
-	NewUserRepo,
+	NewSysUserRepo,
 	// Mock
 	NewChatRepo,
 )

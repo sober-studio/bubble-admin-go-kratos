@@ -21,7 +21,7 @@ var (
 	ErrUserDisabled       = kerrors.Forbidden("USER_DISABLED", "账号已被禁用")
 )
 
-type User struct {
+type SysUser struct {
 	ID           int64
 	Username     string
 	PasswordHash string
@@ -32,45 +32,45 @@ type User struct {
 	UpdatedAt    time.Time
 }
 
-type UserRepo interface {
-	CreateUser(ctx context.Context, user *User) (*User, error)
-	GetUserByUsername(ctx context.Context, username string) (*User, error)
-	GetUserByPhone(ctx context.Context, phone string) (*User, error)
-	GetUserByID(ctx context.Context, id int64) (*User, error)
+type SysUserRepo interface {
+	CreateUser(ctx context.Context, user *SysUser) (*SysUser, error)
+	GetUserByUsername(ctx context.Context, username string) (*SysUser, error)
+	GetUserByPhone(ctx context.Context, phone string) (*SysUser, error)
+	GetUserByID(ctx context.Context, id int64) (*SysUser, error)
 	UpdatePassword(ctx context.Context, id int64, passwordHash string) error
 	UpdatePhone(ctx context.Context, id int64, phone string) error
 }
 
 type PassportUseCase struct {
-	auth auth.TokenService
-	user UserRepo
-	conf *conf.App_Auth_Passport
-	log  *log.Helper
+	auth    auth.TokenService
+	sysUser SysUserRepo
+	conf    *conf.App_Auth_Passport
+	log     *log.Helper
 }
 
 func NewPassportUseCase(
 	auth auth.TokenService,
-	user UserRepo,
+	sysUser SysUserRepo,
 	conf *conf.App,
 	logger log.Logger,
 ) *PassportUseCase {
 	return &PassportUseCase{
-		auth: auth,
-		user: user,
-		conf: conf.Auth.Passport,
-		log:  log.NewHelper(logger),
+		auth:    auth,
+		sysUser: sysUser,
+		conf:    conf.Auth.Passport,
+		log:     log.NewHelper(logger),
 	}
 }
 
 func (uc *PassportUseCase) Register(ctx context.Context, username, password, phone string) (string, error) {
 	// 检查用户名是否存在
-	if u, _ := uc.user.GetUserByUsername(ctx, username); u != nil {
+	if u, _ := uc.sysUser.GetUserByUsername(ctx, username); u != nil {
 		return "", ErrUserAlreadyExists
 	}
 
 	// 如果提供了手机号，检查手机号是否已被使用
 	if phone != "" {
-		if u, _ := uc.user.GetUserByPhone(ctx, phone); u != nil {
+		if u, _ := uc.sysUser.GetUserByPhone(ctx, phone); u != nil {
 			return "", ErrMobileAlreadyBound
 		}
 	}
@@ -81,7 +81,7 @@ func (uc *PassportUseCase) Register(ctx context.Context, username, password, pho
 		return "", err
 	}
 
-	user := &User{
+	user := &SysUser{
 		Username:     username,
 		PasswordHash: hash,
 		IsAvailable:  true,
@@ -90,7 +90,7 @@ func (uc *PassportUseCase) Register(ctx context.Context, username, password, pho
 		user.Phone = phone
 	}
 
-	savedUser, err := uc.user.CreateUser(ctx, user)
+	savedUser, err := uc.sysUser.CreateUser(ctx, user)
 	if err != nil {
 		return "", err
 	}
@@ -101,11 +101,11 @@ func (uc *PassportUseCase) Register(ctx context.Context, username, password, pho
 
 func (uc *PassportUseCase) LoginByPassword(ctx context.Context, username, password string) (string, error) {
 	// 查询用户
-	user, err := uc.user.GetUserByUsername(ctx, username)
+	user, err := uc.sysUser.GetUserByUsername(ctx, username)
 	if err != nil {
 		if errors.Is(err, ErrUserNotFound) {
 			// 如果按用户名未找到，尝试按手机号查找
-			u, errPhone := uc.user.GetUserByPhone(ctx, username)
+			u, errPhone := uc.sysUser.GetUserByPhone(ctx, username)
 			if errPhone != nil {
 				if errors.Is(errPhone, ErrUserNotFound) {
 					return "", ErrUserNotFound
@@ -132,18 +132,18 @@ func (uc *PassportUseCase) LoginByPassword(ctx context.Context, username, passwo
 
 func (uc *PassportUseCase) LoginByOtp(ctx context.Context, phone string) (string, error) {
 	// 查询用户
-	user, err := uc.user.GetUserByPhone(ctx, phone)
+	user, err := uc.sysUser.GetUserByPhone(ctx, phone)
 	if err != nil {
 		if errors.Is(err, ErrUserNotFound) {
 			// 如果配置了自动注册
 			if uc.conf != nil && uc.conf.AutoRegister {
 				// 创建新用户
-				newUser := &User{
+				newUser := &SysUser{
 					Username:    phone, // 手机号作为用户名
 					Phone:       phone,
 					IsAvailable: true,
 				}
-				savedUser, createErr := uc.user.CreateUser(ctx, newUser)
+				savedUser, createErr := uc.sysUser.CreateUser(ctx, newUser)
 				if createErr != nil {
 					return "", createErr
 				}
@@ -168,12 +168,12 @@ func (uc *PassportUseCase) Logout(ctx context.Context) error {
 	return uc.auth.RevokeToken(ctx, "")
 }
 
-func (uc *PassportUseCase) UserInfo(ctx context.Context) (*User, error) {
+func (uc *PassportUseCase) UserInfo(ctx context.Context) (*SysUser, error) {
 	userId, err := uc.auth.GetUserIDFromContext(ctx)
 	if err != nil {
 		return nil, err
 	}
-	return uc.user.GetUserByID(ctx, userId)
+	return uc.sysUser.GetUserByID(ctx, userId)
 }
 
 func (uc *PassportUseCase) UpdatePassword(ctx context.Context, oldPassword, newPassword string) error {
@@ -182,7 +182,7 @@ func (uc *PassportUseCase) UpdatePassword(ctx context.Context, oldPassword, newP
 		return err
 	}
 
-	user, err := uc.user.GetUserByID(ctx, userId)
+	user, err := uc.sysUser.GetUserByID(ctx, userId)
 	if err != nil {
 		return err
 	}
@@ -196,7 +196,7 @@ func (uc *PassportUseCase) UpdatePassword(ctx context.Context, oldPassword, newP
 		return err
 	}
 
-	if err := uc.user.UpdatePassword(ctx, userId, hash); err != nil {
+	if err := uc.sysUser.UpdatePassword(ctx, userId, hash); err != nil {
 		return err
 	}
 
@@ -211,11 +211,11 @@ func (uc *PassportUseCase) BindMobile(ctx context.Context, mobile string) error 
 	}
 
 	// 检查手机号是否已被使用
-	if u, _ := uc.user.GetUserByPhone(ctx, mobile); u != nil {
+	if u, _ := uc.sysUser.GetUserByPhone(ctx, mobile); u != nil {
 		return ErrMobileAlreadyBound
 	}
 
-	return uc.user.UpdatePhone(ctx, userId, mobile)
+	return uc.sysUser.UpdatePhone(ctx, userId, mobile)
 }
 
 func (uc *PassportUseCase) UpdateMobile(ctx context.Context, mobile string) error {
@@ -225,16 +225,16 @@ func (uc *PassportUseCase) UpdateMobile(ctx context.Context, mobile string) erro
 	}
 
 	// 检查手机号是否已被使用
-	if u, _ := uc.user.GetUserByPhone(ctx, mobile); u != nil {
+	if u, _ := uc.sysUser.GetUserByPhone(ctx, mobile); u != nil {
 		return ErrMobileAlreadyBound
 	}
 
-	return uc.user.UpdatePhone(ctx, userId, mobile)
+	return uc.sysUser.UpdatePhone(ctx, userId, mobile)
 }
 
 // CheckPhoneRegistered 检查手机号是否已注册
 func (uc *PassportUseCase) CheckPhoneRegistered(ctx context.Context, phone string) error {
-	_, err := uc.user.GetUserByPhone(ctx, phone)
+	_, err := uc.sysUser.GetUserByPhone(ctx, phone)
 	if err != nil {
 		if errors.Is(err, ErrUserNotFound) {
 			return ErrUserNotFound
@@ -245,7 +245,7 @@ func (uc *PassportUseCase) CheckPhoneRegistered(ctx context.Context, phone strin
 }
 
 func (uc *PassportUseCase) ResetPassword(ctx context.Context, mobile, newPassword string) error {
-	user, err := uc.user.GetUserByPhone(ctx, mobile)
+	user, err := uc.sysUser.GetUserByPhone(ctx, mobile)
 	if err != nil {
 		return ErrUserNotFound
 	}
@@ -255,7 +255,7 @@ func (uc *PassportUseCase) ResetPassword(ctx context.Context, mobile, newPasswor
 		return err
 	}
 
-	if err := uc.user.UpdatePassword(ctx, user.ID, hash); err != nil {
+	if err := uc.sysUser.UpdatePassword(ctx, user.ID, hash); err != nil {
 		return err
 	}
 
