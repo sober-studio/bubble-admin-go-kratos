@@ -24,133 +24,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// ========== 用户注册 ==========
-type RegisterRequest struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// 用户名，规则：3-20位字符
-	Username string `protobuf:"bytes,1,opt,name=username,proto3" json:"username,omitempty"`
-	// 密码，规则：6-20位字符
-	Password string `protobuf:"bytes,2,opt,name=password,proto3" json:"password,omitempty"`
-	// 确认密码，规则：6-20位字符
-	ConfirmPassword string `protobuf:"bytes,3,opt,name=confirm_password,proto3" json:"confirm_password,omitempty"`
-	// 手机号，规则：11位数字，选填
-	Mobile string `protobuf:"bytes,4,opt,name=mobile,proto3" json:"mobile,omitempty"`
-	// 验证码，规则：4-6位字符，选填
-	Code          string `protobuf:"bytes,5,opt,name=code,proto3" json:"code,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *RegisterRequest) Reset() {
-	*x = RegisterRequest{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[0]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *RegisterRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RegisterRequest) ProtoMessage() {}
-
-func (x *RegisterRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[0]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RegisterRequest.ProtoReflect.Descriptor instead.
-func (*RegisterRequest) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{0}
-}
-
-func (x *RegisterRequest) GetUsername() string {
-	if x != nil {
-		return x.Username
-	}
-	return ""
-}
-
-func (x *RegisterRequest) GetPassword() string {
-	if x != nil {
-		return x.Password
-	}
-	return ""
-}
-
-func (x *RegisterRequest) GetConfirmPassword() string {
-	if x != nil {
-		return x.ConfirmPassword
-	}
-	return ""
-}
-
-func (x *RegisterRequest) GetMobile() string {
-	if x != nil {
-		return x.Mobile
-	}
-	return ""
-}
-
-func (x *RegisterRequest) GetCode() string {
-	if x != nil {
-		return x.Code
-	}
-	return ""
-}
-
-type RegisterReply struct {
-	state protoimpl.MessageState `protogen:"open.v1"`
-	// 登录凭证
-	Token         string `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
-	unknownFields protoimpl.UnknownFields
-	sizeCache     protoimpl.SizeCache
-}
-
-func (x *RegisterReply) Reset() {
-	*x = RegisterReply{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[1]
-	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-	ms.StoreMessageInfo(mi)
-}
-
-func (x *RegisterReply) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*RegisterReply) ProtoMessage() {}
-
-func (x *RegisterReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[1]
-	if x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use RegisterReply.ProtoReflect.Descriptor instead.
-func (*RegisterReply) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *RegisterReply) GetToken() string {
-	if x != nil {
-		return x.Token
-	}
-	return ""
-}
-
 // ========== 密码登录 ==========
 type LoginByPasswordRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -168,7 +41,7 @@ type LoginByPasswordRequest struct {
 
 func (x *LoginByPasswordRequest) Reset() {
 	*x = LoginByPasswordRequest{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[2]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -180,7 +53,7 @@ func (x *LoginByPasswordRequest) String() string {
 func (*LoginByPasswordRequest) ProtoMessage() {}
 
 func (x *LoginByPasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[2]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -193,7 +66,7 @@ func (x *LoginByPasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginByPasswordRequest.ProtoReflect.Descriptor instead.
 func (*LoginByPasswordRequest) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{2}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *LoginByPasswordRequest) GetUsername() string {
@@ -237,7 +110,7 @@ type LoginByOtpRequest struct {
 
 func (x *LoginByOtpRequest) Reset() {
 	*x = LoginByOtpRequest{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[3]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -249,7 +122,7 @@ func (x *LoginByOtpRequest) String() string {
 func (*LoginByOtpRequest) ProtoMessage() {}
 
 func (x *LoginByOtpRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[3]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -262,7 +135,7 @@ func (x *LoginByOtpRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginByOtpRequest.ProtoReflect.Descriptor instead.
 func (*LoginByOtpRequest) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{3}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *LoginByOtpRequest) GetMobile() string {
@@ -290,7 +163,7 @@ type LoginReply struct {
 
 func (x *LoginReply) Reset() {
 	*x = LoginReply{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[4]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -302,7 +175,7 @@ func (x *LoginReply) String() string {
 func (*LoginReply) ProtoMessage() {}
 
 func (x *LoginReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[4]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -315,7 +188,7 @@ func (x *LoginReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LoginReply.ProtoReflect.Descriptor instead.
 func (*LoginReply) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{4}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *LoginReply) GetToken() string {
@@ -334,7 +207,7 @@ type LogoutRequest struct {
 
 func (x *LogoutRequest) Reset() {
 	*x = LogoutRequest{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[5]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -346,7 +219,7 @@ func (x *LogoutRequest) String() string {
 func (*LogoutRequest) ProtoMessage() {}
 
 func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[5]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -359,7 +232,7 @@ func (x *LogoutRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LogoutRequest.ProtoReflect.Descriptor instead.
 func (*LogoutRequest) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{5}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{3}
 }
 
 type LogoutReply struct {
@@ -370,7 +243,7 @@ type LogoutReply struct {
 
 func (x *LogoutReply) Reset() {
 	*x = LogoutReply{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[6]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -382,7 +255,7 @@ func (x *LogoutReply) String() string {
 func (*LogoutReply) ProtoMessage() {}
 
 func (x *LogoutReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[6]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -395,7 +268,7 @@ func (x *LogoutReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use LogoutReply.ProtoReflect.Descriptor instead.
 func (*LogoutReply) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{6}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{4}
 }
 
 // ========== 获取用户信息 ==========
@@ -407,7 +280,7 @@ type UserInfoRequest struct {
 
 func (x *UserInfoRequest) Reset() {
 	*x = UserInfoRequest{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[7]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -419,7 +292,7 @@ func (x *UserInfoRequest) String() string {
 func (*UserInfoRequest) ProtoMessage() {}
 
 func (x *UserInfoRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[7]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -432,7 +305,7 @@ func (x *UserInfoRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserInfoRequest.ProtoReflect.Descriptor instead.
 func (*UserInfoRequest) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{7}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{5}
 }
 
 type UserInfoReply struct {
@@ -442,14 +315,20 @@ type UserInfoReply struct {
 	// 手机号
 	Mobile string `protobuf:"bytes,2,opt,name=mobile,proto3" json:"mobile,omitempty"`
 	// 状态：0=禁用，1=正常
-	Status        int32 `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
+	Status int32 `protobuf:"varint,3,opt,name=status,proto3" json:"status,omitempty"`
+	// 用户ID
+	Id int64 `protobuf:"varint,4,opt,name=id,proto3" json:"id,omitempty"`
+	// 部门ID
+	DeptId int64 `protobuf:"varint,5,opt,name=dept_id,proto3" json:"dept_id,omitempty"`
+	// 租户ID
+	TenantId      int64 `protobuf:"varint,6,opt,name=tenant_id,proto3" json:"tenant_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *UserInfoReply) Reset() {
 	*x = UserInfoReply{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[8]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -461,7 +340,7 @@ func (x *UserInfoReply) String() string {
 func (*UserInfoReply) ProtoMessage() {}
 
 func (x *UserInfoReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[8]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -474,7 +353,7 @@ func (x *UserInfoReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UserInfoReply.ProtoReflect.Descriptor instead.
 func (*UserInfoReply) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{8}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *UserInfoReply) GetUsername() string {
@@ -498,6 +377,27 @@ func (x *UserInfoReply) GetStatus() int32 {
 	return 0
 }
 
+func (x *UserInfoReply) GetId() int64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *UserInfoReply) GetDeptId() int64 {
+	if x != nil {
+		return x.DeptId
+	}
+	return 0
+}
+
+func (x *UserInfoReply) GetTenantId() int64 {
+	if x != nil {
+		return x.TenantId
+	}
+	return 0
+}
+
 // ========== 修改密码 ==========
 type UpdatePasswordRequest struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -513,7 +413,7 @@ type UpdatePasswordRequest struct {
 
 func (x *UpdatePasswordRequest) Reset() {
 	*x = UpdatePasswordRequest{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[9]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -525,7 +425,7 @@ func (x *UpdatePasswordRequest) String() string {
 func (*UpdatePasswordRequest) ProtoMessage() {}
 
 func (x *UpdatePasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[9]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -538,7 +438,7 @@ func (x *UpdatePasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePasswordRequest.ProtoReflect.Descriptor instead.
 func (*UpdatePasswordRequest) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{9}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *UpdatePasswordRequest) GetOldPassword() string {
@@ -570,7 +470,7 @@ type UpdatePasswordReply struct {
 
 func (x *UpdatePasswordReply) Reset() {
 	*x = UpdatePasswordReply{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[10]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -582,7 +482,7 @@ func (x *UpdatePasswordReply) String() string {
 func (*UpdatePasswordReply) ProtoMessage() {}
 
 func (x *UpdatePasswordReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[10]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -595,7 +495,7 @@ func (x *UpdatePasswordReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdatePasswordReply.ProtoReflect.Descriptor instead.
 func (*UpdatePasswordReply) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{10}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{8}
 }
 
 // ========== 绑定手机号 ==========
@@ -611,7 +511,7 @@ type BindMobileRequest struct {
 
 func (x *BindMobileRequest) Reset() {
 	*x = BindMobileRequest{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[11]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -623,7 +523,7 @@ func (x *BindMobileRequest) String() string {
 func (*BindMobileRequest) ProtoMessage() {}
 
 func (x *BindMobileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[11]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -636,7 +536,7 @@ func (x *BindMobileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BindMobileRequest.ProtoReflect.Descriptor instead.
 func (*BindMobileRequest) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{11}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *BindMobileRequest) GetMobile() string {
@@ -661,7 +561,7 @@ type BindMobileReply struct {
 
 func (x *BindMobileReply) Reset() {
 	*x = BindMobileReply{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[12]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -673,7 +573,7 @@ func (x *BindMobileReply) String() string {
 func (*BindMobileReply) ProtoMessage() {}
 
 func (x *BindMobileReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[12]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -686,7 +586,7 @@ func (x *BindMobileReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BindMobileReply.ProtoReflect.Descriptor instead.
 func (*BindMobileReply) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{12}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{10}
 }
 
 // ========== 修改绑定手机号 ==========
@@ -702,7 +602,7 @@ type UpdateMobileRequest struct {
 
 func (x *UpdateMobileRequest) Reset() {
 	*x = UpdateMobileRequest{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[13]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -714,7 +614,7 @@ func (x *UpdateMobileRequest) String() string {
 func (*UpdateMobileRequest) ProtoMessage() {}
 
 func (x *UpdateMobileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[13]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -727,7 +627,7 @@ func (x *UpdateMobileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMobileRequest.ProtoReflect.Descriptor instead.
 func (*UpdateMobileRequest) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{13}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *UpdateMobileRequest) GetMobile() string {
@@ -752,7 +652,7 @@ type UpdateMobileReply struct {
 
 func (x *UpdateMobileReply) Reset() {
 	*x = UpdateMobileReply{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[14]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -764,7 +664,7 @@ func (x *UpdateMobileReply) String() string {
 func (*UpdateMobileReply) ProtoMessage() {}
 
 func (x *UpdateMobileReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[14]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -777,7 +677,7 @@ func (x *UpdateMobileReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateMobileReply.ProtoReflect.Descriptor instead.
 func (*UpdateMobileReply) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{14}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{12}
 }
 
 // ========== 找回密码 ==========
@@ -797,7 +697,7 @@ type ResetPasswordRequest struct {
 
 func (x *ResetPasswordRequest) Reset() {
 	*x = ResetPasswordRequest{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[15]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -809,7 +709,7 @@ func (x *ResetPasswordRequest) String() string {
 func (*ResetPasswordRequest) ProtoMessage() {}
 
 func (x *ResetPasswordRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[15]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -822,7 +722,7 @@ func (x *ResetPasswordRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResetPasswordRequest.ProtoReflect.Descriptor instead.
 func (*ResetPasswordRequest) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{15}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *ResetPasswordRequest) GetMobile() string {
@@ -861,7 +761,7 @@ type ResetPasswordReply struct {
 
 func (x *ResetPasswordReply) Reset() {
 	*x = ResetPasswordReply{}
-	mi := &file_api_passport_v1_passport_proto_msgTypes[16]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -873,7 +773,7 @@ func (x *ResetPasswordReply) String() string {
 func (*ResetPasswordReply) ProtoMessage() {}
 
 func (x *ResetPasswordReply) ProtoReflect() protoreflect.Message {
-	mi := &file_api_passport_v1_passport_proto_msgTypes[16]
+	mi := &file_api_passport_v1_passport_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -886,22 +786,14 @@ func (x *ResetPasswordReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ResetPasswordReply.ProtoReflect.Descriptor instead.
 func (*ResetPasswordReply) Descriptor() ([]byte, []int) {
-	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{16}
+	return file_api_passport_v1_passport_proto_rawDescGZIP(), []int{14}
 }
 
 var File_api_passport_v1_passport_proto protoreflect.FileDescriptor
 
 const file_api_passport_v1_passport_proto_rawDesc = "" +
 	"\n" +
-	"\x1eapi/passport/v1/passport.proto\x12\x0fapi.passport.v1\x1a\x17validate/validate.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1copenapi/v3/annotations.proto\"\xa7\x03\n" +
-	"\x0fRegisterRequest\x12H\n" +
-	"\busername\x18\x01 \x01(\tB,\xe2A\x01\x02\xfaB\x06r\x04\x10\x03\x18\x14\xbaG\x1c\x92\x02\x19用户名，3-20位字符R\busername\x12E\n" +
-	"\bpassword\x18\x02 \x01(\tB)\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14\xbaG\x19\x92\x02\x16密码，6-20位字符R\bpassword\x12[\n" +
-	"\x10confirm_password\x18\x03 \x01(\tB/\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14\xbaG\x1f\x92\x02\x1c确认密码，6-20位字符R\x10confirm_password\x12Y\n" +
-	"\x06mobile\x18\x04 \x01(\tBA\xe2A\x01\x01\xfaB\x14r\x122\r^1[3-9]\\d{9}$\xd0\x01\x01\xbaG#\x92\x02 手机号，11位数字，选填R\x06mobile\x12K\n" +
-	"\x04code\x18\x05 \x01(\tB7\xe2A\x01\x01\xfaB\tr\a\x10\x04\x18\x06\xd0\x01\x01\xbaG$\x92\x02!验证码，4-6位字符，选填R\x04code\"9\n" +
-	"\rRegisterReply\x12(\n" +
-	"\x05token\x18\x01 \x01(\tB\x12\xbaG\x0f\x92\x02\f登录凭证R\x05token\"\xa1\x02\n" +
+	"\x1eapi/passport/v1/passport.proto\x12\x0fapi.passport.v1\x1a\x17validate/validate.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1copenapi/v3/annotations.proto\"\xa1\x02\n" +
 	"\x16LoginByPasswordRequest\x12H\n" +
 	"\busername\x18\x01 \x01(\tB,\xe2A\x01\x02\xfaB\x06r\x04\x10\x03\x18\x14\xbaG\x1c\x92\x02\x19用户名，3-20位字符R\busername\x12E\n" +
 	"\bpassword\x18\x02 \x01(\tB)\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14\xbaG\x19\x92\x02\x16密码，6-20位字符R\bpassword\x12;\n" +
@@ -917,11 +809,14 @@ const file_api_passport_v1_passport_proto_rawDesc = "" +
 	"\x05token\x18\x01 \x01(\tB\x12\xbaG\x0f\x92\x02\f登录凭证R\x05token\"\x0f\n" +
 	"\rLogoutRequest\"\r\n" +
 	"\vLogoutReply\"\x11\n" +
-	"\x0fUserInfoRequest\"\xa1\x01\n" +
+	"\x0fUserInfoRequest\"\x99\x02\n" +
 	"\rUserInfoReply\x12+\n" +
 	"\busername\x18\x01 \x01(\tB\x0f\xbaG\f\x92\x02\t用户名R\busername\x12'\n" +
 	"\x06mobile\x18\x02 \x01(\tB\x0f\xbaG\f\x92\x02\t手机号R\x06mobile\x12:\n" +
-	"\x06status\x18\x03 \x01(\x05B\"\xbaG\x1f\x92\x02\x1c状态：0=禁用，1=正常R\x06status\"\x9b\x02\n" +
+	"\x06status\x18\x03 \x01(\x05B\"\xbaG\x1f\x92\x02\x1c状态：0=禁用，1=正常R\x06status\x12\x1e\n" +
+	"\x02id\x18\x04 \x01(\x03B\x0e\xbaG\v\x92\x02\b用户IDR\x02id\x12(\n" +
+	"\adept_id\x18\x05 \x01(\x03B\x0e\xbaG\v\x92\x02\b部门IDR\adept_id\x12,\n" +
+	"\ttenant_id\x18\x06 \x01(\x03B\x0e\xbaG\v\x92\x02\b租户IDR\ttenant_id\"\x9b\x02\n" +
 	"\x15UpdatePasswordRequest\x12P\n" +
 	"\fold_password\x18\x01 \x01(\tB,\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14\xbaG\x1c\x92\x02\x19旧密码，6-20位字符R\fold_password\x12P\n" +
 	"\fnew_password\x18\x02 \x01(\tB,\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14\xbaG\x1c\x92\x02\x19新密码，6-20位字符R\fnew_password\x12^\n" +
@@ -940,9 +835,8 @@ const file_api_passport_v1_passport_proto_rawDesc = "" +
 	"\bsms_code\x18\x02 \x01(\tB1\xe2A\x01\x02\xfaB\x06r\x04\x10\x04\x18\x06\xbaG!\x92\x02\x1e短信验证码，4-6位字符R\bsms_code\x12P\n" +
 	"\fnew_password\x18\x03 \x01(\tB,\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14\xbaG\x1c\x92\x02\x19新密码，6-20位字符R\fnew_password\x12^\n" +
 	"\x10confirm_password\x18\x04 \x01(\tB2\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14\xbaG\"\x92\x02\x1f确认新密码，6-20位字符R\x10confirm_password\"\x14\n" +
-	"\x12ResetPasswordReply2\xe5\t\n" +
-	"\bPassport\x12|\n" +
-	"\bRegister\x12 .api.passport.v1.RegisterRequest\x1a\x1e.api.passport.v1.RegisterReply\".\xbaG\x0e\x12\f用户注册\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/passport/register\x12\x8d\x01\n" +
+	"\x12ResetPasswordReply2\xe7\b\n" +
+	"\bPassport\x12\x8d\x01\n" +
 	"\x0fLoginByPassword\x12'.api.passport.v1.LoginByPasswordRequest\x1a\x1b.api.passport.v1.LoginReply\"4\xbaG\x0e\x12\f密码登录\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/passport/login/password\x12\x81\x01\n" +
 	"\n" +
 	"LoginByOtp\x12\".api.passport.v1.LoginByOtpRequest\x1a\x1b.api.passport.v1.LoginReply\"2\xbaG\x11\x12\x0f验证码登录\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/passport/login/otp\x12t\n" +
@@ -967,47 +861,43 @@ func file_api_passport_v1_passport_proto_rawDescGZIP() []byte {
 	return file_api_passport_v1_passport_proto_rawDescData
 }
 
-var file_api_passport_v1_passport_proto_msgTypes = make([]protoimpl.MessageInfo, 17)
+var file_api_passport_v1_passport_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
 var file_api_passport_v1_passport_proto_goTypes = []any{
-	(*RegisterRequest)(nil),        // 0: api.passport.v1.RegisterRequest
-	(*RegisterReply)(nil),          // 1: api.passport.v1.RegisterReply
-	(*LoginByPasswordRequest)(nil), // 2: api.passport.v1.LoginByPasswordRequest
-	(*LoginByOtpRequest)(nil),      // 3: api.passport.v1.LoginByOtpRequest
-	(*LoginReply)(nil),             // 4: api.passport.v1.LoginReply
-	(*LogoutRequest)(nil),          // 5: api.passport.v1.LogoutRequest
-	(*LogoutReply)(nil),            // 6: api.passport.v1.LogoutReply
-	(*UserInfoRequest)(nil),        // 7: api.passport.v1.UserInfoRequest
-	(*UserInfoReply)(nil),          // 8: api.passport.v1.UserInfoReply
-	(*UpdatePasswordRequest)(nil),  // 9: api.passport.v1.UpdatePasswordRequest
-	(*UpdatePasswordReply)(nil),    // 10: api.passport.v1.UpdatePasswordReply
-	(*BindMobileRequest)(nil),      // 11: api.passport.v1.BindMobileRequest
-	(*BindMobileReply)(nil),        // 12: api.passport.v1.BindMobileReply
-	(*UpdateMobileRequest)(nil),    // 13: api.passport.v1.UpdateMobileRequest
-	(*UpdateMobileReply)(nil),      // 14: api.passport.v1.UpdateMobileReply
-	(*ResetPasswordRequest)(nil),   // 15: api.passport.v1.ResetPasswordRequest
-	(*ResetPasswordReply)(nil),     // 16: api.passport.v1.ResetPasswordReply
+	(*LoginByPasswordRequest)(nil), // 0: api.passport.v1.LoginByPasswordRequest
+	(*LoginByOtpRequest)(nil),      // 1: api.passport.v1.LoginByOtpRequest
+	(*LoginReply)(nil),             // 2: api.passport.v1.LoginReply
+	(*LogoutRequest)(nil),          // 3: api.passport.v1.LogoutRequest
+	(*LogoutReply)(nil),            // 4: api.passport.v1.LogoutReply
+	(*UserInfoRequest)(nil),        // 5: api.passport.v1.UserInfoRequest
+	(*UserInfoReply)(nil),          // 6: api.passport.v1.UserInfoReply
+	(*UpdatePasswordRequest)(nil),  // 7: api.passport.v1.UpdatePasswordRequest
+	(*UpdatePasswordReply)(nil),    // 8: api.passport.v1.UpdatePasswordReply
+	(*BindMobileRequest)(nil),      // 9: api.passport.v1.BindMobileRequest
+	(*BindMobileReply)(nil),        // 10: api.passport.v1.BindMobileReply
+	(*UpdateMobileRequest)(nil),    // 11: api.passport.v1.UpdateMobileRequest
+	(*UpdateMobileReply)(nil),      // 12: api.passport.v1.UpdateMobileReply
+	(*ResetPasswordRequest)(nil),   // 13: api.passport.v1.ResetPasswordRequest
+	(*ResetPasswordReply)(nil),     // 14: api.passport.v1.ResetPasswordReply
 }
 var file_api_passport_v1_passport_proto_depIdxs = []int32{
-	0,  // 0: api.passport.v1.Passport.Register:input_type -> api.passport.v1.RegisterRequest
-	2,  // 1: api.passport.v1.Passport.LoginByPassword:input_type -> api.passport.v1.LoginByPasswordRequest
-	3,  // 2: api.passport.v1.Passport.LoginByOtp:input_type -> api.passport.v1.LoginByOtpRequest
-	5,  // 3: api.passport.v1.Passport.Logout:input_type -> api.passport.v1.LogoutRequest
-	7,  // 4: api.passport.v1.Passport.UserInfo:input_type -> api.passport.v1.UserInfoRequest
-	9,  // 5: api.passport.v1.Passport.UpdatePassword:input_type -> api.passport.v1.UpdatePasswordRequest
-	11, // 6: api.passport.v1.Passport.BindMobile:input_type -> api.passport.v1.BindMobileRequest
-	13, // 7: api.passport.v1.Passport.UpdateMobile:input_type -> api.passport.v1.UpdateMobileRequest
-	15, // 8: api.passport.v1.Passport.ResetPassword:input_type -> api.passport.v1.ResetPasswordRequest
-	1,  // 9: api.passport.v1.Passport.Register:output_type -> api.passport.v1.RegisterReply
-	4,  // 10: api.passport.v1.Passport.LoginByPassword:output_type -> api.passport.v1.LoginReply
-	4,  // 11: api.passport.v1.Passport.LoginByOtp:output_type -> api.passport.v1.LoginReply
-	6,  // 12: api.passport.v1.Passport.Logout:output_type -> api.passport.v1.LogoutReply
-	8,  // 13: api.passport.v1.Passport.UserInfo:output_type -> api.passport.v1.UserInfoReply
-	10, // 14: api.passport.v1.Passport.UpdatePassword:output_type -> api.passport.v1.UpdatePasswordReply
-	12, // 15: api.passport.v1.Passport.BindMobile:output_type -> api.passport.v1.BindMobileReply
-	14, // 16: api.passport.v1.Passport.UpdateMobile:output_type -> api.passport.v1.UpdateMobileReply
-	16, // 17: api.passport.v1.Passport.ResetPassword:output_type -> api.passport.v1.ResetPasswordReply
-	9,  // [9:18] is the sub-list for method output_type
-	0,  // [0:9] is the sub-list for method input_type
+	0,  // 0: api.passport.v1.Passport.LoginByPassword:input_type -> api.passport.v1.LoginByPasswordRequest
+	1,  // 1: api.passport.v1.Passport.LoginByOtp:input_type -> api.passport.v1.LoginByOtpRequest
+	3,  // 2: api.passport.v1.Passport.Logout:input_type -> api.passport.v1.LogoutRequest
+	5,  // 3: api.passport.v1.Passport.UserInfo:input_type -> api.passport.v1.UserInfoRequest
+	7,  // 4: api.passport.v1.Passport.UpdatePassword:input_type -> api.passport.v1.UpdatePasswordRequest
+	9,  // 5: api.passport.v1.Passport.BindMobile:input_type -> api.passport.v1.BindMobileRequest
+	11, // 6: api.passport.v1.Passport.UpdateMobile:input_type -> api.passport.v1.UpdateMobileRequest
+	13, // 7: api.passport.v1.Passport.ResetPassword:input_type -> api.passport.v1.ResetPasswordRequest
+	2,  // 8: api.passport.v1.Passport.LoginByPassword:output_type -> api.passport.v1.LoginReply
+	2,  // 9: api.passport.v1.Passport.LoginByOtp:output_type -> api.passport.v1.LoginReply
+	4,  // 10: api.passport.v1.Passport.Logout:output_type -> api.passport.v1.LogoutReply
+	6,  // 11: api.passport.v1.Passport.UserInfo:output_type -> api.passport.v1.UserInfoReply
+	8,  // 12: api.passport.v1.Passport.UpdatePassword:output_type -> api.passport.v1.UpdatePasswordReply
+	10, // 13: api.passport.v1.Passport.BindMobile:output_type -> api.passport.v1.BindMobileReply
+	12, // 14: api.passport.v1.Passport.UpdateMobile:output_type -> api.passport.v1.UpdateMobileReply
+	14, // 15: api.passport.v1.Passport.ResetPassword:output_type -> api.passport.v1.ResetPasswordReply
+	8,  // [8:16] is the sub-list for method output_type
+	0,  // [0:8] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name
 	0,  // [0:0] is the sub-list for extension extendee
 	0,  // [0:0] is the sub-list for field type_name
@@ -1024,7 +914,7 @@ func file_api_passport_v1_passport_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_passport_v1_passport_proto_rawDesc), len(file_api_passport_v1_passport_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   17,
+			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

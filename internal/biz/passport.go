@@ -27,6 +27,8 @@ type SysUser struct {
 	PasswordHash string
 	Phone        string
 	Nickname     string
+	DeptID       int64
+	TenantID     int64
 	IsAvailable  bool
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
@@ -62,43 +64,6 @@ func NewPassportUseCase(
 	}
 }
 
-func (uc *PassportUseCase) Register(ctx context.Context, username, password, phone string) (string, error) {
-	// 检查用户名是否存在
-	if u, _ := uc.sysUser.GetUserByUsername(ctx, username); u != nil {
-		return "", ErrUserAlreadyExists
-	}
-
-	// 如果提供了手机号，检查手机号是否已被使用
-	if phone != "" {
-		if u, _ := uc.sysUser.GetUserByPhone(ctx, phone); u != nil {
-			return "", ErrMobileAlreadyBound
-		}
-	}
-
-	// 密码加密
-	hash, err := uc.hashPassword(password)
-	if err != nil {
-		return "", err
-	}
-
-	user := &SysUser{
-		Username:     username,
-		PasswordHash: hash,
-		IsAvailable:  true,
-	}
-	if phone != "" {
-		user.Phone = phone
-	}
-
-	savedUser, err := uc.sysUser.CreateUser(ctx, user)
-	if err != nil {
-		return "", err
-	}
-
-	// 生成 Token
-	return uc.auth.GenerateToken(ctx, uc.formatUserID(savedUser.ID))
-}
-
 func (uc *PassportUseCase) LoginByPassword(ctx context.Context, username, password string) (string, error) {
 	// 查询用户
 	user, err := uc.sysUser.GetUserByUsername(ctx, username)
@@ -127,7 +92,7 @@ func (uc *PassportUseCase) LoginByPassword(ctx context.Context, username, passwo
 		return "", ErrUserDisabled
 	}
 
-	return uc.auth.GenerateToken(ctx, uc.formatUserID(user.ID))
+	return uc.auth.GenerateToken(ctx, uc.formatUserID(user.ID), user.DeptID, user.TenantID)
 }
 
 func (uc *PassportUseCase) LoginByOtp(ctx context.Context, phone string) (string, error) {
@@ -135,32 +100,16 @@ func (uc *PassportUseCase) LoginByOtp(ctx context.Context, phone string) (string
 	user, err := uc.sysUser.GetUserByPhone(ctx, phone)
 	if err != nil {
 		if errors.Is(err, ErrUserNotFound) {
-			// 如果配置了自动注册
-			if uc.conf != nil && uc.conf.AutoRegister {
-				// 创建新用户
-				newUser := &SysUser{
-					Username:    phone, // 手机号作为用户名
-					Phone:       phone,
-					IsAvailable: true,
-				}
-				savedUser, createErr := uc.sysUser.CreateUser(ctx, newUser)
-				if createErr != nil {
-					return "", createErr
-				}
-				user = savedUser
-			} else {
-				return "", ErrUserNotFound
-			}
-		} else {
-			return "", err
+			return "", ErrUserNotFound
 		}
+		return "", err
 	}
 
 	if !user.IsAvailable {
 		return "", ErrUserDisabled
 	}
 
-	return uc.auth.GenerateToken(ctx, uc.formatUserID(user.ID))
+	return uc.auth.GenerateToken(ctx, uc.formatUserID(user.ID), user.DeptID, user.TenantID)
 }
 
 func (uc *PassportUseCase) Logout(ctx context.Context) error {

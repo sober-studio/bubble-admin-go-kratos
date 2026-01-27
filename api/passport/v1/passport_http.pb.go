@@ -23,7 +23,6 @@ const OperationPassportBindMobile = "/api.passport.v1.Passport/BindMobile"
 const OperationPassportLoginByOtp = "/api.passport.v1.Passport/LoginByOtp"
 const OperationPassportLoginByPassword = "/api.passport.v1.Passport/LoginByPassword"
 const OperationPassportLogout = "/api.passport.v1.Passport/Logout"
-const OperationPassportRegister = "/api.passport.v1.Passport/Register"
 const OperationPassportResetPassword = "/api.passport.v1.Passport/ResetPassword"
 const OperationPassportUpdateMobile = "/api.passport.v1.Passport/UpdateMobile"
 const OperationPassportUpdatePassword = "/api.passport.v1.Passport/UpdatePassword"
@@ -38,8 +37,6 @@ type PassportHTTPServer interface {
 	LoginByPassword(context.Context, *LoginByPasswordRequest) (*LoginReply, error)
 	// Logout 用户退出
 	Logout(context.Context, *LogoutRequest) (*LogoutReply, error)
-	// Register 用户注册
-	Register(context.Context, *RegisterRequest) (*RegisterReply, error)
 	// ResetPassword 找回密码
 	ResetPassword(context.Context, *ResetPasswordRequest) (*ResetPasswordReply, error)
 	// UpdateMobile 修改绑定手机号
@@ -52,7 +49,6 @@ type PassportHTTPServer interface {
 
 func RegisterPassportHTTPServer(s *http.Server, srv PassportHTTPServer) {
 	r := s.Route("/")
-	r.POST("/passport/register", _Passport_Register0_HTTP_Handler(srv))
 	r.POST("/passport/login/password", _Passport_LoginByPassword0_HTTP_Handler(srv))
 	r.POST("/passport/login/otp", _Passport_LoginByOtp0_HTTP_Handler(srv))
 	r.POST("/passport/logout", _Passport_Logout0_HTTP_Handler(srv))
@@ -61,28 +57,6 @@ func RegisterPassportHTTPServer(s *http.Server, srv PassportHTTPServer) {
 	r.POST("/passport/bind-mobile", _Passport_BindMobile0_HTTP_Handler(srv))
 	r.POST("/passport/update-mobile", _Passport_UpdateMobile0_HTTP_Handler(srv))
 	r.POST("/passport/reset-password", _Passport_ResetPassword0_HTTP_Handler(srv))
-}
-
-func _Passport_Register0_HTTP_Handler(srv PassportHTTPServer) func(ctx http.Context) error {
-	return func(ctx http.Context) error {
-		var in RegisterRequest
-		if err := ctx.Bind(&in); err != nil {
-			return err
-		}
-		if err := ctx.BindQuery(&in); err != nil {
-			return err
-		}
-		http.SetOperation(ctx, OperationPassportRegister)
-		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
-			return srv.Register(ctx, req.(*RegisterRequest))
-		})
-		out, err := h(ctx, &in)
-		if err != nil {
-			return err
-		}
-		reply := out.(*RegisterReply)
-		return ctx.Result(200, reply)
-	}
 }
 
 func _Passport_LoginByPassword0_HTTP_Handler(srv PassportHTTPServer) func(ctx http.Context) error {
@@ -267,8 +241,6 @@ type PassportHTTPClient interface {
 	LoginByPassword(ctx context.Context, req *LoginByPasswordRequest, opts ...http.CallOption) (rsp *LoginReply, err error)
 	// Logout 用户退出
 	Logout(ctx context.Context, req *LogoutRequest, opts ...http.CallOption) (rsp *LogoutReply, err error)
-	// Register 用户注册
-	Register(ctx context.Context, req *RegisterRequest, opts ...http.CallOption) (rsp *RegisterReply, err error)
 	// ResetPassword 找回密码
 	ResetPassword(ctx context.Context, req *ResetPasswordRequest, opts ...http.CallOption) (rsp *ResetPasswordReply, err error)
 	// UpdateMobile 修改绑定手机号
@@ -335,20 +307,6 @@ func (c *PassportHTTPClientImpl) Logout(ctx context.Context, in *LogoutRequest, 
 	pattern := "/passport/logout"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPassportLogout))
-	opts = append(opts, http.PathTemplate(pattern))
-	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return &out, nil
-}
-
-// Register 用户注册
-func (c *PassportHTTPClientImpl) Register(ctx context.Context, in *RegisterRequest, opts ...http.CallOption) (*RegisterReply, error) {
-	var out RegisterReply
-	pattern := "/passport/register"
-	path := binding.EncodeURL(pattern, in, false)
-	opts = append(opts, http.Operation(OperationPassportRegister))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "POST", path, in, &out, opts...)
 	if err != nil {

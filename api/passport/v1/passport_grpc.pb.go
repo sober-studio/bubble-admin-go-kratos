@@ -19,7 +19,6 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Passport_Register_FullMethodName        = "/api.passport.v1.Passport/Register"
 	Passport_LoginByPassword_FullMethodName = "/api.passport.v1.Passport/LoginByPassword"
 	Passport_LoginByOtp_FullMethodName      = "/api.passport.v1.Passport/LoginByOtp"
 	Passport_Logout_FullMethodName          = "/api.passport.v1.Passport/Logout"
@@ -34,8 +33,6 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PassportClient interface {
-	// 用户注册
-	Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterReply, error)
 	// 密码登录
 	LoginByPassword(ctx context.Context, in *LoginByPasswordRequest, opts ...grpc.CallOption) (*LoginReply, error)
 	// 验证码登录
@@ -60,16 +57,6 @@ type passportClient struct {
 
 func NewPassportClient(cc grpc.ClientConnInterface) PassportClient {
 	return &passportClient{cc}
-}
-
-func (c *passportClient) Register(ctx context.Context, in *RegisterRequest, opts ...grpc.CallOption) (*RegisterReply, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(RegisterReply)
-	err := c.cc.Invoke(ctx, Passport_Register_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *passportClient) LoginByPassword(ctx context.Context, in *LoginByPasswordRequest, opts ...grpc.CallOption) (*LoginReply, error) {
@@ -156,8 +143,6 @@ func (c *passportClient) ResetPassword(ctx context.Context, in *ResetPasswordReq
 // All implementations must embed UnimplementedPassportServer
 // for forward compatibility.
 type PassportServer interface {
-	// 用户注册
-	Register(context.Context, *RegisterRequest) (*RegisterReply, error)
 	// 密码登录
 	LoginByPassword(context.Context, *LoginByPasswordRequest) (*LoginReply, error)
 	// 验证码登录
@@ -184,9 +169,6 @@ type PassportServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPassportServer struct{}
 
-func (UnimplementedPassportServer) Register(context.Context, *RegisterRequest) (*RegisterReply, error) {
-	return nil, status.Error(codes.Unimplemented, "method Register not implemented")
-}
 func (UnimplementedPassportServer) LoginByPassword(context.Context, *LoginByPasswordRequest) (*LoginReply, error) {
 	return nil, status.Error(codes.Unimplemented, "method LoginByPassword not implemented")
 }
@@ -230,24 +212,6 @@ func RegisterPassportServer(s grpc.ServiceRegistrar, srv PassportServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&Passport_ServiceDesc, srv)
-}
-
-func _Passport_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(PassportServer).Register(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Passport_Register_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PassportServer).Register(ctx, req.(*RegisterRequest))
-	}
-	return interceptor(ctx, in, info, handler)
 }
 
 func _Passport_LoginByPassword_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -401,10 +365,6 @@ var Passport_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "api.passport.v1.Passport",
 	HandlerType: (*PassportServer)(nil),
 	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Register",
-			Handler:    _Passport_Register_Handler,
-		},
 		{
 			MethodName: "LoginByPassword",
 			Handler:    _Passport_LoginByPassword_Handler,

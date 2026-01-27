@@ -80,9 +80,9 @@ func (s *WebsocketService) verifyToken(token string) string {
 		return ""
 	}
 	// 这里调用你的 JWT 解析逻辑
-	userID, err := s.tokenService.ParseTokenFromTokenString(context.Background(), token)
+	claims, err := s.tokenService.ParseTokenFromTokenString(context.Background(), token)
 	if err != nil {
 		return ""
 	}
-	return userID
+	return claims.Subject
 }

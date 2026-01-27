@@ -23,28 +23,6 @@ func NewPassportService(uc *biz.PassportUseCase, otp *biz.OtpUseCase, captcha *b
 	}
 }
 
-func (s *PassportService) Register(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterReply, error) {
-	if req.Password != req.ConfirmPassword {
-		return nil, errors.BadRequest("PASSWORD_MISMATCH", "两次输入密码不一致")
-	}
-
-	phone := ""
-	// 如果手机号和验证码都不为空，则进行验证码校验
-	if req.Mobile != "" && req.Code != "" {
-		// 校验短信验证码
-		if valid, err := s.otp.VerifyPhoneOtp(ctx, req.Mobile, biz.Register, req.Code); err != nil || !valid {
-			return nil, biz.ErrorOtpInvalid
-		}
-		phone = req.Mobile
-	}
-
-	token, err := s.uc.Register(ctx, req.Username, req.Password, phone)
-	if err != nil {
-		return nil, err
-	}
-	return &pb.RegisterReply{Token: token}, nil
-}
-
 func (s *PassportService) LoginByPassword(ctx context.Context, req *pb.LoginByPasswordRequest) (*pb.LoginReply, error) {
 	// 校验验证码
 	if err := s.captcha.Verify(ctx, req.CaptchaId, req.Captcha); err != nil {
@@ -91,6 +69,9 @@ func (s *PassportService) UserInfo(ctx context.Context, req *pb.UserInfoRequest)
 		Username: u.Username,
 		Mobile:   u.Phone,
 		Status:   status,
+		Id:       u.ID,
+		DeptId:   u.DeptID,
+		TenantId: u.TenantID,
 	}, nil
 }
 

@@ -35,6 +35,12 @@ func (r *sysUserRepo) CreateUser(ctx context.Context, u *biz.SysUser) (*biz.SysU
 		Mobile:       u.Phone,
 		Name:         u.Nickname,
 		Status:       status,
+		BaseAuthModel: model.BaseAuthModel{
+			AuthField: model.AuthField{
+				DeptID:   u.DeptID,
+				TenantID: u.TenantID,
+			},
+		},
 	}
 
 	if err := r.data.DB(ctx).Create(user).Error; err != nil {
@@ -98,6 +104,8 @@ func (r *sysUserRepo) toBiz(u *model.SysUser) *biz.SysUser {
 		PasswordHash: u.PasswordHash,
 		Phone:        u.Mobile,
 		Nickname:     u.Name,
+		DeptID:       u.DeptID,
+		TenantID:     u.TenantID,
 		IsAvailable:  u.Status == 1,
 		CreatedAt:    u.CreatedAt,
 		UpdatedAt:    u.UpdatedAt,
