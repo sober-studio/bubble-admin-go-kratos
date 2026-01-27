@@ -1,14 +1,19 @@
 package server
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
+	"github.com/go-kratos/kratos/v2/middleware/auth/jwt"
+	"github.com/go-kratos/kratos/v2/middleware/selector"
 	"github.com/go-kratos/kratos/v2/transport/http/binding"
+	jwtv5 "github.com/golang-jwt/jwt/v5"
 	passportV1 "github.com/sober-studio/bubble-admin-go-kratos/api/passport/v1"
 	publicV1 "github.com/sober-studio/bubble-admin-go-kratos/api/public/v1"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/conf"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/auth"
+	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/auth/model"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/debug"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/render"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/service"
@@ -29,10 +34,30 @@ func NewHTTPServer(
 	logger log.Logger,
 ) *http.Server {
 
+	pathConfig := auth.PathAccessConfigWithPublicList(app.Auth.PublicPaths)
+
 	var opts = []http.ServerOption{
+		// 中间件配置
 		http.Middleware(
 			recovery.Recovery(),
-			auth.Middleware(tokenService, auth.PathAccessConfigWithPublicList(app.Auth.PublicPaths)),
+			selector.Server(
+				// 1. JWT 认证中间件
+				jwt.Server(
+					func(token *jwtv5.Token) (interface{}, error) {
+						return tokenService.GetSecretKey(), nil
+					},
+					jwt.WithSigningMethod(jwtv5.SigningMethodHS256),
+					jwt.WithClaims(func() jwtv5.Claims {
+						return &model.CustomClaims{}
+					}),
+				),
+				// 2. JWT 再次验证，从 TokenStore 中查询信息并验证，
+				//    确保 token 没有被吊销（注销登录/后台踢下线），
+				//    且没有因修改密码、权限变更而需要重新登录（开发中）
+				auth.JWTRecheck(tokenService),
+			).Match(func(ctx context.Context, operation string) bool {
+				return !auth.IsPublicPath(ctx, operation, pathConfig)
+			}).Build(),
 		),
 		http.Filter(debug.Filter),
 		http.RequestDecoder(MultipartRequestDecoder),

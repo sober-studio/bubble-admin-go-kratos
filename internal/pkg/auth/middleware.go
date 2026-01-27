@@ -4,10 +4,6 @@ import (
 	"context"
 
 	"github.com/go-kratos/kratos/v2/middleware"
-	"github.com/go-kratos/kratos/v2/middleware/auth/jwt"
-	"github.com/go-kratos/kratos/v2/middleware/selector"
-	jwtv5 "github.com/golang-jwt/jwt/v5"
-	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/auth/model"
 )
 
 // PathAccessConfig 路径访问配置
@@ -68,36 +64,15 @@ func Match(operation string, paths map[string]struct{}) bool {
 func JWTRecheck(tokenService TokenService) middleware.Middleware {
 	return func(handler middleware.Handler) middleware.Handler {
 		return func(ctx context.Context, req interface{}) (interface{}, error) {
-			// 验证 token
+			// 1. 验证 token 解析，这一步会访问缓存，确保 token 没有被吊销（注销登录/后台踢下线）
 			_, err := tokenService.ParseTokenFromContext(ctx)
 			if err != nil {
 				return nil, err
 			}
-			// token 验证通过，继续处理
+			// 2. 验证当前用户是否需要因修改密码、权限变更而需要重新登录
+			// TODO：引入黑名单机制，确保 token 的签发时间在执行需要重新登录的操作时间之后
+			// 验证通过，继续处理
 			return handler(ctx, req)
 		}
 	}
-}
-
-// JWTMiddleware 创建 JWT 认证中间件
-func JWTMiddleware(tokenService TokenService) middleware.Middleware {
-	return jwt.Server(
-		func(token *jwtv5.Token) (interface{}, error) {
-			return tokenService.GetSecretKey(), nil
-		},
-		jwt.WithSigningMethod(jwtv5.SigningMethodHS256),
-		jwt.WithClaims(func() jwtv5.Claims {
-			return &model.CustomClaims{}
-		}),
-	)
-}
-
-// Middleware 创建认证中间件
-func Middleware(tokenService TokenService, config *PathAccessConfig) middleware.Middleware {
-	return selector.Server(
-		JWTMiddleware(tokenService),
-		JWTRecheck(tokenService),
-	).Match(func(ctx context.Context, operation string) bool {
-		return !IsPublicPath(ctx, operation, config)
-	}).Build()
 }
