@@ -122,3 +122,19 @@ func (s *RedisTokenStore) tokenKey(jti string) string {
 func (s *RedisTokenStore) userSetKey(userID string) string {
 	return fmt.Sprintf("jwt:user:%s:tokens", userID)
 }
+
+func (s *RedisTokenStore) BlockUserTokens(ctx context.Context, userID, reason string) error {
+	tokens, err := s.GetUserTokens(ctx, userID)
+	if err != nil {
+		return err
+	}
+	for _, token := range *tokens {
+		token.Revoked = true
+		token.RevokeReason = reason
+		if err := s.SaveToken(ctx, &token); err != nil {
+			log.Errorf("Failed to block token %s: %v", token.JTI, err)
+			// Continue blocking others even if one fails
+		}
+	}
+	return nil
+}

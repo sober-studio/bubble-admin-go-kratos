@@ -18,6 +18,7 @@ import (
 var (
 	ErrInvalidToken     = errors.Unauthorized("INVALID_TOKEN", "无效的 Token")
 	ErrTokenExpired     = errors.Unauthorized("TOKEN_EXPIRED", "Token 已过期")
+	ErrTokenRevoked     = errors.Unauthorized("TOKEN_REVOKED", "Token 已被吊销")
 	ErrJWTGenerateError = errors.Unauthorized("JWT_GENERATE_ERROR", "JWT 生成错误")
 )
 
@@ -49,6 +50,8 @@ type TokenService interface {
 	RevokeAllTokens(ctx context.Context) error
 	// RevokeAllTokensByUserID 根据用户ID撤销所有令牌
 	RevokeAllTokensByUserID(ctx context.Context, userID int64) error
+	// BlockUser 封禁用户（吊销所有令牌并记录原因）
+	BlockUser(ctx context.Context, userID, reason string) error
 	// GetSecretKey 获取密钥
 	GetSecretKey() []byte
 }
@@ -123,6 +126,9 @@ func (s *JWTTokenService) ParseTokenFromTokenString(ctx context.Context, tokenSt
 	if err != nil || stored.ExpiresAt.Before(time.Now()) {
 		return nil, ErrTokenExpired
 	}
+	if stored.Revoked {
+		return nil, errors.Unauthorized("TOKEN_REVOKED", stored.RevokeReason)
+	}
 	return claims, nil
 }
 
@@ -141,6 +147,9 @@ func (s *JWTTokenService) ParseTokenFromContext(ctx context.Context) (*model.Cus
 	stored, err := s.store.GetToken(ctx, customClaims.ID)
 	if err != nil || stored.ExpiresAt.Before(time.Now()) {
 		return nil, ErrTokenExpired
+	}
+	if stored.Revoked {
+		return nil, errors.Unauthorized("TOKEN_REVOKED", stored.RevokeReason)
 	}
 	return customClaims, nil
 }
@@ -236,6 +245,10 @@ func (s *JWTTokenService) RevokeAllTokens(ctx context.Context) error {
 func (s *JWTTokenService) RevokeAllTokensByUserID(ctx context.Context, userID int64) error {
 	userIDStr := strconv.FormatInt(userID, 10)
 	return s.store.DeleteUserTokens(ctx, userIDStr)
+}
+
+func (s *JWTTokenService) BlockUser(ctx context.Context, userID, reason string) error {
+	return s.store.BlockUserTokens(ctx, userID, reason)
 }
 
 func (s *JWTTokenService) GetSecretKey() []byte {

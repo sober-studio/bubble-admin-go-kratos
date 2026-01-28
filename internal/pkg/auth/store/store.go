@@ -13,4 +13,5 @@ type TokenStore interface {
 	DeleteToken(ctx context.Context, jti string) error
 	DeleteUserTokens(ctx context.Context, userID string) error
 	GetUserTokens(ctx context.Context, userID string) (*[]model.UserToken, error)
+	BlockUserTokens(ctx context.Context, userID, reason string) error
 }

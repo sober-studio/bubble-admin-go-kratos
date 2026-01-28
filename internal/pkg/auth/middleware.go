@@ -73,9 +73,7 @@ func JWTRecheck(tokenService TokenService) middleware.Middleware {
 			if err != nil {
 				return nil, err
 			}
-			// 2. 验证当前用户是否需要因修改密码、权限变更而需要重新登录
-			// TODO：引入黑名单机制，确保 token 的签发时间在执行需要重新登录的操作时间之后
-			// 验证通过，继续处理
+			// 2. 验证通过，继续处理
 			return handler(ctx, req)
 		}
 	}

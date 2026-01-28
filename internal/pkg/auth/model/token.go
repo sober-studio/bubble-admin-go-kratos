@@ -15,11 +15,13 @@ type CustomClaims struct {
 
 // UserToken 用于持久化
 type UserToken struct {
-	JTI       string    // JWT ID
-	UserID    string    // 用户 ID
-	DeptID    int64     // 部门 ID
-	TenantID  int64     // 租户 ID
-	IssuedAt  time.Time // 签发时间
-	ExpiresAt time.Time // 过期时间
-	TokenStr  string    // JWT 原文
+	JTI          string    // JWT ID
+	UserID       string    // 用户 ID
+	DeptID       int64     // 部门 ID
+	TenantID     int64     // 租户 ID
+	IssuedAt     time.Time // 签发时间
+	ExpiresAt    time.Time // 过期时间
+	TokenStr     string    // JWT 原文
+	Revoked      bool      // 是否被强制注销
+	RevokeReason string    // 注销原因
 }
