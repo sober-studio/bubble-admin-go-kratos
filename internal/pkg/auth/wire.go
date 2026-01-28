@@ -22,6 +22,5 @@ func NewTokenService(c *conf.App, store store.TokenStore) TokenService {
 }
 
 func NewTokenStore(c *conf.App, redis *redis.Client) store.TokenStore {
-	// TODO: 按配置类型创建不同的 Token 存储器
 	return store.NewRedisTokenStore(redis)
 }

@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/google/wire"
+	"github.com/sober-studio/bubble-admin-go-kratos/internal/biz/provider"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/email"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/oss"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/sms"
@@ -18,6 +19,9 @@ var ProviderSet = wire.NewSet(
 	wire.Bind(new(SmsSender), new(sms.Sender)),
 	wire.Bind(new(EmailSender), new(email.Sender)),
 	oss.NewOSS,
+	// providers
+	provider.NewPermissionProvider,
+	provider.NewPackageProvider,
 	// domains
 	NewChatUseCase,
 	NewPassportUseCase,

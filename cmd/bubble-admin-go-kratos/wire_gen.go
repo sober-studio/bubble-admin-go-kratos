@@ -10,6 +10,7 @@ import (
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/biz"
+	"github.com/sober-studio/bubble-admin-go-kratos/internal/biz/provider"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/conf"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/data"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/job"
@@ -45,8 +46,8 @@ func wireApp(confServer *conf.Server, confData *conf.Data, app *conf.App, logger
 	otpUseCase := biz.NewOtpUseCase(sender, emailSender, otpCache, app, logger)
 	tokenStore := auth.NewTokenStore(app, client)
 	tokenService := auth.NewTokenService(app, tokenStore)
-	userRepo := data.NewUserRepo(dataData, logger)
-	passportUseCase := biz.NewPassportUseCase(tokenService, userRepo, app, logger)
+	sysUserRepo := data.NewSysUserRepo(dataData, logger)
+	passportUseCase := biz.NewPassportUseCase(tokenService, sysUserRepo, app, logger)
 	publicService := service.NewPublicService(captchaUseCase, otpUseCase, passportUseCase, logger)
 	passportService := service.NewPassportService(passportUseCase, otpUseCase, captchaUseCase)
 	hub := ws.NewHub(logger)
@@ -54,7 +55,22 @@ func wireApp(confServer *conf.Server, confData *conf.Data, app *conf.App, logger
 	chatUseCase := biz.NewChatUseCase(chatRepo, logger)
 	chatService := service.NewChatService(hub, chatUseCase)
 	websocketService := service.NewWebsocketService(hub, chatService, tokenService, logger)
-	httpServer := server.NewHTTPServer(confServer, app, publicService, passportService, tokenService, websocketService, logger)
+	model, err := data.NewCasbinModel()
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	adapter := data.NewSysPermissionAdapter(db)
+	syncedEnforcer, err := data.NewCasbinEnforcer(model, adapter)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	permissionLoader := data.NewPermissionRepo(dataData, logger)
+	permissionProvider := provider.NewPermissionProvider(permissionLoader)
+	packageLoader := data.NewTenantRepo(dataData, logger)
+	packageProvider := provider.NewPackageProvider(packageLoader)
+	httpServer := server.NewHTTPServer(confServer, app, publicService, passportService, tokenService, websocketService, syncedEnforcer, permissionProvider, packageProvider, logger)
 	helloJob := job.NewHelloJob(logger)
 	cronServer := server.NewCronServer(confServer, logger, helloJob)
 	kratosApp := newApp(logger, grpcServer, httpServer, cronServer)

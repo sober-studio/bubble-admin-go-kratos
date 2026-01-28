@@ -4,6 +4,9 @@ import (
 	"context"
 	"time"
 
+	"github.com/casbin/casbin/v3"
+	casbinModel "github.com/casbin/casbin/v3/model"
+	"github.com/casbin/casbin/v3/persist"
 	"github.com/redis/go-redis/v9"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/biz"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/conf"
@@ -32,8 +35,14 @@ var ProviderSet = wire.NewSet(
 	NewRedisOtpCache,
 	// 数据库事务
 	wire.Bind(new(biz.Transaction), new(*Data)),
+	// Casbin
+	NewSysPermissionAdapter,
+	NewCasbinModel,
+	NewCasbinEnforcer,
 	// 数据存储
 	NewSysUserRepo,
+	NewPermissionRepo,
+	NewTenantRepo,
 	// Mock
 	NewChatRepo,
 )
@@ -229,4 +238,20 @@ func NewIDGenerator(app *conf.App) idgen.IDGenerator {
 	g := snowflake.NewSnowflake(app.WorkerId)
 	model.SetIDGenerator(g)
 	return g
+}
+
+// NewCasbinEnforcer 组合 Model 和 Adapter
+func NewCasbinEnforcer(m casbinModel.Model, a persist.Adapter) (*casbin.SyncedEnforcer, error) {
+	// 创建同步执行器（支持并发安全）
+	e, err := casbin.NewSyncedEnforcer(m, a)
+	if err != nil {
+		return nil, err
+	}
+	log.NewHelper(log.With(log.GetLogger(), "module", "casbin")).Info("casbin loaded")
+	// 初始加载策略
+	if err := e.LoadPolicy(); err != nil {
+		return nil, err
+	}
+	log.NewHelper(log.With(log.GetLogger(), "module", "casbin")).Info("casbin loaded policy")
+	return e, nil
 }

@@ -13,14 +13,16 @@ import (
 var _ biz.SysUserRepo = (*sysUserRepo)(nil)
 
 type sysUserRepo struct {
+	BaseRepo
 	data *Data
 	log  *log.Helper
 }
 
 func NewSysUserRepo(data *Data, logger log.Logger) biz.SysUserRepo {
 	return &sysUserRepo{
-		data: data,
-		log:  log.NewHelper(logger),
+		BaseRepo: NewBaseRepo(data, logger),
+		data:     data,
+		log:      log.NewHelper(logger),
 	}
 }
 

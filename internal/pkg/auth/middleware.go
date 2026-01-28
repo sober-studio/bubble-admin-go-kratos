@@ -2,8 +2,12 @@ package auth
 
 import (
 	"context"
+	"strconv"
 
+	"github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/middleware"
+	"github.com/go-kratos/kratos/v2/middleware/auth/jwt"
+	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/auth/model"
 )
 
 // PathAccessConfig 路径访问配置
@@ -73,6 +77,35 @@ func JWTRecheck(tokenService TokenService) middleware.Middleware {
 			// TODO：引入黑名单机制，确保 token 的签发时间在执行需要重新登录的操作时间之后
 			// 验证通过，继续处理
 			return handler(ctx, req)
+		}
+	}
+}
+
+func IdentityMiddleware() middleware.Middleware {
+	return func(handler middleware.Handler) middleware.Handler {
+		return func(ctx context.Context, req interface{}) (interface{}, error) {
+			// 1. 调用 Kratos JWT 标准库的方法获取 Claims (断言一次)
+			claims, ok := jwt.FromContext(ctx)
+			if !ok {
+				return nil, errors.Unauthorized("UNAUTHORIZED", "无效的令牌")
+			}
+
+			// 2. 这里的 claims 是你定义的 MyClaims 结构体
+			customClaims := claims.(*model.CustomClaims)
+			userID, err := strconv.ParseInt(customClaims.Subject, 10, 64)
+			if err != nil {
+				return nil, errors.Unauthorized("UNAUTHORIZED", "无效的令牌")
+			}
+
+			// 3. 将这些分散的字段，通过我们 pkg/auth/context.go 的工具函数注入
+			// 后面所有的中间件直接调用 auth.GetUserID(ctx) 即可，不再需要解析 JWT
+			newCtx := NewContext(ctx, ContextInfo{
+				UserID:   userID,
+				TenantID: customClaims.TenantID,
+				DeptID:   customClaims.DeptID,
+			})
+
+			return handler(newCtx, req)
 		}
 	}
 }

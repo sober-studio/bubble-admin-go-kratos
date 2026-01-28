@@ -86,26 +86,6 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.LogoutReply'
-    /passport/register:
-        post:
-            tags:
-                - Passport
-            summary: 用户注册
-            description: 用户注册
-            operationId: Passport_Register
-            requestBody:
-                content:
-                    application/json:
-                        schema:
-                            $ref: '#/components/schemas/api.passport.v1.RegisterRequest'
-                required: true
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/api.passport.v1.RegisterReply'
     /passport/reset-password:
         post:
             tags:
@@ -299,35 +279,6 @@ components:
             type: object
             properties: {}
             description: ========== 用户退出 ==========
-        api.passport.v1.RegisterReply:
-            type: object
-            properties:
-                token:
-                    type: string
-                    description: 登录凭证
-        api.passport.v1.RegisterRequest:
-            required:
-                - username
-                - password
-                - confirm_password
-            type: object
-            properties:
-                username:
-                    type: string
-                    description: 用户名，3-20位字符
-                password:
-                    type: string
-                    description: 密码，6-20位字符
-                confirm_password:
-                    type: string
-                    description: 确认密码，6-20位字符
-                mobile:
-                    type: string
-                    description: 手机号，11位数字，选填
-                code:
-                    type: string
-                    description: 验证码，4-6位字符，选填
-            description: ========== 用户注册 ==========
         api.passport.v1.ResetPasswordReply:
             type: object
             properties: {}
@@ -401,6 +352,15 @@ components:
                     type: integer
                     description: 状态：0=禁用，1=正常
                     format: int32
+                id:
+                    type: string
+                    description: 用户ID
+                dept_id:
+                    type: string
+                    description: 部门ID
+                tenant_id:
+                    type: string
+                    description: 租户ID
         api.public.v1.GetCaptchaReply:
             type: object
             properties:
