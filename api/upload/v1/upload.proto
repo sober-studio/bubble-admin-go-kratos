@@ -16,7 +16,7 @@ service Upload {
 	// 上传文件
 	rpc UploadFile (UploadFileRequest) returns (UploadFileReply) {
 		option (google.api.http) = {
-			post: "/upload"
+			post: "/api/v1/upload"
 			body: "*"
 		};
 		option(openapi.v3.operation) = {

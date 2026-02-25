@@ -28,7 +28,7 @@ type UploadHTTPServer interface {
 
 func RegisterUploadHTTPServer(s *http.Server, srv UploadHTTPServer) {
 	r := s.Route("/")
-	r.POST("/upload", _Upload_UploadFile0_HTTP_Handler(srv))
+	r.POST("/api/v1/upload", _Upload_UploadFile0_HTTP_Handler(srv))
 }
 
 func _Upload_UploadFile0_HTTP_Handler(srv UploadHTTPServer) func(ctx http.Context) error {
@@ -69,7 +69,7 @@ func NewUploadHTTPClient(client *http.Client) UploadHTTPClient {
 // UploadFile 上传文件
 func (c *UploadHTTPClientImpl) UploadFile(ctx context.Context, in *UploadFileRequest, opts ...http.CallOption) (*UploadFileReply, error) {
 	var out UploadFileReply
-	pattern := "/upload"
+	pattern := "/api/v1/upload"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationUploadUploadFile))
 	opts = append(opts, http.PathTemplate(pattern))

@@ -49,14 +49,14 @@ type PassportHTTPServer interface {
 
 func RegisterPassportHTTPServer(s *http.Server, srv PassportHTTPServer) {
 	r := s.Route("/")
-	r.POST("/passport/login/password", _Passport_LoginByPassword0_HTTP_Handler(srv))
-	r.POST("/passport/login/otp", _Passport_LoginByOtp0_HTTP_Handler(srv))
-	r.POST("/passport/logout", _Passport_Logout0_HTTP_Handler(srv))
-	r.GET("/passport/user-info", _Passport_UserInfo0_HTTP_Handler(srv))
-	r.POST("/passport/update-password", _Passport_UpdatePassword0_HTTP_Handler(srv))
-	r.POST("/passport/bind-mobile", _Passport_BindMobile0_HTTP_Handler(srv))
-	r.POST("/passport/update-mobile", _Passport_UpdateMobile0_HTTP_Handler(srv))
-	r.POST("/passport/reset-password", _Passport_ResetPassword0_HTTP_Handler(srv))
+	r.POST("/api/v1/passport/login/password", _Passport_LoginByPassword0_HTTP_Handler(srv))
+	r.POST("/api/v1/passport/login/otp", _Passport_LoginByOtp0_HTTP_Handler(srv))
+	r.POST("/api/v1/passport/logout", _Passport_Logout0_HTTP_Handler(srv))
+	r.GET("/api/v1/passport/user-info", _Passport_UserInfo0_HTTP_Handler(srv))
+	r.POST("/api/v1/passport/update-password", _Passport_UpdatePassword0_HTTP_Handler(srv))
+	r.POST("/api/v1/passport/bind-mobile", _Passport_BindMobile0_HTTP_Handler(srv))
+	r.POST("/api/v1/passport/update-mobile", _Passport_UpdateMobile0_HTTP_Handler(srv))
+	r.POST("/api/v1/passport/reset-password", _Passport_ResetPassword0_HTTP_Handler(srv))
 }
 
 func _Passport_LoginByPassword0_HTTP_Handler(srv PassportHTTPServer) func(ctx http.Context) error {
@@ -262,7 +262,7 @@ func NewPassportHTTPClient(client *http.Client) PassportHTTPClient {
 // BindMobile 绑定手机号
 func (c *PassportHTTPClientImpl) BindMobile(ctx context.Context, in *BindMobileRequest, opts ...http.CallOption) (*BindMobileReply, error) {
 	var out BindMobileReply
-	pattern := "/passport/bind-mobile"
+	pattern := "/api/v1/passport/bind-mobile"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPassportBindMobile))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -276,7 +276,7 @@ func (c *PassportHTTPClientImpl) BindMobile(ctx context.Context, in *BindMobileR
 // LoginByOtp 验证码登录
 func (c *PassportHTTPClientImpl) LoginByOtp(ctx context.Context, in *LoginByOtpRequest, opts ...http.CallOption) (*LoginReply, error) {
 	var out LoginReply
-	pattern := "/passport/login/otp"
+	pattern := "/api/v1/passport/login/otp"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPassportLoginByOtp))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -290,7 +290,7 @@ func (c *PassportHTTPClientImpl) LoginByOtp(ctx context.Context, in *LoginByOtpR
 // LoginByPassword 密码登录
 func (c *PassportHTTPClientImpl) LoginByPassword(ctx context.Context, in *LoginByPasswordRequest, opts ...http.CallOption) (*LoginReply, error) {
 	var out LoginReply
-	pattern := "/passport/login/password"
+	pattern := "/api/v1/passport/login/password"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPassportLoginByPassword))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -304,7 +304,7 @@ func (c *PassportHTTPClientImpl) LoginByPassword(ctx context.Context, in *LoginB
 // Logout 用户退出
 func (c *PassportHTTPClientImpl) Logout(ctx context.Context, in *LogoutRequest, opts ...http.CallOption) (*LogoutReply, error) {
 	var out LogoutReply
-	pattern := "/passport/logout"
+	pattern := "/api/v1/passport/logout"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPassportLogout))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -318,7 +318,7 @@ func (c *PassportHTTPClientImpl) Logout(ctx context.Context, in *LogoutRequest, 
 // ResetPassword 找回密码
 func (c *PassportHTTPClientImpl) ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...http.CallOption) (*ResetPasswordReply, error) {
 	var out ResetPasswordReply
-	pattern := "/passport/reset-password"
+	pattern := "/api/v1/passport/reset-password"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPassportResetPassword))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -332,7 +332,7 @@ func (c *PassportHTTPClientImpl) ResetPassword(ctx context.Context, in *ResetPas
 // UpdateMobile 修改绑定手机号
 func (c *PassportHTTPClientImpl) UpdateMobile(ctx context.Context, in *UpdateMobileRequest, opts ...http.CallOption) (*UpdateMobileReply, error) {
 	var out UpdateMobileReply
-	pattern := "/passport/update-mobile"
+	pattern := "/api/v1/passport/update-mobile"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPassportUpdateMobile))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -346,7 +346,7 @@ func (c *PassportHTTPClientImpl) UpdateMobile(ctx context.Context, in *UpdateMob
 // UpdatePassword 修改密码
 func (c *PassportHTTPClientImpl) UpdatePassword(ctx context.Context, in *UpdatePasswordRequest, opts ...http.CallOption) (*UpdatePasswordReply, error) {
 	var out UpdatePasswordReply
-	pattern := "/passport/update-password"
+	pattern := "/api/v1/passport/update-password"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPassportUpdatePassword))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -360,7 +360,7 @@ func (c *PassportHTTPClientImpl) UpdatePassword(ctx context.Context, in *UpdateP
 // UserInfo 获取用户信息
 func (c *PassportHTTPClientImpl) UserInfo(ctx context.Context, in *UserInfoRequest, opts ...http.CallOption) (*UserInfoReply, error) {
 	var out UserInfoReply
-	pattern := "/passport/user-info"
+	pattern := "/api/v1/passport/user-info"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationPassportUserInfo))
 	opts = append(opts, http.PathTemplate(pattern))

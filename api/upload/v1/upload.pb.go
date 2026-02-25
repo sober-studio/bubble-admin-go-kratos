@@ -238,10 +238,10 @@ const file_api_upload_v1_upload_proto_rawDesc = "" +
 	"\vuploaded_at\x18\x05 \x01(\x03B0\xbaG-\x92\x02*文件上传完成的时间戳，单位秒R\vuploaded_at*3\n" +
 	"\vUploadScene\x12\x11\n" +
 	"\rUPLOAD_COMMON\x10\x00\x12\x11\n" +
-	"\rUPLOAD_AVATAR\x10\x012\xde\x01\n" +
-	"\x06Upload\x12\xd3\x01\n" +
+	"\rUPLOAD_AVATAR\x10\x012\xe5\x01\n" +
+	"\x06Upload\x12\xda\x01\n" +
 	"\n" +
-	"UploadFile\x12 .api.upload.v1.UploadFileRequest\x1a\x1e.api.upload.v1.UploadFileReply\"\x82\x01\xbaGm\x12\f上传文件\x1a]支持多种场景的文件上传，根据场景类型自动配置存储路径和访问权限\x82\xd3\xe4\x93\x02\f:\x01*\"\a/uploadBR\n" +
+	"UploadFile\x12 .api.upload.v1.UploadFileRequest\x1a\x1e.api.upload.v1.UploadFileReply\"\x89\x01\xbaGm\x12\f上传文件\x1a]支持多种场景的文件上传，根据场景类型自动配置存储路径和访问权限\x82\xd3\xe4\x93\x02\x13:\x01*\"\x0e/api/v1/uploadBR\n" +
 	"\rapi.upload.v1P\x01Z?github.com/sober-studio/bubble-admin-go-kratos/api/upload/v1;v1b\x06proto3"
 
 var (

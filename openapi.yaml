@@ -6,7 +6,7 @@ info:
     title: ""
     version: 0.0.1
 paths:
-    /passport/bind-mobile:
+    /api/v1/passport/bind-mobile:
         post:
             tags:
                 - Passport
@@ -26,7 +26,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.BindMobileReply'
-    /passport/login/otp:
+    /api/v1/passport/login/otp:
         post:
             tags:
                 - Passport
@@ -46,7 +46,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.LoginReply'
-    /passport/login/password:
+    /api/v1/passport/login/password:
         post:
             tags:
                 - Passport
@@ -66,7 +66,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.LoginReply'
-    /passport/logout:
+    /api/v1/passport/logout:
         post:
             tags:
                 - Passport
@@ -86,7 +86,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.LogoutReply'
-    /passport/reset-password:
+    /api/v1/passport/reset-password:
         post:
             tags:
                 - Passport
@@ -106,7 +106,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.ResetPasswordReply'
-    /passport/update-mobile:
+    /api/v1/passport/update-mobile:
         post:
             tags:
                 - Passport
@@ -126,7 +126,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.UpdateMobileReply'
-    /passport/update-password:
+    /api/v1/passport/update-password:
         post:
             tags:
                 - Passport
@@ -146,7 +146,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.UpdatePasswordReply'
-    /passport/user-info:
+    /api/v1/passport/user-info:
         get:
             tags:
                 - Passport
@@ -160,7 +160,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.UserInfoReply'
-    /public/captcha:
+    /api/v1/public/captcha:
         get:
             tags:
                 - Public
@@ -174,7 +174,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.public.v1.GetCaptchaReply'
-    /public/otp/sms:
+    /api/v1/public/otp/sms:
         post:
             tags:
                 - Public
@@ -194,7 +194,7 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.public.v1.SendSmsOtpReply'
-    /upload:
+    /api/v1/upload:
         post:
             tags:
                 - Upload

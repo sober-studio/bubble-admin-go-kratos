@@ -15,7 +15,7 @@ service Passport {
 	// 密码登录
 	rpc LoginByPassword (LoginByPasswordRequest) returns (LoginReply) {
 		option (google.api.http) = {
-			post: "/passport/login/password"
+			post: "/api/v1/passport/login/password"
 			body: "*"
 		};
 		option(openapi.v3.operation) = {
@@ -26,7 +26,7 @@ service Passport {
 	// 验证码登录
 	rpc LoginByOtp (LoginByOtpRequest) returns (LoginReply) {
 		option (google.api.http) = {
-			post: "/passport/login/otp"
+			post: "/api/v1/passport/login/otp"
 			body: "*"
 		};
 		option(openapi.v3.operation) = {
@@ -37,7 +37,7 @@ service Passport {
 	// 用户退出
 	rpc Logout (LogoutRequest) returns (LogoutReply) {
 		option (google.api.http) = {
-			post: "/passport/logout"
+			post: "/api/v1/passport/logout"
 			body: "*"
 		};
 		option(openapi.v3.operation) = {
@@ -48,7 +48,7 @@ service Passport {
 	// 获取用户信息
 	rpc UserInfo (UserInfoRequest) returns (UserInfoReply) {
 		option (google.api.http) = {
-			get: "/passport/user-info"
+			get: "/api/v1/passport/user-info"
 		};
 		option(openapi.v3.operation) = {
 			summary: "获取用户信息"
@@ -58,7 +58,7 @@ service Passport {
 	// 修改密码
 	rpc UpdatePassword (UpdatePasswordRequest) returns (UpdatePasswordReply) {
 		option (google.api.http) = {
-			post: "/passport/update-password"
+			post: "/api/v1/passport/update-password"
 			body: "*"
 		};
 		option(openapi.v3.operation) = {
@@ -69,7 +69,7 @@ service Passport {
 	// 绑定手机号
 	rpc BindMobile (BindMobileRequest) returns (BindMobileReply) {
 		option (google.api.http) = {
-			post: "/passport/bind-mobile"
+			post: "/api/v1/passport/bind-mobile"
 			body: "*"
 		};
 		option(openapi.v3.operation) = {
@@ -80,7 +80,7 @@ service Passport {
 	// 修改绑定手机号
 	rpc UpdateMobile (UpdateMobileRequest) returns (UpdateMobileReply) {
 		option (google.api.http) = {
-			post: "/passport/update-mobile"
+			post: "/api/v1/passport/update-mobile"
 			body: "*"
 		};
 		option(openapi.v3.operation) = {
@@ -91,7 +91,7 @@ service Passport {
 	// 找回密码
 	rpc ResetPassword (ResetPasswordRequest) returns (ResetPasswordReply) {
 		option (google.api.http) = {
-			post: "/passport/reset-password"
+			post: "/api/v1/passport/reset-password"
 			body: "*"
 		};
 		option(openapi.v3.operation) = {

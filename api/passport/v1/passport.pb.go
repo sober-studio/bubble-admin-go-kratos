@@ -835,18 +835,18 @@ const file_api_passport_v1_passport_proto_rawDesc = "" +
 	"\bsms_code\x18\x02 \x01(\tB1\xe2A\x01\x02\xfaB\x06r\x04\x10\x04\x18\x06\xbaG!\x92\x02\x1e短信验证码，4-6位字符R\bsms_code\x12P\n" +
 	"\fnew_password\x18\x03 \x01(\tB,\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14\xbaG\x1c\x92\x02\x19新密码，6-20位字符R\fnew_password\x12^\n" +
 	"\x10confirm_password\x18\x04 \x01(\tB2\xe2A\x01\x02\xfaB\x06r\x04\x10\x06\x18\x14\xbaG\"\x92\x02\x1f确认新密码，6-20位字符R\x10confirm_password\"\x14\n" +
-	"\x12ResetPasswordReply2\xe7\b\n" +
-	"\bPassport\x12\x8d\x01\n" +
-	"\x0fLoginByPassword\x12'.api.passport.v1.LoginByPasswordRequest\x1a\x1b.api.passport.v1.LoginReply\"4\xbaG\x0e\x12\f密码登录\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/passport/login/password\x12\x81\x01\n" +
+	"\x12ResetPasswordReply2\x9f\t\n" +
+	"\bPassport\x12\x94\x01\n" +
+	"\x0fLoginByPassword\x12'.api.passport.v1.LoginByPasswordRequest\x1a\x1b.api.passport.v1.LoginReply\";\xbaG\x0e\x12\f密码登录\x82\xd3\xe4\x93\x02$:\x01*\"\x1f/api/v1/passport/login/password\x12\x88\x01\n" +
 	"\n" +
-	"LoginByOtp\x12\".api.passport.v1.LoginByOtpRequest\x1a\x1b.api.passport.v1.LoginReply\"2\xbaG\x11\x12\x0f验证码登录\x82\xd3\xe4\x93\x02\x18:\x01*\"\x13/passport/login/otp\x12t\n" +
-	"\x06Logout\x12\x1e.api.passport.v1.LogoutRequest\x1a\x1c.api.passport.v1.LogoutReply\",\xbaG\x0e\x12\f用户退出\x82\xd3\xe4\x93\x02\x15:\x01*\"\x10/passport/logout\x12\x80\x01\n" +
-	"\bUserInfo\x12 .api.passport.v1.UserInfoRequest\x1a\x1e.api.passport.v1.UserInfoReply\"2\xbaG\x14\x12\x12获取用户信息\x82\xd3\xe4\x93\x02\x15\x12\x13/passport/user-info\x12\x95\x01\n" +
-	"\x0eUpdatePassword\x12&.api.passport.v1.UpdatePasswordRequest\x1a$.api.passport.v1.UpdatePasswordReply\"5\xbaG\x0e\x12\f修改密码\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/passport/update-password\x12\x88\x01\n" +
+	"LoginByOtp\x12\".api.passport.v1.LoginByOtpRequest\x1a\x1b.api.passport.v1.LoginReply\"9\xbaG\x11\x12\x0f验证码登录\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/passport/login/otp\x12{\n" +
+	"\x06Logout\x12\x1e.api.passport.v1.LogoutRequest\x1a\x1c.api.passport.v1.LogoutReply\"3\xbaG\x0e\x12\f用户退出\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/api/v1/passport/logout\x12\x87\x01\n" +
+	"\bUserInfo\x12 .api.passport.v1.UserInfoRequest\x1a\x1e.api.passport.v1.UserInfoReply\"9\xbaG\x14\x12\x12获取用户信息\x82\xd3\xe4\x93\x02\x1c\x12\x1a/api/v1/passport/user-info\x12\x9c\x01\n" +
+	"\x0eUpdatePassword\x12&.api.passport.v1.UpdatePasswordRequest\x1a$.api.passport.v1.UpdatePasswordReply\"<\xbaG\x0e\x12\f修改密码\x82\xd3\xe4\x93\x02%:\x01*\" /api/v1/passport/update-password\x12\x8f\x01\n" +
 	"\n" +
-	"BindMobile\x12\".api.passport.v1.BindMobileRequest\x1a .api.passport.v1.BindMobileReply\"4\xbaG\x11\x12\x0f绑定手机号\x82\xd3\xe4\x93\x02\x1a:\x01*\"\x15/passport/bind-mobile\x12\x96\x01\n" +
-	"\fUpdateMobile\x12$.api.passport.v1.UpdateMobileRequest\x1a\".api.passport.v1.UpdateMobileReply\"<\xbaG\x17\x12\x15修改绑定手机号\x82\xd3\xe4\x93\x02\x1c:\x01*\"\x17/passport/update-mobile\x12\x91\x01\n" +
-	"\rResetPassword\x12%.api.passport.v1.ResetPasswordRequest\x1a#.api.passport.v1.ResetPasswordReply\"4\xbaG\x0e\x12\f找回密码\x82\xd3\xe4\x93\x02\x1d:\x01*\"\x18/passport/reset-passwordBV\n" +
+	"BindMobile\x12\".api.passport.v1.BindMobileRequest\x1a .api.passport.v1.BindMobileReply\";\xbaG\x11\x12\x0f绑定手机号\x82\xd3\xe4\x93\x02!:\x01*\"\x1c/api/v1/passport/bind-mobile\x12\x9d\x01\n" +
+	"\fUpdateMobile\x12$.api.passport.v1.UpdateMobileRequest\x1a\".api.passport.v1.UpdateMobileReply\"C\xbaG\x17\x12\x15修改绑定手机号\x82\xd3\xe4\x93\x02#:\x01*\"\x1e/api/v1/passport/update-mobile\x12\x98\x01\n" +
+	"\rResetPassword\x12%.api.passport.v1.ResetPasswordRequest\x1a#.api.passport.v1.ResetPasswordReply\";\xbaG\x0e\x12\f找回密码\x82\xd3\xe4\x93\x02$:\x01*\"\x1f/api/v1/passport/reset-passwordBV\n" +
 	"\x0fapi.passport.v1P\x01ZAgithub.com/sober-studio/bubble-admin-go-kratos/api/passport/v1;v1b\x06proto3"
 
 var (

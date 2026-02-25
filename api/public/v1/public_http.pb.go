@@ -31,8 +31,8 @@ type PublicHTTPServer interface {
 
 func RegisterPublicHTTPServer(s *http.Server, srv PublicHTTPServer) {
 	r := s.Route("/")
-	r.GET("/public/captcha", _Public_GetCaptcha0_HTTP_Handler(srv))
-	r.POST("/public/otp/sms", _Public_SendSmsOtp0_HTTP_Handler(srv))
+	r.GET("/api/v1/public/captcha", _Public_GetCaptcha0_HTTP_Handler(srv))
+	r.POST("/api/v1/public/otp/sms", _Public_SendSmsOtp0_HTTP_Handler(srv))
 }
 
 func _Public_GetCaptcha0_HTTP_Handler(srv PublicHTTPServer) func(ctx http.Context) error {
@@ -94,7 +94,7 @@ func NewPublicHTTPClient(client *http.Client) PublicHTTPClient {
 // GetCaptcha 获取图形验证码
 func (c *PublicHTTPClientImpl) GetCaptcha(ctx context.Context, in *GetCaptchaRequest, opts ...http.CallOption) (*GetCaptchaReply, error) {
 	var out GetCaptchaReply
-	pattern := "/public/captcha"
+	pattern := "/api/v1/public/captcha"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationPublicGetCaptcha))
 	opts = append(opts, http.PathTemplate(pattern))
@@ -108,7 +108,7 @@ func (c *PublicHTTPClientImpl) GetCaptcha(ctx context.Context, in *GetCaptchaReq
 // SendSmsOtp 获取短信验证码
 func (c *PublicHTTPClientImpl) SendSmsOtp(ctx context.Context, in *SendSmsOtpRequest, opts ...http.CallOption) (*SendSmsOtpReply, error) {
 	var out SendSmsOtpReply
-	pattern := "/public/otp/sms"
+	pattern := "/api/v1/public/otp/sms"
 	path := binding.EncodeURL(pattern, in, false)
 	opts = append(opts, http.Operation(OperationPublicSendSmsOtp))
 	opts = append(opts, http.PathTemplate(pattern))

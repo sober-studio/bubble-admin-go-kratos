@@ -15,7 +15,7 @@ service Public {
 	// 获取图形验证码
 	rpc GetCaptcha (GetCaptchaRequest) returns (GetCaptchaReply) {
 		option (google.api.http) = {
-			get: "/public/captcha"
+			get: "/api/v1/public/captcha"
 		};
 		option(openapi.v3.operation) = {
 			summary: "获取图形验证码"
@@ -25,7 +25,7 @@ service Public {
 	// 获取短信验证码
 	rpc SendSmsOtp (SendSmsOtpRequest) returns (SendSmsOtpReply) {
 		option (google.api.http) = {
-			post: "/public/otp/sms"
+			post: "/api/v1/public/otp/sms"
 			body: "*"
 		};
 		option(openapi.v3.operation) = {

@@ -319,12 +319,12 @@ const file_api_public_v1_public_proto_rawDesc = "" +
 	"\bREGISTER\x10\x01\x12\t\n" +
 	"\x05LOGIN\x10\x02\x12\b\n" +
 	"\x04BIND\x10\x03\x12\t\n" +
-	"\x05RESET\x10\x042\x93\x02\n" +
-	"\x06Public\x12\x81\x01\n" +
+	"\x05RESET\x10\x042\xa1\x02\n" +
+	"\x06Public\x12\x88\x01\n" +
 	"\n" +
-	"GetCaptcha\x12 .api.public.v1.GetCaptchaRequest\x1a\x1e.api.public.v1.GetCaptchaReply\"1\xbaG\x17\x12\x15获取图形验证码\x82\xd3\xe4\x93\x02\x11\x12\x0f/public/captcha\x12\x84\x01\n" +
+	"GetCaptcha\x12 .api.public.v1.GetCaptchaRequest\x1a\x1e.api.public.v1.GetCaptchaReply\"8\xbaG\x17\x12\x15获取图形验证码\x82\xd3\xe4\x93\x02\x18\x12\x16/api/v1/public/captcha\x12\x8b\x01\n" +
 	"\n" +
-	"SendSmsOtp\x12 .api.public.v1.SendSmsOtpRequest\x1a\x1e.api.public.v1.SendSmsOtpReply\"4\xbaG\x17\x12\x15获取短信验证码\x82\xd3\xe4\x93\x02\x14:\x01*\"\x0f/public/otp/smsBR\n" +
+	"SendSmsOtp\x12 .api.public.v1.SendSmsOtpRequest\x1a\x1e.api.public.v1.SendSmsOtpReply\";\xbaG\x17\x12\x15获取短信验证码\x82\xd3\xe4\x93\x02\x1b:\x01*\"\x16/api/v1/public/otp/smsBR\n" +
 	"\rapi.public.v1P\x01Z?github.com/sober-studio/bubble-admin-go-kratos/api/public/v1;v1b\x06proto3"
 
 var (
