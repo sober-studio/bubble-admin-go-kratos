@@ -12,6 +12,7 @@ import (
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/conf"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/data/model"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/data/query"
+	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/datascope"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/idgen"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/idgen/snowflake"
 	"gorm.io/driver/mysql"
@@ -58,6 +59,10 @@ type Data struct {
 
 // NewData .
 func NewData(c *conf.Data, logger log.Logger, db *gorm.DB, rdb *redis.Client, _ idgen.IDGenerator) (*Data, func(), error) {
+	// 注册数据范围 GORM Hook
+	// 在数据库初始化完成后、AutoMigrate 之前注册
+	datascope.RegisterHooks(db)
+
 	cleanup := func() {
 		log.NewHelper(logger).Info("closing the data resources")
 		// GORM 不需要手动关闭连接池（由 Go 标准库 sql.DB 管理）
