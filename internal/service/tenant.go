@@ -5,6 +5,7 @@ import (
 
 	pb "github.com/sober-studio/bubble-admin-go-kratos/api/tenant/v1"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/biz"
+	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/datascope"
 )
 
 type TenantService struct {
@@ -26,6 +27,8 @@ func (s *TenantService) List(ctx context.Context, req *pb.TenantListRequest) (*p
 		pageSize = 10
 	}
 
+	// 租户表没有 tenant_id 字段，需要禁用租户隔离
+	ctx = datascope.WithConfig(ctx, datascope.Config{DisableTenant: true})
 	list, total, err := s.uc.List(ctx, req.Name, req.Code, req.Status, page, pageSize)
 	if err != nil {
 		return nil, err
@@ -38,6 +41,8 @@ func (s *TenantService) List(ctx context.Context, req *pb.TenantListRequest) (*p
 }
 
 func (s *TenantService) Get(ctx context.Context, req *pb.TenantGetRequest) (*pb.TenantGetReply, error) {
+	// 租户表没有 tenant_id 字段，需要禁用租户隔离
+	ctx = datascope.WithConfig(ctx, datascope.Config{DisableTenant: true})
 	tenant, packageID, packageName, err := s.uc.GetByID(ctx, req.Id)
 	if err != nil {
 		return nil, err

@@ -6,6 +6,7 @@ import (
 	pb "github.com/sober-studio/bubble-admin-go-kratos/api/package/v1"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/biz"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/auth"
+	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/datascope"
 )
 
 type PackageService struct {
@@ -27,6 +28,8 @@ func (s *PackageService) List(ctx context.Context, req *pb.PackageListRequest) (
 		pageSize = 10
 	}
 
+	// 套餐不属手租户，需要禁用租户隔离
+	ctx = datascope.WithConfig(ctx, datascope.Config{DisableTenant: true})
 	list, total, err := s.uc.List(ctx, req.Name, req.Status, page, pageSize)
 	if err != nil {
 		return nil, err
@@ -39,6 +42,8 @@ func (s *PackageService) List(ctx context.Context, req *pb.PackageListRequest) (
 }
 
 func (s *PackageService) Get(ctx context.Context, req *pb.PackageGetRequest) (*pb.PackageGetReply, error) {
+	// 套餐不属手租户，需要禁用租户隔离
+	ctx = datascope.WithConfig(ctx, datascope.Config{DisableTenant: true})
 	pkg, permIDs, err := s.uc.GetByID(ctx, req.Id)
 	if err != nil {
 		return nil, err
