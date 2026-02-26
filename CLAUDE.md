@@ -81,3 +81,29 @@ Main configuration in `configs/config.yaml`. Key sections:
 - `data.redis`: Redis connection
 - `app.auth`: JWT settings, public paths, token expiration
 - `app.enable_multi_tenant`: Enable/disable multi-tenant mode
+
+## Database Initialization
+
+When working on features that require initial data (permissions, roles, etc.), **always check the database first** using the PostgreSQL MCP tool to understand the existing data structure before providing SQL insert statements.
+
+### Workflow for Missing Data Issues
+
+1. Use `mcp__postgres__query` to query existing data (e.g., `sys_permission`, `sys_role_permission` tables)
+2. Compare with code to identify missing records
+3. Provide targeted INSERT statements for the user to execute
+
+### Example Queries
+
+```sql
+-- Check existing permissions
+SELECT id, parent_id, name, code, type, api_path FROM sys_permission ORDER BY id;
+
+-- Check role-permission bindings
+SELECT rp.role_id, rp.permission_id, r.code as role_code, p.code as perm_code
+FROM sys_role_permission rp
+LEFT JOIN sys_role r ON rp.role_id = r.id
+LEFT JOIN sys_permission p ON rp.permission_id = p.id;
+
+-- Check table structure
+SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'table_name';
+```
