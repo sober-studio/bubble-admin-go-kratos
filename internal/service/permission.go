@@ -17,6 +17,22 @@ func NewPermissionService(uc *biz.PermissionUseCase) *PermissionService {
 	return &PermissionService{uc: uc}
 }
 
+func (s *PermissionService) GetUserMenu(ctx context.Context, req *pb.GetUserMenuRequest) (*pb.GetUserMenuReply, error) {
+	// 从 JWT token 获取用户ID
+	userID := auth.GetUserID(ctx)
+	tenantID := auth.GetTenantID(ctx)
+
+	// 获取用户菜单
+	menus, err := s.uc.GetUserMenuByUserID(ctx, userID, tenantID)
+	if err != nil {
+		return nil, err
+	}
+
+	return &pb.GetUserMenuReply{
+		List: s.convertToMenuItems(menus),
+	}, nil
+}
+
 func (s *PermissionService) Tree(ctx context.Context, req *pb.PermissionTreeRequest) (*pb.PermissionTreeReply, error) {
 	list, err := s.uc.List(ctx)
 	if err != nil {
@@ -88,6 +104,15 @@ func (s *PermissionService) convertToEntity(perm *biz.SysPermission) *pb.Permiss
 		Sort:       perm.Sort,
 		CreatedAt:  perm.CreatedAt,
 		Children:   s.convertToEntities(perm.Children),
+		Path:       perm.Path,
+		Component:  perm.Component,
+		Redirect:   perm.Redirect,
+		Icon:       perm.Icon,
+		OrderNo:    perm.OrderNo,
+		Hidden:     perm.Hidden,
+		KeepAlive:  perm.KeepAlive,
+		FrameSrc:   perm.FrameSrc,
+		FrameBlank: perm.FrameBlank,
 	}
 }
 
@@ -97,4 +122,34 @@ func (s *PermissionService) convertToEntities(perms []*biz.SysPermission) []*pb.
 		result[i] = s.convertToEntity(perms[i])
 	}
 	return result
+}
+
+func (s *PermissionService) convertToMenuItems(perms []*biz.SysPermission) []*pb.MenuItem {
+	result := make([]*pb.MenuItem, len(perms))
+	for i := range perms {
+		result[i] = s.convertToMenuItem(perms[i])
+	}
+	return result
+}
+
+func (s *PermissionService) convertToMenuItem(perm *biz.SysPermission) *pb.MenuItem {
+	return &pb.MenuItem{
+		Path:      perm.Path,
+		Name:      perm.Name,
+		Component: perm.Component,
+		Redirect:  perm.Redirect,
+		Meta: &pb.MenuMeta{
+			Title: map[string]string{
+				"zh_CN": perm.Name,
+				"en_US": "",
+			},
+			Icon:        perm.Icon,
+			OrderNo:     perm.OrderNo,
+			Hidden:      perm.Hidden,
+			KeepAlive:   perm.KeepAlive,
+			FrameSrc:    perm.FrameSrc,
+			FrameBlank:  perm.FrameBlank,
+		},
+		Children: s.convertToMenuItems(perm.Children),
+	}
 }

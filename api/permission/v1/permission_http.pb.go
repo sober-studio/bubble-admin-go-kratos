@@ -22,6 +22,7 @@ const _ = http.SupportPackageIsVersion1
 const OperationPermissionCreate = "/api.permission.v1.Permission/Create"
 const OperationPermissionDelete = "/api.permission.v1.Permission/Delete"
 const OperationPermissionGet = "/api.permission.v1.Permission/Get"
+const OperationPermissionGetUserMenu = "/api.permission.v1.Permission/GetUserMenu"
 const OperationPermissionTree = "/api.permission.v1.Permission/Tree"
 const OperationPermissionUpdate = "/api.permission.v1.Permission/Update"
 
@@ -32,6 +33,8 @@ type PermissionHTTPServer interface {
 	Delete(context.Context, *PermissionDeleteRequest) (*PermissionDeleteReply, error)
 	// Get 获取权限详情
 	Get(context.Context, *PermissionGetRequest) (*PermissionGetReply, error)
+	// GetUserMenu 获取用户菜单
+	GetUserMenu(context.Context, *GetUserMenuRequest) (*GetUserMenuReply, error)
 	// Tree 获取权限树
 	Tree(context.Context, *PermissionTreeRequest) (*PermissionTreeReply, error)
 	// Update 更新权限
@@ -40,11 +43,31 @@ type PermissionHTTPServer interface {
 
 func RegisterPermissionHTTPServer(s *http.Server, srv PermissionHTTPServer) {
 	r := s.Route("/")
+	r.GET("/api/v1/menu-list", _Permission_GetUserMenu0_HTTP_Handler(srv))
 	r.GET("/api/v1/permission/tree", _Permission_Tree0_HTTP_Handler(srv))
 	r.GET("/api/v1/permission/{id}", _Permission_Get4_HTTP_Handler(srv))
 	r.POST("/api/v1/permission", _Permission_Create4_HTTP_Handler(srv))
 	r.PUT("/api/v1/permission/{id}", _Permission_Update4_HTTP_Handler(srv))
 	r.DELETE("/api/v1/permission/{id}", _Permission_Delete4_HTTP_Handler(srv))
+}
+
+func _Permission_GetUserMenu0_HTTP_Handler(srv PermissionHTTPServer) func(ctx http.Context) error {
+	return func(ctx http.Context) error {
+		var in GetUserMenuRequest
+		if err := ctx.BindQuery(&in); err != nil {
+			return err
+		}
+		http.SetOperation(ctx, OperationPermissionGetUserMenu)
+		h := ctx.Middleware(func(ctx context.Context, req interface{}) (interface{}, error) {
+			return srv.GetUserMenu(ctx, req.(*GetUserMenuRequest))
+		})
+		out, err := h(ctx, &in)
+		if err != nil {
+			return err
+		}
+		reply := out.(*GetUserMenuReply)
+		return ctx.Result(200, reply)
+	}
 }
 
 func _Permission_Tree0_HTTP_Handler(srv PermissionHTTPServer) func(ctx http.Context) error {
@@ -164,6 +187,8 @@ type PermissionHTTPClient interface {
 	Delete(ctx context.Context, req *PermissionDeleteRequest, opts ...http.CallOption) (rsp *PermissionDeleteReply, err error)
 	// Get 获取权限详情
 	Get(ctx context.Context, req *PermissionGetRequest, opts ...http.CallOption) (rsp *PermissionGetReply, err error)
+	// GetUserMenu 获取用户菜单
+	GetUserMenu(ctx context.Context, req *GetUserMenuRequest, opts ...http.CallOption) (rsp *GetUserMenuReply, err error)
 	// Tree 获取权限树
 	Tree(ctx context.Context, req *PermissionTreeRequest, opts ...http.CallOption) (rsp *PermissionTreeReply, err error)
 	// Update 更新权限
@@ -212,6 +237,20 @@ func (c *PermissionHTTPClientImpl) Get(ctx context.Context, in *PermissionGetReq
 	pattern := "/api/v1/permission/{id}"
 	path := binding.EncodeURL(pattern, in, true)
 	opts = append(opts, http.Operation(OperationPermissionGet))
+	opts = append(opts, http.PathTemplate(pattern))
+	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return &out, nil
+}
+
+// GetUserMenu 获取用户菜单
+func (c *PermissionHTTPClientImpl) GetUserMenu(ctx context.Context, in *GetUserMenuRequest, opts ...http.CallOption) (*GetUserMenuReply, error) {
+	var out GetUserMenuReply
+	pattern := "/api/v1/menu-list"
+	path := binding.EncodeURL(pattern, in, true)
+	opts = append(opts, http.Operation(OperationPermissionGetUserMenu))
 	opts = append(opts, http.PathTemplate(pattern))
 	err := c.cc.Invoke(ctx, "GET", path, nil, &out, opts...)
 	if err != nil {

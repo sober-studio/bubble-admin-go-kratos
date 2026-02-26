@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v6.33.2
-// source: package/v1/package.proto
+// source: api/package/v1/package.proto
 
 package v1
 
@@ -40,7 +40,7 @@ type PackageListRequest struct {
 
 func (x *PackageListRequest) Reset() {
 	*x = PackageListRequest{}
-	mi := &file_package_v1_package_proto_msgTypes[0]
+	mi := &file_api_package_v1_package_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -52,7 +52,7 @@ func (x *PackageListRequest) String() string {
 func (*PackageListRequest) ProtoMessage() {}
 
 func (x *PackageListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[0]
+	mi := &file_api_package_v1_package_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -65,7 +65,7 @@ func (x *PackageListRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageListRequest.ProtoReflect.Descriptor instead.
 func (*PackageListRequest) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{0}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *PackageListRequest) GetName() string {
@@ -108,7 +108,7 @@ type PackageListReply struct {
 
 func (x *PackageListReply) Reset() {
 	*x = PackageListReply{}
-	mi := &file_package_v1_package_proto_msgTypes[1]
+	mi := &file_api_package_v1_package_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -120,7 +120,7 @@ func (x *PackageListReply) String() string {
 func (*PackageListReply) ProtoMessage() {}
 
 func (x *PackageListReply) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[1]
+	mi := &file_api_package_v1_package_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -133,7 +133,7 @@ func (x *PackageListReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageListReply.ProtoReflect.Descriptor instead.
 func (*PackageListReply) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{1}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *PackageListReply) GetList() []*PackageEntity {
@@ -161,7 +161,7 @@ type PackageGetRequest struct {
 
 func (x *PackageGetRequest) Reset() {
 	*x = PackageGetRequest{}
-	mi := &file_package_v1_package_proto_msgTypes[2]
+	mi := &file_api_package_v1_package_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -173,7 +173,7 @@ func (x *PackageGetRequest) String() string {
 func (*PackageGetRequest) ProtoMessage() {}
 
 func (x *PackageGetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[2]
+	mi := &file_api_package_v1_package_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -186,7 +186,7 @@ func (x *PackageGetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageGetRequest.ProtoReflect.Descriptor instead.
 func (*PackageGetRequest) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{2}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *PackageGetRequest) GetId() int64 {
@@ -208,7 +208,7 @@ type PackageGetReply struct {
 
 func (x *PackageGetReply) Reset() {
 	*x = PackageGetReply{}
-	mi := &file_package_v1_package_proto_msgTypes[3]
+	mi := &file_api_package_v1_package_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -220,7 +220,7 @@ func (x *PackageGetReply) String() string {
 func (*PackageGetReply) ProtoMessage() {}
 
 func (x *PackageGetReply) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[3]
+	mi := &file_api_package_v1_package_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -233,7 +233,7 @@ func (x *PackageGetReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageGetReply.ProtoReflect.Descriptor instead.
 func (*PackageGetReply) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{3}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *PackageGetReply) GetPkg() *PackageEntity {
@@ -265,7 +265,7 @@ type PackageCreateRequest struct {
 
 func (x *PackageCreateRequest) Reset() {
 	*x = PackageCreateRequest{}
-	mi := &file_package_v1_package_proto_msgTypes[4]
+	mi := &file_api_package_v1_package_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -277,7 +277,7 @@ func (x *PackageCreateRequest) String() string {
 func (*PackageCreateRequest) ProtoMessage() {}
 
 func (x *PackageCreateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[4]
+	mi := &file_api_package_v1_package_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -290,7 +290,7 @@ func (x *PackageCreateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageCreateRequest.ProtoReflect.Descriptor instead.
 func (*PackageCreateRequest) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{4}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *PackageCreateRequest) GetName() string {
@@ -324,7 +324,7 @@ type PackageCreateReply struct {
 
 func (x *PackageCreateReply) Reset() {
 	*x = PackageCreateReply{}
-	mi := &file_package_v1_package_proto_msgTypes[5]
+	mi := &file_api_package_v1_package_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -336,7 +336,7 @@ func (x *PackageCreateReply) String() string {
 func (*PackageCreateReply) ProtoMessage() {}
 
 func (x *PackageCreateReply) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[5]
+	mi := &file_api_package_v1_package_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -349,7 +349,7 @@ func (x *PackageCreateReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageCreateReply.ProtoReflect.Descriptor instead.
 func (*PackageCreateReply) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{5}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *PackageCreateReply) GetId() int64 {
@@ -376,7 +376,7 @@ type PackageUpdateRequest struct {
 
 func (x *PackageUpdateRequest) Reset() {
 	*x = PackageUpdateRequest{}
-	mi := &file_package_v1_package_proto_msgTypes[6]
+	mi := &file_api_package_v1_package_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -388,7 +388,7 @@ func (x *PackageUpdateRequest) String() string {
 func (*PackageUpdateRequest) ProtoMessage() {}
 
 func (x *PackageUpdateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[6]
+	mi := &file_api_package_v1_package_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -401,7 +401,7 @@ func (x *PackageUpdateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageUpdateRequest.ProtoReflect.Descriptor instead.
 func (*PackageUpdateRequest) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{6}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *PackageUpdateRequest) GetId() int64 {
@@ -440,7 +440,7 @@ type PackageUpdateReply struct {
 
 func (x *PackageUpdateReply) Reset() {
 	*x = PackageUpdateReply{}
-	mi := &file_package_v1_package_proto_msgTypes[7]
+	mi := &file_api_package_v1_package_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -452,7 +452,7 @@ func (x *PackageUpdateReply) String() string {
 func (*PackageUpdateReply) ProtoMessage() {}
 
 func (x *PackageUpdateReply) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[7]
+	mi := &file_api_package_v1_package_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -465,7 +465,7 @@ func (x *PackageUpdateReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageUpdateReply.ProtoReflect.Descriptor instead.
 func (*PackageUpdateReply) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{7}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{7}
 }
 
 // ========== 删除套餐 ==========
@@ -479,7 +479,7 @@ type PackageDeleteRequest struct {
 
 func (x *PackageDeleteRequest) Reset() {
 	*x = PackageDeleteRequest{}
-	mi := &file_package_v1_package_proto_msgTypes[8]
+	mi := &file_api_package_v1_package_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -491,7 +491,7 @@ func (x *PackageDeleteRequest) String() string {
 func (*PackageDeleteRequest) ProtoMessage() {}
 
 func (x *PackageDeleteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[8]
+	mi := &file_api_package_v1_package_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -504,7 +504,7 @@ func (x *PackageDeleteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageDeleteRequest.ProtoReflect.Descriptor instead.
 func (*PackageDeleteRequest) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{8}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *PackageDeleteRequest) GetId() int64 {
@@ -522,7 +522,7 @@ type PackageDeleteReply struct {
 
 func (x *PackageDeleteReply) Reset() {
 	*x = PackageDeleteReply{}
-	mi := &file_package_v1_package_proto_msgTypes[9]
+	mi := &file_api_package_v1_package_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -534,7 +534,7 @@ func (x *PackageDeleteReply) String() string {
 func (*PackageDeleteReply) ProtoMessage() {}
 
 func (x *PackageDeleteReply) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[9]
+	mi := &file_api_package_v1_package_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -547,7 +547,7 @@ func (x *PackageDeleteReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageDeleteReply.ProtoReflect.Descriptor instead.
 func (*PackageDeleteReply) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{9}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{9}
 }
 
 // ========== 分配套餐权限 ==========
@@ -563,7 +563,7 @@ type PackageAssignPermissionsRequest struct {
 
 func (x *PackageAssignPermissionsRequest) Reset() {
 	*x = PackageAssignPermissionsRequest{}
-	mi := &file_package_v1_package_proto_msgTypes[10]
+	mi := &file_api_package_v1_package_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -575,7 +575,7 @@ func (x *PackageAssignPermissionsRequest) String() string {
 func (*PackageAssignPermissionsRequest) ProtoMessage() {}
 
 func (x *PackageAssignPermissionsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[10]
+	mi := &file_api_package_v1_package_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -588,7 +588,7 @@ func (x *PackageAssignPermissionsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageAssignPermissionsRequest.ProtoReflect.Descriptor instead.
 func (*PackageAssignPermissionsRequest) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{10}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *PackageAssignPermissionsRequest) GetId() int64 {
@@ -613,7 +613,7 @@ type PackageAssignPermissionsReply struct {
 
 func (x *PackageAssignPermissionsReply) Reset() {
 	*x = PackageAssignPermissionsReply{}
-	mi := &file_package_v1_package_proto_msgTypes[11]
+	mi := &file_api_package_v1_package_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -625,7 +625,7 @@ func (x *PackageAssignPermissionsReply) String() string {
 func (*PackageAssignPermissionsReply) ProtoMessage() {}
 
 func (x *PackageAssignPermissionsReply) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[11]
+	mi := &file_api_package_v1_package_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -638,7 +638,7 @@ func (x *PackageAssignPermissionsReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageAssignPermissionsReply.ProtoReflect.Descriptor instead.
 func (*PackageAssignPermissionsReply) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{11}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{11}
 }
 
 // ========== 套餐实体 ==========
@@ -662,7 +662,7 @@ type PackageEntity struct {
 
 func (x *PackageEntity) Reset() {
 	*x = PackageEntity{}
-	mi := &file_package_v1_package_proto_msgTypes[12]
+	mi := &file_api_package_v1_package_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -674,7 +674,7 @@ func (x *PackageEntity) String() string {
 func (*PackageEntity) ProtoMessage() {}
 
 func (x *PackageEntity) ProtoReflect() protoreflect.Message {
-	mi := &file_package_v1_package_proto_msgTypes[12]
+	mi := &file_api_package_v1_package_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -687,7 +687,7 @@ func (x *PackageEntity) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PackageEntity.ProtoReflect.Descriptor instead.
 func (*PackageEntity) Descriptor() ([]byte, []int) {
-	return file_package_v1_package_proto_rawDescGZIP(), []int{12}
+	return file_api_package_v1_package_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *PackageEntity) GetId() int64 {
@@ -732,11 +732,11 @@ func (x *PackageEntity) GetCreatedAt() int64 {
 	return 0
 }
 
-var File_package_v1_package_proto protoreflect.FileDescriptor
+var File_api_package_v1_package_proto protoreflect.FileDescriptor
 
-const file_package_v1_package_proto_rawDesc = "" +
+const file_api_package_v1_package_proto_rawDesc = "" +
 	"\n" +
-	"\x18package/v1/package.proto\x12\x0eapi.package.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1copenapi/v3/annotations.proto\"\xde\x01\n" +
+	"\x1capi/package/v1/package.proto\x12\x0eapi.package.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1copenapi/v3/annotations.proto\"\xde\x01\n" +
 	"\x12PackageListRequest\x128\n" +
 	"\x04name\x18\x01 \x01(\tB$\xbaG!\x92\x02\x1e套餐名称（模糊查询）R\x04name\x12:\n" +
 	"\x06status\x18\x02 \x01(\x05B\"\xbaG\x1f\x92\x02\x1c状态：0=禁用，1=正常R\x06status\x12 \n" +
@@ -788,19 +788,19 @@ const file_package_v1_package_proto_rawDesc = "" +
 	"\x0eapi.package.v1P\x01Z@github.com/sober-studio/bubble-admin-go-kratos/api/package/v1;v1b\x06proto3"
 
 var (
-	file_package_v1_package_proto_rawDescOnce sync.Once
-	file_package_v1_package_proto_rawDescData []byte
+	file_api_package_v1_package_proto_rawDescOnce sync.Once
+	file_api_package_v1_package_proto_rawDescData []byte
 )
 
-func file_package_v1_package_proto_rawDescGZIP() []byte {
-	file_package_v1_package_proto_rawDescOnce.Do(func() {
-		file_package_v1_package_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_package_v1_package_proto_rawDesc), len(file_package_v1_package_proto_rawDesc)))
+func file_api_package_v1_package_proto_rawDescGZIP() []byte {
+	file_api_package_v1_package_proto_rawDescOnce.Do(func() {
+		file_api_package_v1_package_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_package_v1_package_proto_rawDesc), len(file_api_package_v1_package_proto_rawDesc)))
 	})
-	return file_package_v1_package_proto_rawDescData
+	return file_api_package_v1_package_proto_rawDescData
 }
 
-var file_package_v1_package_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
-var file_package_v1_package_proto_goTypes = []any{
+var file_api_package_v1_package_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
+var file_api_package_v1_package_proto_goTypes = []any{
 	(*PackageListRequest)(nil),              // 0: api.package.v1.PackageListRequest
 	(*PackageListReply)(nil),                // 1: api.package.v1.PackageListReply
 	(*PackageGetRequest)(nil),               // 2: api.package.v1.PackageGetRequest
@@ -815,7 +815,7 @@ var file_package_v1_package_proto_goTypes = []any{
 	(*PackageAssignPermissionsReply)(nil),   // 11: api.package.v1.PackageAssignPermissionsReply
 	(*PackageEntity)(nil),                   // 12: api.package.v1.PackageEntity
 }
-var file_package_v1_package_proto_depIdxs = []int32{
+var file_api_package_v1_package_proto_depIdxs = []int32{
 	12, // 0: api.package.v1.PackageListReply.list:type_name -> api.package.v1.PackageEntity
 	12, // 1: api.package.v1.PackageGetReply.pkg:type_name -> api.package.v1.PackageEntity
 	0,  // 2: api.package.v1.Package.List:input_type -> api.package.v1.PackageListRequest
@@ -837,26 +837,26 @@ var file_package_v1_package_proto_depIdxs = []int32{
 	0,  // [0:2] is the sub-list for field type_name
 }
 
-func init() { file_package_v1_package_proto_init() }
-func file_package_v1_package_proto_init() {
-	if File_package_v1_package_proto != nil {
+func init() { file_api_package_v1_package_proto_init() }
+func file_api_package_v1_package_proto_init() {
+	if File_api_package_v1_package_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_package_v1_package_proto_rawDesc), len(file_package_v1_package_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_package_v1_package_proto_rawDesc), len(file_api_package_v1_package_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   13,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_package_v1_package_proto_goTypes,
-		DependencyIndexes: file_package_v1_package_proto_depIdxs,
-		MessageInfos:      file_package_v1_package_proto_msgTypes,
+		GoTypes:           file_api_package_v1_package_proto_goTypes,
+		DependencyIndexes: file_api_package_v1_package_proto_depIdxs,
+		MessageInfos:      file_api_package_v1_package_proto_msgTypes,
 	}.Build()
-	File_package_v1_package_proto = out.File
-	file_package_v1_package_proto_goTypes = nil
-	file_package_v1_package_proto_depIdxs = nil
+	File_api_package_v1_package_proto = out.File
+	file_api_package_v1_package_proto_goTypes = nil
+	file_api_package_v1_package_proto_depIdxs = nil
 }

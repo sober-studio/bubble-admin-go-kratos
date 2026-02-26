@@ -11,6 +11,16 @@ import "google/api/field_behavior.proto";
 import "openapi/v3/annotations.proto";
 
 service Permission {
+	// 获取用户菜单
+	rpc GetUserMenu (GetUserMenuRequest) returns (GetUserMenuReply) {
+		option (google.api.http) = {
+			get: "/api/v1/menu-list"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取用户菜单"
+		};
+	}
+
 	// 获取权限树
 	rpc Tree (PermissionTreeRequest) returns (PermissionTreeReply) {
 		option (google.api.http) = {
@@ -133,6 +143,51 @@ message PermissionCreateRequest {
 		json_name = "sort",
 		(openapi.v3.property) = { description: "排序" }
 	];
+	// 路由路径
+	string path = 8 [
+		json_name = "path",
+		(openapi.v3.property) = { description: "路由路径" }
+	];
+	// 组件路径
+	string component = 9 [
+		json_name = "component",
+		(openapi.v3.property) = { description: "组件路径" }
+	];
+	// 重定向路径
+	string redirect = 10 [
+		json_name = "redirect",
+		(openapi.v3.property) = { description: "重定向路径" }
+	];
+	// 图标
+	string icon = 11 [
+		json_name = "icon",
+		(openapi.v3.property) = { description: "图标" }
+	];
+	// 排序号
+	int32 order_no = 12 [
+		json_name = "order_no",
+		(openapi.v3.property) = { description: "排序号" }
+	];
+	// 是否隐藏
+	bool hidden = 13 [
+		json_name = "hidden",
+		(openapi.v3.property) = { description: "是否隐藏" }
+	];
+	// 是否缓存
+	bool keep_alive = 14 [
+		json_name = "keep_alive",
+		(openapi.v3.property) = { description: "是否缓存" }
+	];
+	// IFrame地址
+	string frame_src = 15 [
+		json_name = "frame_src",
+		(openapi.v3.property) = { description: "IFrame地址" }
+	];
+	// 是否新窗口
+	bool frame_blank = 16 [
+		json_name = "frame_blank",
+		(openapi.v3.property) = { description: "是否新窗口" }
+	];
 }
 
 message PermissionCreateReply {
@@ -189,6 +244,51 @@ message PermissionUpdateRequest {
 		json_name = "sort",
 		(openapi.v3.property) = { description: "排序" }
 	];
+	// 路由路径
+	string path = 9 [
+		json_name = "path",
+		(openapi.v3.property) = { description: "路由路径" }
+	];
+	// 组件路径
+	string component = 10 [
+		json_name = "component",
+		(openapi.v3.property) = { description: "组件路径" }
+	];
+	// 重定向路径
+	string redirect = 11 [
+		json_name = "redirect",
+		(openapi.v3.property) = { description: "重定向路径" }
+	];
+	// 图标
+	string icon = 12 [
+		json_name = "icon",
+		(openapi.v3.property) = { description: "图标" }
+	];
+	// 排序号
+	int32 order_no = 13 [
+		json_name = "order_no",
+		(openapi.v3.property) = { description: "排序号" }
+	];
+	// 是否隐藏
+	bool hidden = 14 [
+		json_name = "hidden",
+		(openapi.v3.property) = { description: "是否隐藏" }
+	];
+	// 是否缓存
+	bool keep_alive = 15 [
+		json_name = "keep_alive",
+		(openapi.v3.property) = { description: "是否缓存" }
+	];
+	// IFrame地址
+	string frame_src = 16 [
+		json_name = "frame_src",
+		(openapi.v3.property) = { description: "IFrame地址" }
+	];
+	// 是否新窗口
+	bool frame_blank = 17 [
+		json_name = "frame_blank",
+		(openapi.v3.property) = { description: "是否新窗口" }
+	];
 }
 
 message PermissionUpdateReply {}
@@ -204,6 +304,74 @@ message PermissionDeleteRequest {
 }
 
 message PermissionDeleteReply {}
+
+// ========== 获取用户菜单 ==========
+message GetUserMenuRequest {}
+
+message GetUserMenuReply {
+	repeated MenuItem list = 1 [
+		json_name = "list",
+		(openapi.v3.property) = { description: "菜单列表" }
+	];
+}
+
+message MenuItem {
+	string path = 1 [
+		json_name = "path",
+		(openapi.v3.property) = { description: "路由路径" }
+	];
+	string name = 2 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "路由名称" }
+	];
+	string component = 3 [
+		json_name = "component",
+		(openapi.v3.property) = { description: "组件路径" }
+	];
+	string redirect = 4 [
+		json_name = "redirect",
+		(openapi.v3.property) = { description: "重定向路径" }
+	];
+	MenuMeta meta = 5 [
+		json_name = "meta",
+		(openapi.v3.property) = { description: "菜单元信息" }
+	];
+	repeated MenuItem children = 6 [
+		json_name = "children",
+		(openapi.v3.property) = { description: "子菜单" }
+	];
+}
+
+message MenuMeta {
+	map<string, string> title = 1 [
+		json_name = "title",
+		(openapi.v3.property) = { description: "标题(国际化)" }
+	];
+	string icon = 2 [
+		json_name = "icon",
+		(openapi.v3.property) = { description: "图标" }
+	];
+	int32 order_no = 3 [
+		json_name = "orderNo",
+		(openapi.v3.property) = { description: "排序号" }
+	];
+	bool hidden = 4 [
+		json_name = "hidden",
+		(openapi.v3.property) = { description: "是否隐藏" }
+	];
+	bool keep_alive = 5 [
+		json_name = "keepAlive",
+		(openapi.v3.property) = { description: "是否缓存" }
+	];
+	string frame_src = 6 [
+		json_name = "frameSrc",
+		(openapi.v3.property) = { description: "IFrame地址" }
+	];
+	bool frame_blank = 7 [
+		json_name = "frameBlank",
+		(openapi.v3.property) = { description: "是否新窗口" }
+	];
+}
 
 // ========== 权限实体 ==========
 message PermissionEntity {
@@ -256,5 +424,50 @@ message PermissionEntity {
 	repeated PermissionEntity children = 10 [
 		json_name = "children",
 		(openapi.v3.property) = { description: "子权限" }
+	];
+	// 路由路径
+	string path = 11 [
+		json_name = "path",
+		(openapi.v3.property) = { description: "路由路径" }
+	];
+	// 组件路径
+	string component = 12 [
+		json_name = "component",
+		(openapi.v3.property) = { description: "组件路径" }
+	];
+	// 重定向路径
+	string redirect = 13 [
+		json_name = "redirect",
+		(openapi.v3.property) = { description: "重定向路径" }
+	];
+	// 图标
+	string icon = 14 [
+		json_name = "icon",
+		(openapi.v3.property) = { description: "图标" }
+	];
+	// 排序号
+	int32 order_no = 15 [
+		json_name = "order_no",
+		(openapi.v3.property) = { description: "排序号" }
+	];
+	// 是否隐藏
+	bool hidden = 16 [
+		json_name = "hidden",
+		(openapi.v3.property) = { description: "是否隐藏" }
+	];
+	// 是否缓存
+	bool keep_alive = 17 [
+		json_name = "keep_alive",
+		(openapi.v3.property) = { description: "是否缓存" }
+	];
+	// IFrame地址
+	string frame_src = 18 [
+		json_name = "frame_src",
+		(openapi.v3.property) = { description: "IFrame地址" }
+	];
+	// 是否新窗口
+	bool frame_blank = 19 [
+		json_name = "frame_blank",
+		(openapi.v3.property) = { description: "是否新窗口" }
 	];
 }

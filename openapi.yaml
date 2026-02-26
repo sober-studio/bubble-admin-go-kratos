@@ -119,6 +119,20 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.dept.v1.DeptDeleteReply'
+    /api/v1/menu-list:
+        get:
+            tags:
+                - Permission
+            summary: 获取用户菜单
+            description: 获取用户菜单
+            operationId: Permission_GetUserMenu
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.permission.v1.GetUserMenuReply'
     /api/v1/package:
         post:
             tags:
@@ -1418,6 +1432,63 @@ components:
                 tenant_id:
                     type: string
                     description: 租户ID
+        api.permission.v1.GetUserMenuReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.permission.v1.MenuItem'
+                    description: 菜单列表
+        api.permission.v1.MenuItem:
+            type: object
+            properties:
+                path:
+                    type: string
+                    description: 路由路径
+                name:
+                    type: string
+                    description: 路由名称
+                component:
+                    type: string
+                    description: 组件路径
+                redirect:
+                    type: string
+                    description: 重定向路径
+                meta:
+                    $ref: '#/components/schemas/api.permission.v1.MenuMeta'
+                children:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.permission.v1.MenuItem'
+                    description: 子菜单
+        api.permission.v1.MenuMeta:
+            type: object
+            properties:
+                title:
+                    type: object
+                    additionalProperties:
+                        type: string
+                    description: 标题(国际化)
+                icon:
+                    type: string
+                    description: 图标
+                orderNo:
+                    type: integer
+                    description: 排序号
+                    format: int32
+                hidden:
+                    type: boolean
+                    description: 是否隐藏
+                keepAlive:
+                    type: boolean
+                    description: 是否缓存
+                frameSrc:
+                    type: string
+                    description: IFrame地址
+                frameBlank:
+                    type: boolean
+                    description: 是否新窗口
         api.permission.v1.PermissionCreateReply:
             type: object
             properties:
@@ -1453,6 +1524,34 @@ components:
                     type: integer
                     description: 排序
                     format: int32
+                path:
+                    type: string
+                    description: 路由路径
+                component:
+                    type: string
+                    description: 组件路径
+                redirect:
+                    type: string
+                    description: 重定向路径
+                icon:
+                    type: string
+                    description: 图标
+                order_no:
+                    type: integer
+                    description: 排序号
+                    format: int32
+                hidden:
+                    type: boolean
+                    description: 是否隐藏
+                keep_alive:
+                    type: boolean
+                    description: 是否缓存
+                frame_src:
+                    type: string
+                    description: IFrame地址
+                frame_blank:
+                    type: boolean
+                    description: 是否新窗口
             description: ========== 创建权限 ==========
         api.permission.v1.PermissionDeleteReply:
             type: object
@@ -1493,6 +1592,34 @@ components:
                     items:
                         $ref: '#/components/schemas/api.permission.v1.PermissionEntity'
                     description: 子权限
+                path:
+                    type: string
+                    description: 路由路径
+                component:
+                    type: string
+                    description: 组件路径
+                redirect:
+                    type: string
+                    description: 重定向路径
+                icon:
+                    type: string
+                    description: 图标
+                order_no:
+                    type: integer
+                    description: 排序号
+                    format: int32
+                hidden:
+                    type: boolean
+                    description: 是否隐藏
+                keep_alive:
+                    type: boolean
+                    description: 是否缓存
+                frame_src:
+                    type: string
+                    description: IFrame地址
+                frame_blank:
+                    type: boolean
+                    description: 是否新窗口
             description: ========== 权限实体 ==========
         api.permission.v1.PermissionGetReply:
             type: object
@@ -1545,6 +1672,34 @@ components:
                     type: integer
                     description: 排序
                     format: int32
+                path:
+                    type: string
+                    description: 路由路径
+                component:
+                    type: string
+                    description: 组件路径
+                redirect:
+                    type: string
+                    description: 重定向路径
+                icon:
+                    type: string
+                    description: 图标
+                order_no:
+                    type: integer
+                    description: 排序号
+                    format: int32
+                hidden:
+                    type: boolean
+                    description: 是否隐藏
+                keep_alive:
+                    type: boolean
+                    description: 是否缓存
+                frame_src:
+                    type: string
+                    description: IFrame地址
+                frame_blank:
+                    type: boolean
+                    description: 是否新窗口
             description: ========== 更新权限 ==========
         api.public.v1.GetCaptchaReply:
             type: object

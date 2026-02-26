@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v6.33.2
-// source: dept/v1/dept.proto
+// source: api/dept/v1/dept.proto
 
 package v1
 
@@ -36,7 +36,7 @@ type DeptListRequest struct {
 
 func (x *DeptListRequest) Reset() {
 	*x = DeptListRequest{}
-	mi := &file_dept_v1_dept_proto_msgTypes[0]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -48,7 +48,7 @@ func (x *DeptListRequest) String() string {
 func (*DeptListRequest) ProtoMessage() {}
 
 func (x *DeptListRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[0]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -61,7 +61,7 @@ func (x *DeptListRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptListRequest.ProtoReflect.Descriptor instead.
 func (*DeptListRequest) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{0}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *DeptListRequest) GetName() string {
@@ -88,7 +88,7 @@ type DeptListReply struct {
 
 func (x *DeptListReply) Reset() {
 	*x = DeptListReply{}
-	mi := &file_dept_v1_dept_proto_msgTypes[1]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -100,7 +100,7 @@ func (x *DeptListReply) String() string {
 func (*DeptListReply) ProtoMessage() {}
 
 func (x *DeptListReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[1]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -113,7 +113,7 @@ func (x *DeptListReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptListReply.ProtoReflect.Descriptor instead.
 func (*DeptListReply) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{1}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *DeptListReply) GetList() []*DeptEntity {
@@ -134,7 +134,7 @@ type DeptGetRequest struct {
 
 func (x *DeptGetRequest) Reset() {
 	*x = DeptGetRequest{}
-	mi := &file_dept_v1_dept_proto_msgTypes[2]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -146,7 +146,7 @@ func (x *DeptGetRequest) String() string {
 func (*DeptGetRequest) ProtoMessage() {}
 
 func (x *DeptGetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[2]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -159,7 +159,7 @@ func (x *DeptGetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptGetRequest.ProtoReflect.Descriptor instead.
 func (*DeptGetRequest) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{2}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *DeptGetRequest) GetId() int64 {
@@ -179,7 +179,7 @@ type DeptGetReply struct {
 
 func (x *DeptGetReply) Reset() {
 	*x = DeptGetReply{}
-	mi := &file_dept_v1_dept_proto_msgTypes[3]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -191,7 +191,7 @@ func (x *DeptGetReply) String() string {
 func (*DeptGetReply) ProtoMessage() {}
 
 func (x *DeptGetReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[3]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,7 +204,7 @@ func (x *DeptGetReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptGetReply.ProtoReflect.Descriptor instead.
 func (*DeptGetReply) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{3}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *DeptGetReply) GetDept() *DeptEntity {
@@ -229,7 +229,7 @@ type DeptCreateRequest struct {
 
 func (x *DeptCreateRequest) Reset() {
 	*x = DeptCreateRequest{}
-	mi := &file_dept_v1_dept_proto_msgTypes[4]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -241,7 +241,7 @@ func (x *DeptCreateRequest) String() string {
 func (*DeptCreateRequest) ProtoMessage() {}
 
 func (x *DeptCreateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[4]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -254,7 +254,7 @@ func (x *DeptCreateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptCreateRequest.ProtoReflect.Descriptor instead.
 func (*DeptCreateRequest) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{4}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *DeptCreateRequest) GetParentId() int64 {
@@ -288,7 +288,7 @@ type DeptCreateReply struct {
 
 func (x *DeptCreateReply) Reset() {
 	*x = DeptCreateReply{}
-	mi := &file_dept_v1_dept_proto_msgTypes[5]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -300,7 +300,7 @@ func (x *DeptCreateReply) String() string {
 func (*DeptCreateReply) ProtoMessage() {}
 
 func (x *DeptCreateReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[5]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -313,7 +313,7 @@ func (x *DeptCreateReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptCreateReply.ProtoReflect.Descriptor instead.
 func (*DeptCreateReply) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{5}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *DeptCreateReply) GetId() int64 {
@@ -340,7 +340,7 @@ type DeptUpdateRequest struct {
 
 func (x *DeptUpdateRequest) Reset() {
 	*x = DeptUpdateRequest{}
-	mi := &file_dept_v1_dept_proto_msgTypes[6]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -352,7 +352,7 @@ func (x *DeptUpdateRequest) String() string {
 func (*DeptUpdateRequest) ProtoMessage() {}
 
 func (x *DeptUpdateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[6]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -365,7 +365,7 @@ func (x *DeptUpdateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptUpdateRequest.ProtoReflect.Descriptor instead.
 func (*DeptUpdateRequest) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{6}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *DeptUpdateRequest) GetId() int64 {
@@ -404,7 +404,7 @@ type DeptUpdateReply struct {
 
 func (x *DeptUpdateReply) Reset() {
 	*x = DeptUpdateReply{}
-	mi := &file_dept_v1_dept_proto_msgTypes[7]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -416,7 +416,7 @@ func (x *DeptUpdateReply) String() string {
 func (*DeptUpdateReply) ProtoMessage() {}
 
 func (x *DeptUpdateReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[7]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -429,7 +429,7 @@ func (x *DeptUpdateReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptUpdateReply.ProtoReflect.Descriptor instead.
 func (*DeptUpdateReply) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{7}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{7}
 }
 
 // ========== 删除部门 ==========
@@ -443,7 +443,7 @@ type DeptDeleteRequest struct {
 
 func (x *DeptDeleteRequest) Reset() {
 	*x = DeptDeleteRequest{}
-	mi := &file_dept_v1_dept_proto_msgTypes[8]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -455,7 +455,7 @@ func (x *DeptDeleteRequest) String() string {
 func (*DeptDeleteRequest) ProtoMessage() {}
 
 func (x *DeptDeleteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[8]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -468,7 +468,7 @@ func (x *DeptDeleteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptDeleteRequest.ProtoReflect.Descriptor instead.
 func (*DeptDeleteRequest) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{8}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *DeptDeleteRequest) GetId() int64 {
@@ -486,7 +486,7 @@ type DeptDeleteReply struct {
 
 func (x *DeptDeleteReply) Reset() {
 	*x = DeptDeleteReply{}
-	mi := &file_dept_v1_dept_proto_msgTypes[9]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -498,7 +498,7 @@ func (x *DeptDeleteReply) String() string {
 func (*DeptDeleteReply) ProtoMessage() {}
 
 func (x *DeptDeleteReply) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[9]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -511,7 +511,7 @@ func (x *DeptDeleteReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptDeleteReply.ProtoReflect.Descriptor instead.
 func (*DeptDeleteReply) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{9}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{9}
 }
 
 // ========== 部门实体 ==========
@@ -537,7 +537,7 @@ type DeptEntity struct {
 
 func (x *DeptEntity) Reset() {
 	*x = DeptEntity{}
-	mi := &file_dept_v1_dept_proto_msgTypes[10]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -549,7 +549,7 @@ func (x *DeptEntity) String() string {
 func (*DeptEntity) ProtoMessage() {}
 
 func (x *DeptEntity) ProtoReflect() protoreflect.Message {
-	mi := &file_dept_v1_dept_proto_msgTypes[10]
+	mi := &file_api_dept_v1_dept_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -562,7 +562,7 @@ func (x *DeptEntity) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeptEntity.ProtoReflect.Descriptor instead.
 func (*DeptEntity) Descriptor() ([]byte, []int) {
-	return file_dept_v1_dept_proto_rawDescGZIP(), []int{10}
+	return file_api_dept_v1_dept_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *DeptEntity) GetId() int64 {
@@ -614,11 +614,11 @@ func (x *DeptEntity) GetChildren() []*DeptEntity {
 	return nil
 }
 
-var File_dept_v1_dept_proto protoreflect.FileDescriptor
+var File_api_dept_v1_dept_proto protoreflect.FileDescriptor
 
-const file_dept_v1_dept_proto_rawDesc = "" +
+const file_api_dept_v1_dept_proto_rawDesc = "" +
 	"\n" +
-	"\x12dept/v1/dept.proto\x12\vapi.dept.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1copenapi/v3/annotations.proto\"\x87\x01\n" +
+	"\x16api/dept/v1/dept.proto\x12\vapi.dept.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1copenapi/v3/annotations.proto\"\x87\x01\n" +
 	"\x0fDeptListRequest\x128\n" +
 	"\x04name\x18\x01 \x01(\tB$\xbaG!\x92\x02\x1e部门名称（模糊查询）R\x04name\x12:\n" +
 	"\x06status\x18\x02 \x01(\x05B\"\xbaG\x1f\x92\x02\x1c状态：0=禁用，1=正常R\x06status\"P\n" +
@@ -663,19 +663,19 @@ const file_dept_v1_dept_proto_rawDesc = "" +
 	"\vapi.dept.v1P\x01Z=github.com/sober-studio/bubble-admin-go-kratos/api/dept/v1;v1b\x06proto3"
 
 var (
-	file_dept_v1_dept_proto_rawDescOnce sync.Once
-	file_dept_v1_dept_proto_rawDescData []byte
+	file_api_dept_v1_dept_proto_rawDescOnce sync.Once
+	file_api_dept_v1_dept_proto_rawDescData []byte
 )
 
-func file_dept_v1_dept_proto_rawDescGZIP() []byte {
-	file_dept_v1_dept_proto_rawDescOnce.Do(func() {
-		file_dept_v1_dept_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_dept_v1_dept_proto_rawDesc), len(file_dept_v1_dept_proto_rawDesc)))
+func file_api_dept_v1_dept_proto_rawDescGZIP() []byte {
+	file_api_dept_v1_dept_proto_rawDescOnce.Do(func() {
+		file_api_dept_v1_dept_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_dept_v1_dept_proto_rawDesc), len(file_api_dept_v1_dept_proto_rawDesc)))
 	})
-	return file_dept_v1_dept_proto_rawDescData
+	return file_api_dept_v1_dept_proto_rawDescData
 }
 
-var file_dept_v1_dept_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_dept_v1_dept_proto_goTypes = []any{
+var file_api_dept_v1_dept_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_api_dept_v1_dept_proto_goTypes = []any{
 	(*DeptListRequest)(nil),   // 0: api.dept.v1.DeptListRequest
 	(*DeptListReply)(nil),     // 1: api.dept.v1.DeptListReply
 	(*DeptGetRequest)(nil),    // 2: api.dept.v1.DeptGetRequest
@@ -688,7 +688,7 @@ var file_dept_v1_dept_proto_goTypes = []any{
 	(*DeptDeleteReply)(nil),   // 9: api.dept.v1.DeptDeleteReply
 	(*DeptEntity)(nil),        // 10: api.dept.v1.DeptEntity
 }
-var file_dept_v1_dept_proto_depIdxs = []int32{
+var file_api_dept_v1_dept_proto_depIdxs = []int32{
 	10, // 0: api.dept.v1.DeptListReply.list:type_name -> api.dept.v1.DeptEntity
 	10, // 1: api.dept.v1.DeptGetReply.dept:type_name -> api.dept.v1.DeptEntity
 	10, // 2: api.dept.v1.DeptEntity.children:type_name -> api.dept.v1.DeptEntity
@@ -709,26 +709,26 @@ var file_dept_v1_dept_proto_depIdxs = []int32{
 	0,  // [0:3] is the sub-list for field type_name
 }
 
-func init() { file_dept_v1_dept_proto_init() }
-func file_dept_v1_dept_proto_init() {
-	if File_dept_v1_dept_proto != nil {
+func init() { file_api_dept_v1_dept_proto_init() }
+func file_api_dept_v1_dept_proto_init() {
+	if File_api_dept_v1_dept_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_dept_v1_dept_proto_rawDesc), len(file_dept_v1_dept_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_dept_v1_dept_proto_rawDesc), len(file_api_dept_v1_dept_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   11,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_dept_v1_dept_proto_goTypes,
-		DependencyIndexes: file_dept_v1_dept_proto_depIdxs,
-		MessageInfos:      file_dept_v1_dept_proto_msgTypes,
+		GoTypes:           file_api_dept_v1_dept_proto_goTypes,
+		DependencyIndexes: file_api_dept_v1_dept_proto_depIdxs,
+		MessageInfos:      file_api_dept_v1_dept_proto_msgTypes,
 	}.Build()
-	File_dept_v1_dept_proto = out.File
-	file_dept_v1_dept_proto_goTypes = nil
-	file_dept_v1_dept_proto_depIdxs = nil
+	File_api_dept_v1_dept_proto = out.File
+	file_api_dept_v1_dept_proto_goTypes = nil
+	file_api_dept_v1_dept_proto_depIdxs = nil
 }

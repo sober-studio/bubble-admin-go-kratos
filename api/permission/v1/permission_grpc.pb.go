@@ -19,17 +19,20 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Permission_Tree_FullMethodName   = "/api.permission.v1.Permission/Tree"
-	Permission_Get_FullMethodName    = "/api.permission.v1.Permission/Get"
-	Permission_Create_FullMethodName = "/api.permission.v1.Permission/Create"
-	Permission_Update_FullMethodName = "/api.permission.v1.Permission/Update"
-	Permission_Delete_FullMethodName = "/api.permission.v1.Permission/Delete"
+	Permission_GetUserMenu_FullMethodName = "/api.permission.v1.Permission/GetUserMenu"
+	Permission_Tree_FullMethodName        = "/api.permission.v1.Permission/Tree"
+	Permission_Get_FullMethodName         = "/api.permission.v1.Permission/Get"
+	Permission_Create_FullMethodName      = "/api.permission.v1.Permission/Create"
+	Permission_Update_FullMethodName      = "/api.permission.v1.Permission/Update"
+	Permission_Delete_FullMethodName      = "/api.permission.v1.Permission/Delete"
 )
 
 // PermissionClient is the client API for Permission service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PermissionClient interface {
+	// 获取用户菜单
+	GetUserMenu(ctx context.Context, in *GetUserMenuRequest, opts ...grpc.CallOption) (*GetUserMenuReply, error)
 	// 获取权限树
 	Tree(ctx context.Context, in *PermissionTreeRequest, opts ...grpc.CallOption) (*PermissionTreeReply, error)
 	// 获取权限详情
@@ -48,6 +51,16 @@ type permissionClient struct {
 
 func NewPermissionClient(cc grpc.ClientConnInterface) PermissionClient {
 	return &permissionClient{cc}
+}
+
+func (c *permissionClient) GetUserMenu(ctx context.Context, in *GetUserMenuRequest, opts ...grpc.CallOption) (*GetUserMenuReply, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetUserMenuReply)
+	err := c.cc.Invoke(ctx, Permission_GetUserMenu_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *permissionClient) Tree(ctx context.Context, in *PermissionTreeRequest, opts ...grpc.CallOption) (*PermissionTreeReply, error) {
@@ -104,6 +117,8 @@ func (c *permissionClient) Delete(ctx context.Context, in *PermissionDeleteReque
 // All implementations must embed UnimplementedPermissionServer
 // for forward compatibility.
 type PermissionServer interface {
+	// 获取用户菜单
+	GetUserMenu(context.Context, *GetUserMenuRequest) (*GetUserMenuReply, error)
 	// 获取权限树
 	Tree(context.Context, *PermissionTreeRequest) (*PermissionTreeReply, error)
 	// 获取权限详情
@@ -124,6 +139,9 @@ type PermissionServer interface {
 // pointer dereference when methods are called.
 type UnimplementedPermissionServer struct{}
 
+func (UnimplementedPermissionServer) GetUserMenu(context.Context, *GetUserMenuRequest) (*GetUserMenuReply, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetUserMenu not implemented")
+}
 func (UnimplementedPermissionServer) Tree(context.Context, *PermissionTreeRequest) (*PermissionTreeReply, error) {
 	return nil, status.Error(codes.Unimplemented, "method Tree not implemented")
 }
@@ -158,6 +176,24 @@ func RegisterPermissionServer(s grpc.ServiceRegistrar, srv PermissionServer) {
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&Permission_ServiceDesc, srv)
+}
+
+func _Permission_GetUserMenu_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserMenuRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PermissionServer).GetUserMenu(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Permission_GetUserMenu_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PermissionServer).GetUserMenu(ctx, req.(*GetUserMenuRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _Permission_Tree_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -257,6 +293,10 @@ var Permission_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "api.permission.v1.Permission",
 	HandlerType: (*PermissionServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetUserMenu",
+			Handler:    _Permission_GetUserMenu_Handler,
+		},
 		{
 			MethodName: "Tree",
 			Handler:    _Permission_Tree_Handler,

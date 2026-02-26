@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v6.33.2
-// source: upload/v1/upload.proto
+// source: api/upload/v1/upload.proto
 
 package v1
 
@@ -59,11 +59,11 @@ func (x UploadScene) String() string {
 }
 
 func (UploadScene) Descriptor() protoreflect.EnumDescriptor {
-	return file_upload_v1_upload_proto_enumTypes[0].Descriptor()
+	return file_api_upload_v1_upload_proto_enumTypes[0].Descriptor()
 }
 
 func (UploadScene) Type() protoreflect.EnumType {
-	return &file_upload_v1_upload_proto_enumTypes[0]
+	return &file_api_upload_v1_upload_proto_enumTypes[0]
 }
 
 func (x UploadScene) Number() protoreflect.EnumNumber {
@@ -72,7 +72,7 @@ func (x UploadScene) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use UploadScene.Descriptor instead.
 func (UploadScene) EnumDescriptor() ([]byte, []int) {
-	return file_upload_v1_upload_proto_rawDescGZIP(), []int{0}
+	return file_api_upload_v1_upload_proto_rawDescGZIP(), []int{0}
 }
 
 type UploadFileRequest struct {
@@ -89,7 +89,7 @@ type UploadFileRequest struct {
 
 func (x *UploadFileRequest) Reset() {
 	*x = UploadFileRequest{}
-	mi := &file_upload_v1_upload_proto_msgTypes[0]
+	mi := &file_api_upload_v1_upload_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -101,7 +101,7 @@ func (x *UploadFileRequest) String() string {
 func (*UploadFileRequest) ProtoMessage() {}
 
 func (x *UploadFileRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_upload_v1_upload_proto_msgTypes[0]
+	mi := &file_api_upload_v1_upload_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -114,7 +114,7 @@ func (x *UploadFileRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadFileRequest.ProtoReflect.Descriptor instead.
 func (*UploadFileRequest) Descriptor() ([]byte, []int) {
-	return file_upload_v1_upload_proto_rawDescGZIP(), []int{0}
+	return file_api_upload_v1_upload_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *UploadFileRequest) GetScene() UploadScene {
@@ -156,7 +156,7 @@ type UploadFileReply struct {
 
 func (x *UploadFileReply) Reset() {
 	*x = UploadFileReply{}
-	mi := &file_upload_v1_upload_proto_msgTypes[1]
+	mi := &file_api_upload_v1_upload_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -168,7 +168,7 @@ func (x *UploadFileReply) String() string {
 func (*UploadFileReply) ProtoMessage() {}
 
 func (x *UploadFileReply) ProtoReflect() protoreflect.Message {
-	mi := &file_upload_v1_upload_proto_msgTypes[1]
+	mi := &file_api_upload_v1_upload_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -181,7 +181,7 @@ func (x *UploadFileReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UploadFileReply.ProtoReflect.Descriptor instead.
 func (*UploadFileReply) Descriptor() ([]byte, []int) {
-	return file_upload_v1_upload_proto_rawDescGZIP(), []int{1}
+	return file_api_upload_v1_upload_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *UploadFileReply) GetFileKey() string {
@@ -219,11 +219,11 @@ func (x *UploadFileReply) GetUploadedAt() int64 {
 	return 0
 }
 
-var File_upload_v1_upload_proto protoreflect.FileDescriptor
+var File_api_upload_v1_upload_proto protoreflect.FileDescriptor
 
-const file_upload_v1_upload_proto_rawDesc = "" +
+const file_api_upload_v1_upload_proto_rawDesc = "" +
 	"\n" +
-	"\x16upload/v1/upload.proto\x12\rapi.upload.v1\x1a\x17validate/validate.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/httpbody.proto\x1a\x1copenapi/v3/annotations.proto\"\xf9\x02\n" +
+	"\x1aapi/upload/v1/upload.proto\x12\rapi.upload.v1\x1a\x17validate/validate.proto\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x19google/api/httpbody.proto\x1a\x1copenapi/v3/annotations.proto\"\xf9\x02\n" +
 	"\x11UploadFileRequest\x12\x95\x01\n" +
 	"\x05scene\x18\x01 \x01(\x0e2\x1a.api.upload.v1.UploadSceneBc\xe2A\x01\x02\xfaB\x05\x82\x01\x02\x10\x01\xbaGT\x92\x02Q上传场景类型，必须为已定义的枚举值：UPLOAD_COMMON/UPLOAD_AVATARR\x05scene\x12f\n" +
 	"\x04file\x18\x02 \x01(\fBR\xe2A\x01\x02\xbaGK\x92\x02?文件二进制数据，使用 multipart/form-data 格式上传\x9a\x02\x06binaryR\x04file\x12d\n" +
@@ -245,25 +245,25 @@ const file_upload_v1_upload_proto_rawDesc = "" +
 	"\rapi.upload.v1P\x01Z?github.com/sober-studio/bubble-admin-go-kratos/api/upload/v1;v1b\x06proto3"
 
 var (
-	file_upload_v1_upload_proto_rawDescOnce sync.Once
-	file_upload_v1_upload_proto_rawDescData []byte
+	file_api_upload_v1_upload_proto_rawDescOnce sync.Once
+	file_api_upload_v1_upload_proto_rawDescData []byte
 )
 
-func file_upload_v1_upload_proto_rawDescGZIP() []byte {
-	file_upload_v1_upload_proto_rawDescOnce.Do(func() {
-		file_upload_v1_upload_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_upload_v1_upload_proto_rawDesc), len(file_upload_v1_upload_proto_rawDesc)))
+func file_api_upload_v1_upload_proto_rawDescGZIP() []byte {
+	file_api_upload_v1_upload_proto_rawDescOnce.Do(func() {
+		file_api_upload_v1_upload_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_upload_v1_upload_proto_rawDesc), len(file_api_upload_v1_upload_proto_rawDesc)))
 	})
-	return file_upload_v1_upload_proto_rawDescData
+	return file_api_upload_v1_upload_proto_rawDescData
 }
 
-var file_upload_v1_upload_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_upload_v1_upload_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_upload_v1_upload_proto_goTypes = []any{
+var file_api_upload_v1_upload_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_api_upload_v1_upload_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_api_upload_v1_upload_proto_goTypes = []any{
 	(UploadScene)(0),          // 0: api.upload.v1.UploadScene
 	(*UploadFileRequest)(nil), // 1: api.upload.v1.UploadFileRequest
 	(*UploadFileReply)(nil),   // 2: api.upload.v1.UploadFileReply
 }
-var file_upload_v1_upload_proto_depIdxs = []int32{
+var file_api_upload_v1_upload_proto_depIdxs = []int32{
 	0, // 0: api.upload.v1.UploadFileRequest.scene:type_name -> api.upload.v1.UploadScene
 	1, // 1: api.upload.v1.Upload.UploadFile:input_type -> api.upload.v1.UploadFileRequest
 	2, // 2: api.upload.v1.Upload.UploadFile:output_type -> api.upload.v1.UploadFileReply
@@ -274,27 +274,27 @@ var file_upload_v1_upload_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_upload_v1_upload_proto_init() }
-func file_upload_v1_upload_proto_init() {
-	if File_upload_v1_upload_proto != nil {
+func init() { file_api_upload_v1_upload_proto_init() }
+func file_api_upload_v1_upload_proto_init() {
+	if File_api_upload_v1_upload_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_upload_v1_upload_proto_rawDesc), len(file_upload_v1_upload_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_upload_v1_upload_proto_rawDesc), len(file_api_upload_v1_upload_proto_rawDesc)),
 			NumEnums:      1,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_upload_v1_upload_proto_goTypes,
-		DependencyIndexes: file_upload_v1_upload_proto_depIdxs,
-		EnumInfos:         file_upload_v1_upload_proto_enumTypes,
-		MessageInfos:      file_upload_v1_upload_proto_msgTypes,
+		GoTypes:           file_api_upload_v1_upload_proto_goTypes,
+		DependencyIndexes: file_api_upload_v1_upload_proto_depIdxs,
+		EnumInfos:         file_api_upload_v1_upload_proto_enumTypes,
+		MessageInfos:      file_api_upload_v1_upload_proto_msgTypes,
 	}.Build()
-	File_upload_v1_upload_proto = out.File
-	file_upload_v1_upload_proto_goTypes = nil
-	file_upload_v1_upload_proto_depIdxs = nil
+	File_api_upload_v1_upload_proto = out.File
+	file_api_upload_v1_upload_proto_goTypes = nil
+	file_api_upload_v1_upload_proto_depIdxs = nil
 }

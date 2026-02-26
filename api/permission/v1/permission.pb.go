@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.11
 // 	protoc        v6.33.2
-// source: permission/v1/permission.proto
+// source: api/permission/v1/permission.proto
 
 package v1
 
@@ -32,7 +32,7 @@ type PermissionTreeRequest struct {
 
 func (x *PermissionTreeRequest) Reset() {
 	*x = PermissionTreeRequest{}
-	mi := &file_permission_v1_permission_proto_msgTypes[0]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +44,7 @@ func (x *PermissionTreeRequest) String() string {
 func (*PermissionTreeRequest) ProtoMessage() {}
 
 func (x *PermissionTreeRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[0]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +57,7 @@ func (x *PermissionTreeRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionTreeRequest.ProtoReflect.Descriptor instead.
 func (*PermissionTreeRequest) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{0}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{0}
 }
 
 type PermissionTreeReply struct {
@@ -70,7 +70,7 @@ type PermissionTreeReply struct {
 
 func (x *PermissionTreeReply) Reset() {
 	*x = PermissionTreeReply{}
-	mi := &file_permission_v1_permission_proto_msgTypes[1]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -82,7 +82,7 @@ func (x *PermissionTreeReply) String() string {
 func (*PermissionTreeReply) ProtoMessage() {}
 
 func (x *PermissionTreeReply) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[1]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -95,7 +95,7 @@ func (x *PermissionTreeReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionTreeReply.ProtoReflect.Descriptor instead.
 func (*PermissionTreeReply) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{1}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *PermissionTreeReply) GetList() []*PermissionEntity {
@@ -116,7 +116,7 @@ type PermissionGetRequest struct {
 
 func (x *PermissionGetRequest) Reset() {
 	*x = PermissionGetRequest{}
-	mi := &file_permission_v1_permission_proto_msgTypes[2]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -128,7 +128,7 @@ func (x *PermissionGetRequest) String() string {
 func (*PermissionGetRequest) ProtoMessage() {}
 
 func (x *PermissionGetRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[2]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -141,7 +141,7 @@ func (x *PermissionGetRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionGetRequest.ProtoReflect.Descriptor instead.
 func (*PermissionGetRequest) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{2}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *PermissionGetRequest) GetId() int64 {
@@ -161,7 +161,7 @@ type PermissionGetReply struct {
 
 func (x *PermissionGetReply) Reset() {
 	*x = PermissionGetReply{}
-	mi := &file_permission_v1_permission_proto_msgTypes[3]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -173,7 +173,7 @@ func (x *PermissionGetReply) String() string {
 func (*PermissionGetReply) ProtoMessage() {}
 
 func (x *PermissionGetReply) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[3]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -186,7 +186,7 @@ func (x *PermissionGetReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionGetReply.ProtoReflect.Descriptor instead.
 func (*PermissionGetReply) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{3}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *PermissionGetReply) GetPermission() *PermissionEntity {
@@ -212,14 +212,32 @@ type PermissionCreateRequest struct {
 	// API方法
 	ApiMethod string `protobuf:"bytes,6,opt,name=api_method,proto3" json:"api_method,omitempty"`
 	// 排序
-	Sort          int32 `protobuf:"varint,7,opt,name=sort,proto3" json:"sort,omitempty"`
+	Sort int32 `protobuf:"varint,7,opt,name=sort,proto3" json:"sort,omitempty"`
+	// 路由路径
+	Path string `protobuf:"bytes,8,opt,name=path,proto3" json:"path,omitempty"`
+	// 组件路径
+	Component string `protobuf:"bytes,9,opt,name=component,proto3" json:"component,omitempty"`
+	// 重定向路径
+	Redirect string `protobuf:"bytes,10,opt,name=redirect,proto3" json:"redirect,omitempty"`
+	// 图标
+	Icon string `protobuf:"bytes,11,opt,name=icon,proto3" json:"icon,omitempty"`
+	// 排序号
+	OrderNo int32 `protobuf:"varint,12,opt,name=order_no,proto3" json:"order_no,omitempty"`
+	// 是否隐藏
+	Hidden bool `protobuf:"varint,13,opt,name=hidden,proto3" json:"hidden,omitempty"`
+	// 是否缓存
+	KeepAlive bool `protobuf:"varint,14,opt,name=keep_alive,proto3" json:"keep_alive,omitempty"`
+	// IFrame地址
+	FrameSrc string `protobuf:"bytes,15,opt,name=frame_src,proto3" json:"frame_src,omitempty"`
+	// 是否新窗口
+	FrameBlank    bool `protobuf:"varint,16,opt,name=frame_blank,proto3" json:"frame_blank,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PermissionCreateRequest) Reset() {
 	*x = PermissionCreateRequest{}
-	mi := &file_permission_v1_permission_proto_msgTypes[4]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -231,7 +249,7 @@ func (x *PermissionCreateRequest) String() string {
 func (*PermissionCreateRequest) ProtoMessage() {}
 
 func (x *PermissionCreateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[4]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -244,7 +262,7 @@ func (x *PermissionCreateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionCreateRequest.ProtoReflect.Descriptor instead.
 func (*PermissionCreateRequest) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{4}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *PermissionCreateRequest) GetParentId() int64 {
@@ -296,6 +314,69 @@ func (x *PermissionCreateRequest) GetSort() int32 {
 	return 0
 }
 
+func (x *PermissionCreateRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *PermissionCreateRequest) GetComponent() string {
+	if x != nil {
+		return x.Component
+	}
+	return ""
+}
+
+func (x *PermissionCreateRequest) GetRedirect() string {
+	if x != nil {
+		return x.Redirect
+	}
+	return ""
+}
+
+func (x *PermissionCreateRequest) GetIcon() string {
+	if x != nil {
+		return x.Icon
+	}
+	return ""
+}
+
+func (x *PermissionCreateRequest) GetOrderNo() int32 {
+	if x != nil {
+		return x.OrderNo
+	}
+	return 0
+}
+
+func (x *PermissionCreateRequest) GetHidden() bool {
+	if x != nil {
+		return x.Hidden
+	}
+	return false
+}
+
+func (x *PermissionCreateRequest) GetKeepAlive() bool {
+	if x != nil {
+		return x.KeepAlive
+	}
+	return false
+}
+
+func (x *PermissionCreateRequest) GetFrameSrc() string {
+	if x != nil {
+		return x.FrameSrc
+	}
+	return ""
+}
+
+func (x *PermissionCreateRequest) GetFrameBlank() bool {
+	if x != nil {
+		return x.FrameBlank
+	}
+	return false
+}
+
 type PermissionCreateReply struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// 权限ID
@@ -306,7 +387,7 @@ type PermissionCreateReply struct {
 
 func (x *PermissionCreateReply) Reset() {
 	*x = PermissionCreateReply{}
-	mi := &file_permission_v1_permission_proto_msgTypes[5]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -318,7 +399,7 @@ func (x *PermissionCreateReply) String() string {
 func (*PermissionCreateReply) ProtoMessage() {}
 
 func (x *PermissionCreateReply) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[5]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -331,7 +412,7 @@ func (x *PermissionCreateReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionCreateReply.ProtoReflect.Descriptor instead.
 func (*PermissionCreateReply) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{5}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *PermissionCreateReply) GetId() int64 {
@@ -359,14 +440,32 @@ type PermissionUpdateRequest struct {
 	// API方法
 	ApiMethod string `protobuf:"bytes,7,opt,name=api_method,proto3" json:"api_method,omitempty"`
 	// 排序
-	Sort          int32 `protobuf:"varint,8,opt,name=sort,proto3" json:"sort,omitempty"`
+	Sort int32 `protobuf:"varint,8,opt,name=sort,proto3" json:"sort,omitempty"`
+	// 路由路径
+	Path string `protobuf:"bytes,9,opt,name=path,proto3" json:"path,omitempty"`
+	// 组件路径
+	Component string `protobuf:"bytes,10,opt,name=component,proto3" json:"component,omitempty"`
+	// 重定向路径
+	Redirect string `protobuf:"bytes,11,opt,name=redirect,proto3" json:"redirect,omitempty"`
+	// 图标
+	Icon string `protobuf:"bytes,12,opt,name=icon,proto3" json:"icon,omitempty"`
+	// 排序号
+	OrderNo int32 `protobuf:"varint,13,opt,name=order_no,proto3" json:"order_no,omitempty"`
+	// 是否隐藏
+	Hidden bool `protobuf:"varint,14,opt,name=hidden,proto3" json:"hidden,omitempty"`
+	// 是否缓存
+	KeepAlive bool `protobuf:"varint,15,opt,name=keep_alive,proto3" json:"keep_alive,omitempty"`
+	// IFrame地址
+	FrameSrc string `protobuf:"bytes,16,opt,name=frame_src,proto3" json:"frame_src,omitempty"`
+	// 是否新窗口
+	FrameBlank    bool `protobuf:"varint,17,opt,name=frame_blank,proto3" json:"frame_blank,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PermissionUpdateRequest) Reset() {
 	*x = PermissionUpdateRequest{}
-	mi := &file_permission_v1_permission_proto_msgTypes[6]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -378,7 +477,7 @@ func (x *PermissionUpdateRequest) String() string {
 func (*PermissionUpdateRequest) ProtoMessage() {}
 
 func (x *PermissionUpdateRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[6]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -391,7 +490,7 @@ func (x *PermissionUpdateRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionUpdateRequest.ProtoReflect.Descriptor instead.
 func (*PermissionUpdateRequest) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{6}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *PermissionUpdateRequest) GetId() int64 {
@@ -450,6 +549,69 @@ func (x *PermissionUpdateRequest) GetSort() int32 {
 	return 0
 }
 
+func (x *PermissionUpdateRequest) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *PermissionUpdateRequest) GetComponent() string {
+	if x != nil {
+		return x.Component
+	}
+	return ""
+}
+
+func (x *PermissionUpdateRequest) GetRedirect() string {
+	if x != nil {
+		return x.Redirect
+	}
+	return ""
+}
+
+func (x *PermissionUpdateRequest) GetIcon() string {
+	if x != nil {
+		return x.Icon
+	}
+	return ""
+}
+
+func (x *PermissionUpdateRequest) GetOrderNo() int32 {
+	if x != nil {
+		return x.OrderNo
+	}
+	return 0
+}
+
+func (x *PermissionUpdateRequest) GetHidden() bool {
+	if x != nil {
+		return x.Hidden
+	}
+	return false
+}
+
+func (x *PermissionUpdateRequest) GetKeepAlive() bool {
+	if x != nil {
+		return x.KeepAlive
+	}
+	return false
+}
+
+func (x *PermissionUpdateRequest) GetFrameSrc() string {
+	if x != nil {
+		return x.FrameSrc
+	}
+	return ""
+}
+
+func (x *PermissionUpdateRequest) GetFrameBlank() bool {
+	if x != nil {
+		return x.FrameBlank
+	}
+	return false
+}
+
 type PermissionUpdateReply struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	unknownFields protoimpl.UnknownFields
@@ -458,7 +620,7 @@ type PermissionUpdateReply struct {
 
 func (x *PermissionUpdateReply) Reset() {
 	*x = PermissionUpdateReply{}
-	mi := &file_permission_v1_permission_proto_msgTypes[7]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -470,7 +632,7 @@ func (x *PermissionUpdateReply) String() string {
 func (*PermissionUpdateReply) ProtoMessage() {}
 
 func (x *PermissionUpdateReply) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[7]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -483,7 +645,7 @@ func (x *PermissionUpdateReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionUpdateReply.ProtoReflect.Descriptor instead.
 func (*PermissionUpdateReply) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{7}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{7}
 }
 
 // ========== 删除权限 ==========
@@ -497,7 +659,7 @@ type PermissionDeleteRequest struct {
 
 func (x *PermissionDeleteRequest) Reset() {
 	*x = PermissionDeleteRequest{}
-	mi := &file_permission_v1_permission_proto_msgTypes[8]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -509,7 +671,7 @@ func (x *PermissionDeleteRequest) String() string {
 func (*PermissionDeleteRequest) ProtoMessage() {}
 
 func (x *PermissionDeleteRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[8]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -522,7 +684,7 @@ func (x *PermissionDeleteRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionDeleteRequest.ProtoReflect.Descriptor instead.
 func (*PermissionDeleteRequest) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{8}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *PermissionDeleteRequest) GetId() int64 {
@@ -540,7 +702,7 @@ type PermissionDeleteReply struct {
 
 func (x *PermissionDeleteReply) Reset() {
 	*x = PermissionDeleteReply{}
-	mi := &file_permission_v1_permission_proto_msgTypes[9]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -552,7 +714,7 @@ func (x *PermissionDeleteReply) String() string {
 func (*PermissionDeleteReply) ProtoMessage() {}
 
 func (x *PermissionDeleteReply) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[9]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -565,7 +727,264 @@ func (x *PermissionDeleteReply) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionDeleteReply.ProtoReflect.Descriptor instead.
 func (*PermissionDeleteReply) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{9}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{9}
+}
+
+// ========== 获取用户菜单 ==========
+type GetUserMenuRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUserMenuRequest) Reset() {
+	*x = GetUserMenuRequest{}
+	mi := &file_api_permission_v1_permission_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUserMenuRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserMenuRequest) ProtoMessage() {}
+
+func (x *GetUserMenuRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_api_permission_v1_permission_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserMenuRequest.ProtoReflect.Descriptor instead.
+func (*GetUserMenuRequest) Descriptor() ([]byte, []int) {
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{10}
+}
+
+type GetUserMenuReply struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	List          []*MenuItem            `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetUserMenuReply) Reset() {
+	*x = GetUserMenuReply{}
+	mi := &file_api_permission_v1_permission_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetUserMenuReply) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetUserMenuReply) ProtoMessage() {}
+
+func (x *GetUserMenuReply) ProtoReflect() protoreflect.Message {
+	mi := &file_api_permission_v1_permission_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetUserMenuReply.ProtoReflect.Descriptor instead.
+func (*GetUserMenuReply) Descriptor() ([]byte, []int) {
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *GetUserMenuReply) GetList() []*MenuItem {
+	if x != nil {
+		return x.List
+	}
+	return nil
+}
+
+type MenuItem struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Path          string                 `protobuf:"bytes,1,opt,name=path,proto3" json:"path,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Component     string                 `protobuf:"bytes,3,opt,name=component,proto3" json:"component,omitempty"`
+	Redirect      string                 `protobuf:"bytes,4,opt,name=redirect,proto3" json:"redirect,omitempty"`
+	Meta          *MenuMeta              `protobuf:"bytes,5,opt,name=meta,proto3" json:"meta,omitempty"`
+	Children      []*MenuItem            `protobuf:"bytes,6,rep,name=children,proto3" json:"children,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MenuItem) Reset() {
+	*x = MenuItem{}
+	mi := &file_api_permission_v1_permission_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MenuItem) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MenuItem) ProtoMessage() {}
+
+func (x *MenuItem) ProtoReflect() protoreflect.Message {
+	mi := &file_api_permission_v1_permission_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MenuItem.ProtoReflect.Descriptor instead.
+func (*MenuItem) Descriptor() ([]byte, []int) {
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *MenuItem) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
+
+func (x *MenuItem) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *MenuItem) GetComponent() string {
+	if x != nil {
+		return x.Component
+	}
+	return ""
+}
+
+func (x *MenuItem) GetRedirect() string {
+	if x != nil {
+		return x.Redirect
+	}
+	return ""
+}
+
+func (x *MenuItem) GetMeta() *MenuMeta {
+	if x != nil {
+		return x.Meta
+	}
+	return nil
+}
+
+func (x *MenuItem) GetChildren() []*MenuItem {
+	if x != nil {
+		return x.Children
+	}
+	return nil
+}
+
+type MenuMeta struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Title         map[string]string      `protobuf:"bytes,1,rep,name=title,proto3" json:"title,omitempty" protobuf_key:"bytes,1,opt,name=key" protobuf_val:"bytes,2,opt,name=value"`
+	Icon          string                 `protobuf:"bytes,2,opt,name=icon,proto3" json:"icon,omitempty"`
+	OrderNo       int32                  `protobuf:"varint,3,opt,name=order_no,json=orderNo,proto3" json:"order_no,omitempty"`
+	Hidden        bool                   `protobuf:"varint,4,opt,name=hidden,proto3" json:"hidden,omitempty"`
+	KeepAlive     bool                   `protobuf:"varint,5,opt,name=keep_alive,json=keepAlive,proto3" json:"keep_alive,omitempty"`
+	FrameSrc      string                 `protobuf:"bytes,6,opt,name=frame_src,json=frameSrc,proto3" json:"frame_src,omitempty"`
+	FrameBlank    bool                   `protobuf:"varint,7,opt,name=frame_blank,json=frameBlank,proto3" json:"frame_blank,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *MenuMeta) Reset() {
+	*x = MenuMeta{}
+	mi := &file_api_permission_v1_permission_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *MenuMeta) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*MenuMeta) ProtoMessage() {}
+
+func (x *MenuMeta) ProtoReflect() protoreflect.Message {
+	mi := &file_api_permission_v1_permission_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use MenuMeta.ProtoReflect.Descriptor instead.
+func (*MenuMeta) Descriptor() ([]byte, []int) {
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *MenuMeta) GetTitle() map[string]string {
+	if x != nil {
+		return x.Title
+	}
+	return nil
+}
+
+func (x *MenuMeta) GetIcon() string {
+	if x != nil {
+		return x.Icon
+	}
+	return ""
+}
+
+func (x *MenuMeta) GetOrderNo() int32 {
+	if x != nil {
+		return x.OrderNo
+	}
+	return 0
+}
+
+func (x *MenuMeta) GetHidden() bool {
+	if x != nil {
+		return x.Hidden
+	}
+	return false
+}
+
+func (x *MenuMeta) GetKeepAlive() bool {
+	if x != nil {
+		return x.KeepAlive
+	}
+	return false
+}
+
+func (x *MenuMeta) GetFrameSrc() string {
+	if x != nil {
+		return x.FrameSrc
+	}
+	return ""
+}
+
+func (x *MenuMeta) GetFrameBlank() bool {
+	if x != nil {
+		return x.FrameBlank
+	}
+	return false
 }
 
 // ========== 权限实体 ==========
@@ -590,14 +1009,32 @@ type PermissionEntity struct {
 	// 创建时间
 	CreatedAt int64 `protobuf:"varint,9,opt,name=created_at,proto3" json:"created_at,omitempty"`
 	// 子权限
-	Children      []*PermissionEntity `protobuf:"bytes,10,rep,name=children,proto3" json:"children,omitempty"`
+	Children []*PermissionEntity `protobuf:"bytes,10,rep,name=children,proto3" json:"children,omitempty"`
+	// 路由路径
+	Path string `protobuf:"bytes,11,opt,name=path,proto3" json:"path,omitempty"`
+	// 组件路径
+	Component string `protobuf:"bytes,12,opt,name=component,proto3" json:"component,omitempty"`
+	// 重定向路径
+	Redirect string `protobuf:"bytes,13,opt,name=redirect,proto3" json:"redirect,omitempty"`
+	// 图标
+	Icon string `protobuf:"bytes,14,opt,name=icon,proto3" json:"icon,omitempty"`
+	// 排序号
+	OrderNo int32 `protobuf:"varint,15,opt,name=order_no,proto3" json:"order_no,omitempty"`
+	// 是否隐藏
+	Hidden bool `protobuf:"varint,16,opt,name=hidden,proto3" json:"hidden,omitempty"`
+	// 是否缓存
+	KeepAlive bool `protobuf:"varint,17,opt,name=keep_alive,proto3" json:"keep_alive,omitempty"`
+	// IFrame地址
+	FrameSrc string `protobuf:"bytes,18,opt,name=frame_src,proto3" json:"frame_src,omitempty"`
+	// 是否新窗口
+	FrameBlank    bool `protobuf:"varint,19,opt,name=frame_blank,proto3" json:"frame_blank,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PermissionEntity) Reset() {
 	*x = PermissionEntity{}
-	mi := &file_permission_v1_permission_proto_msgTypes[10]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -609,7 +1046,7 @@ func (x *PermissionEntity) String() string {
 func (*PermissionEntity) ProtoMessage() {}
 
 func (x *PermissionEntity) ProtoReflect() protoreflect.Message {
-	mi := &file_permission_v1_permission_proto_msgTypes[10]
+	mi := &file_api_permission_v1_permission_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -622,7 +1059,7 @@ func (x *PermissionEntity) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PermissionEntity.ProtoReflect.Descriptor instead.
 func (*PermissionEntity) Descriptor() ([]byte, []int) {
-	return file_permission_v1_permission_proto_rawDescGZIP(), []int{10}
+	return file_api_permission_v1_permission_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *PermissionEntity) GetId() int64 {
@@ -695,11 +1132,74 @@ func (x *PermissionEntity) GetChildren() []*PermissionEntity {
 	return nil
 }
 
-var File_permission_v1_permission_proto protoreflect.FileDescriptor
+func (x *PermissionEntity) GetPath() string {
+	if x != nil {
+		return x.Path
+	}
+	return ""
+}
 
-const file_permission_v1_permission_proto_rawDesc = "" +
+func (x *PermissionEntity) GetComponent() string {
+	if x != nil {
+		return x.Component
+	}
+	return ""
+}
+
+func (x *PermissionEntity) GetRedirect() string {
+	if x != nil {
+		return x.Redirect
+	}
+	return ""
+}
+
+func (x *PermissionEntity) GetIcon() string {
+	if x != nil {
+		return x.Icon
+	}
+	return ""
+}
+
+func (x *PermissionEntity) GetOrderNo() int32 {
+	if x != nil {
+		return x.OrderNo
+	}
+	return 0
+}
+
+func (x *PermissionEntity) GetHidden() bool {
+	if x != nil {
+		return x.Hidden
+	}
+	return false
+}
+
+func (x *PermissionEntity) GetKeepAlive() bool {
+	if x != nil {
+		return x.KeepAlive
+	}
+	return false
+}
+
+func (x *PermissionEntity) GetFrameSrc() string {
+	if x != nil {
+		return x.FrameSrc
+	}
+	return ""
+}
+
+func (x *PermissionEntity) GetFrameBlank() bool {
+	if x != nil {
+		return x.FrameBlank
+	}
+	return false
+}
+
+var File_api_permission_v1_permission_proto protoreflect.FileDescriptor
+
+const file_api_permission_v1_permission_proto_rawDesc = "" +
 	"\n" +
-	"\x1epermission/v1/permission.proto\x12\x11api.permission.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1copenapi/v3/annotations.proto\"\x17\n" +
+	"\"api/permission/v1/permission.proto\x12\x11api.permission.v1\x1a\x1cgoogle/api/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x1copenapi/v3/annotations.proto\"\x17\n" +
 	"\x15PermissionTreeRequest\"b\n" +
 	"\x13PermissionTreeReply\x12K\n" +
 	"\x04list\x18\x01 \x03(\v2#.api.permission.v1.PermissionEntityB\x12\xbaG\x0f\x92\x02\f权限列表R\x04list\":\n" +
@@ -708,7 +1208,7 @@ const file_permission_v1_permission_proto_rawDesc = "" +
 	"\x12PermissionGetReply\x12W\n" +
 	"\n" +
 	"permission\x18\x01 \x01(\v2#.api.permission.v1.PermissionEntityB\x12\xbaG\x0f\x92\x02\f权限信息R\n" +
-	"permission\"\xda\x02\n" +
+	"permission\"\x81\x06\n" +
 	"\x17PermissionCreateRequest\x12/\n" +
 	"\tparent_id\x18\x01 \x01(\x03B\x11\xbaG\x0e\x92\x02\v父权限IDR\tparent_id\x12*\n" +
 	"\x04name\x18\x02 \x01(\tB\x16\xe2A\x01\x02\xbaG\x0f\x92\x02\f权限名称R\x04name\x12*\n" +
@@ -718,9 +1218,21 @@ const file_permission_v1_permission_proto_rawDesc = "" +
 	"\n" +
 	"api_method\x18\x06 \x01(\tB\x0f\xbaG\f\x92\x02\tAPI方法R\n" +
 	"api_method\x12 \n" +
-	"\x04sort\x18\a \x01(\x05B\f\xbaG\t\x92\x02\x06排序R\x04sort\"7\n" +
+	"\x04sort\x18\a \x01(\x05B\f\xbaG\t\x92\x02\x06排序R\x04sort\x12&\n" +
+	"\x04path\x18\b \x01(\tB\x12\xbaG\x0f\x92\x02\f路由路径R\x04path\x120\n" +
+	"\tcomponent\x18\t \x01(\tB\x12\xbaG\x0f\x92\x02\f组件路径R\tcomponent\x121\n" +
+	"\bredirect\x18\n" +
+	" \x01(\tB\x15\xbaG\x12\x92\x02\x0f重定向路径R\bredirect\x12 \n" +
+	"\x04icon\x18\v \x01(\tB\f\xbaG\t\x92\x02\x06图标R\x04icon\x12+\n" +
+	"\border_no\x18\f \x01(\x05B\x0f\xbaG\f\x92\x02\t排序号R\border_no\x12*\n" +
+	"\x06hidden\x18\r \x01(\bB\x12\xbaG\x0f\x92\x02\f是否隐藏R\x06hidden\x122\n" +
+	"\n" +
+	"keep_alive\x18\x0e \x01(\bB\x12\xbaG\x0f\x92\x02\f是否缓存R\n" +
+	"keep_alive\x120\n" +
+	"\tframe_src\x18\x0f \x01(\tB\x12\xbaG\x0f\x92\x02\fIFrame地址R\tframe_src\x127\n" +
+	"\vframe_blank\x18\x10 \x01(\bB\x15\xbaG\x12\x92\x02\x0f是否新窗口R\vframe_blank\"7\n" +
 	"\x15PermissionCreateReply\x12\x1e\n" +
-	"\x02id\x18\x01 \x01(\x03B\x0e\xbaG\v\x92\x02\b权限IDR\x02id\"\xfe\x02\n" +
+	"\x02id\x18\x01 \x01(\x03B\x0e\xbaG\v\x92\x02\b权限IDR\x02id\"\xa5\x06\n" +
 	"\x17PermissionUpdateRequest\x12\"\n" +
 	"\x02id\x18\x01 \x01(\x03B\x12\xe2A\x01\x02\xbaG\v\x92\x02\b权限IDR\x02id\x12/\n" +
 	"\tparent_id\x18\x02 \x01(\x03B\x11\xbaG\x0e\x92\x02\v父权限IDR\tparent_id\x12*\n" +
@@ -731,11 +1243,47 @@ const file_permission_v1_permission_proto_rawDesc = "" +
 	"\n" +
 	"api_method\x18\a \x01(\tB\x0f\xbaG\f\x92\x02\tAPI方法R\n" +
 	"api_method\x12 \n" +
-	"\x04sort\x18\b \x01(\x05B\f\xbaG\t\x92\x02\x06排序R\x04sort\"\x17\n" +
+	"\x04sort\x18\b \x01(\x05B\f\xbaG\t\x92\x02\x06排序R\x04sort\x12&\n" +
+	"\x04path\x18\t \x01(\tB\x12\xbaG\x0f\x92\x02\f路由路径R\x04path\x120\n" +
+	"\tcomponent\x18\n" +
+	" \x01(\tB\x12\xbaG\x0f\x92\x02\f组件路径R\tcomponent\x121\n" +
+	"\bredirect\x18\v \x01(\tB\x15\xbaG\x12\x92\x02\x0f重定向路径R\bredirect\x12 \n" +
+	"\x04icon\x18\f \x01(\tB\f\xbaG\t\x92\x02\x06图标R\x04icon\x12+\n" +
+	"\border_no\x18\r \x01(\x05B\x0f\xbaG\f\x92\x02\t排序号R\border_no\x12*\n" +
+	"\x06hidden\x18\x0e \x01(\bB\x12\xbaG\x0f\x92\x02\f是否隐藏R\x06hidden\x122\n" +
+	"\n" +
+	"keep_alive\x18\x0f \x01(\bB\x12\xbaG\x0f\x92\x02\f是否缓存R\n" +
+	"keep_alive\x120\n" +
+	"\tframe_src\x18\x10 \x01(\tB\x12\xbaG\x0f\x92\x02\fIFrame地址R\tframe_src\x127\n" +
+	"\vframe_blank\x18\x11 \x01(\bB\x15\xbaG\x12\x92\x02\x0f是否新窗口R\vframe_blank\"\x17\n" +
 	"\x15PermissionUpdateReply\"=\n" +
 	"\x17PermissionDeleteRequest\x12\"\n" +
 	"\x02id\x18\x01 \x01(\x03B\x12\xe2A\x01\x02\xbaG\v\x92\x02\b权限IDR\x02id\"\x17\n" +
-	"\x15PermissionDeleteReply\"\xed\x03\n" +
+	"\x15PermissionDeleteReply\"\x14\n" +
+	"\x12GetUserMenuRequest\"W\n" +
+	"\x10GetUserMenuReply\x12C\n" +
+	"\x04list\x18\x01 \x03(\v2\x1b.api.permission.v1.MenuItemB\x12\xbaG\x0f\x92\x02\f菜单列表R\x04list\"\xd1\x02\n" +
+	"\bMenuItem\x12&\n" +
+	"\x04path\x18\x01 \x01(\tB\x12\xbaG\x0f\x92\x02\f路由路径R\x04path\x12&\n" +
+	"\x04name\x18\x02 \x01(\tB\x12\xbaG\x0f\x92\x02\f路由名称R\x04name\x120\n" +
+	"\tcomponent\x18\x03 \x01(\tB\x12\xbaG\x0f\x92\x02\f组件路径R\tcomponent\x121\n" +
+	"\bredirect\x18\x04 \x01(\tB\x15\xbaG\x12\x92\x02\x0f重定向路径R\bredirect\x12F\n" +
+	"\x04meta\x18\x05 \x01(\v2\x1b.api.permission.v1.MenuMetaB\x15\xbaG\x12\x92\x02\x0f菜单元信息R\x04meta\x12H\n" +
+	"\bchildren\x18\x06 \x03(\v2\x1b.api.permission.v1.MenuItemB\x0f\xbaG\f\x92\x02\t子菜单R\bchildren\"\xb1\x03\n" +
+	"\bMenuMeta\x12U\n" +
+	"\x05title\x18\x01 \x03(\v2&.api.permission.v1.MenuMeta.TitleEntryB\x17\xbaG\x14\x92\x02\x11标题(国际化)R\x05title\x12 \n" +
+	"\x04icon\x18\x02 \x01(\tB\f\xbaG\t\x92\x02\x06图标R\x04icon\x12*\n" +
+	"\border_no\x18\x03 \x01(\x05B\x0f\xbaG\f\x92\x02\t排序号R\aorderNo\x12*\n" +
+	"\x06hidden\x18\x04 \x01(\bB\x12\xbaG\x0f\x92\x02\f是否隐藏R\x06hidden\x121\n" +
+	"\n" +
+	"keep_alive\x18\x05 \x01(\bB\x12\xbaG\x0f\x92\x02\f是否缓存R\tkeepAlive\x12/\n" +
+	"\tframe_src\x18\x06 \x01(\tB\x12\xbaG\x0f\x92\x02\fIFrame地址R\bframeSrc\x126\n" +
+	"\vframe_blank\x18\a \x01(\bB\x15\xbaG\x12\x92\x02\x0f是否新窗口R\n" +
+	"frameBlank\x1a8\n" +
+	"\n" +
+	"TitleEntry\x12\x10\n" +
+	"\x03key\x18\x01 \x01(\tR\x03key\x12\x14\n" +
+	"\x05value\x18\x02 \x01(\tR\x05value:\x028\x01\"\x94\a\n" +
 	"\x10PermissionEntity\x12\x1e\n" +
 	"\x02id\x18\x01 \x01(\x03B\x0e\xbaG\v\x92\x02\b权限IDR\x02id\x12/\n" +
 	"\tparent_id\x18\x02 \x01(\x03B\x11\xbaG\x0e\x92\x02\v父权限IDR\tparent_id\x12&\n" +
@@ -751,9 +1299,21 @@ const file_permission_v1_permission_proto_rawDesc = "" +
 	"created_at\x18\t \x01(\x03B\x12\xbaG\x0f\x92\x02\f创建时间R\n" +
 	"created_at\x12P\n" +
 	"\bchildren\x18\n" +
-	" \x03(\v2#.api.permission.v1.PermissionEntityB\x0f\xbaG\f\x92\x02\t子权限R\bchildren2\xe6\x05\n" +
+	" \x03(\v2#.api.permission.v1.PermissionEntityB\x0f\xbaG\f\x92\x02\t子权限R\bchildren\x12&\n" +
+	"\x04path\x18\v \x01(\tB\x12\xbaG\x0f\x92\x02\f路由路径R\x04path\x120\n" +
+	"\tcomponent\x18\f \x01(\tB\x12\xbaG\x0f\x92\x02\f组件路径R\tcomponent\x121\n" +
+	"\bredirect\x18\r \x01(\tB\x15\xbaG\x12\x92\x02\x0f重定向路径R\bredirect\x12 \n" +
+	"\x04icon\x18\x0e \x01(\tB\f\xbaG\t\x92\x02\x06图标R\x04icon\x12+\n" +
+	"\border_no\x18\x0f \x01(\x05B\x0f\xbaG\f\x92\x02\t排序号R\border_no\x12*\n" +
+	"\x06hidden\x18\x10 \x01(\bB\x12\xbaG\x0f\x92\x02\f是否隐藏R\x06hidden\x122\n" +
 	"\n" +
-	"Permission\x12\x8d\x01\n" +
+	"keep_alive\x18\x11 \x01(\bB\x12\xbaG\x0f\x92\x02\f是否缓存R\n" +
+	"keep_alive\x120\n" +
+	"\tframe_src\x18\x12 \x01(\tB\x12\xbaG\x0f\x92\x02\fIFrame地址R\tframe_src\x127\n" +
+	"\vframe_blank\x18\x13 \x01(\bB\x15\xbaG\x12\x92\x02\x0f是否新窗口R\vframe_blank2\xf4\x06\n" +
+	"\n" +
+	"Permission\x12\x8b\x01\n" +
+	"\vGetUserMenu\x12%.api.permission.v1.GetUserMenuRequest\x1a#.api.permission.v1.GetUserMenuReply\"0\xbaG\x14\x12\x12获取用户菜单\x82\xd3\xe4\x93\x02\x13\x12\x11/api/v1/menu-list\x12\x8d\x01\n" +
 	"\x04Tree\x12(.api.permission.v1.PermissionTreeRequest\x1a&.api.permission.v1.PermissionTreeReply\"3\xbaG\x11\x12\x0f获取权限树\x82\xd3\xe4\x93\x02\x19\x12\x17/api/v1/permission/tree\x12\x8d\x01\n" +
 	"\x03Get\x12'.api.permission.v1.PermissionGetRequest\x1a%.api.permission.v1.PermissionGetReply\"6\xbaG\x14\x12\x12获取权限详情\x82\xd3\xe4\x93\x02\x19\x12\x17/api/v1/permission/{id}\x12\x8e\x01\n" +
 	"\x06Create\x12*.api.permission.v1.PermissionCreateRequest\x1a(.api.permission.v1.PermissionCreateReply\".\xbaG\x0e\x12\f创建权限\x82\xd3\xe4\x93\x02\x17:\x01*\"\x12/api/v1/permission\x12\x93\x01\n" +
@@ -762,19 +1322,19 @@ const file_permission_v1_permission_proto_rawDesc = "" +
 	"\x11api.permission.v1P\x01ZCgithub.com/sober-studio/bubble-admin-go-kratos/api/permission/v1;v1b\x06proto3"
 
 var (
-	file_permission_v1_permission_proto_rawDescOnce sync.Once
-	file_permission_v1_permission_proto_rawDescData []byte
+	file_api_permission_v1_permission_proto_rawDescOnce sync.Once
+	file_api_permission_v1_permission_proto_rawDescData []byte
 )
 
-func file_permission_v1_permission_proto_rawDescGZIP() []byte {
-	file_permission_v1_permission_proto_rawDescOnce.Do(func() {
-		file_permission_v1_permission_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_permission_v1_permission_proto_rawDesc), len(file_permission_v1_permission_proto_rawDesc)))
+func file_api_permission_v1_permission_proto_rawDescGZIP() []byte {
+	file_api_permission_v1_permission_proto_rawDescOnce.Do(func() {
+		file_api_permission_v1_permission_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_permission_v1_permission_proto_rawDesc), len(file_api_permission_v1_permission_proto_rawDesc)))
 	})
-	return file_permission_v1_permission_proto_rawDescData
+	return file_api_permission_v1_permission_proto_rawDescData
 }
 
-var file_permission_v1_permission_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
-var file_permission_v1_permission_proto_goTypes = []any{
+var file_api_permission_v1_permission_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_api_permission_v1_permission_proto_goTypes = []any{
 	(*PermissionTreeRequest)(nil),   // 0: api.permission.v1.PermissionTreeRequest
 	(*PermissionTreeReply)(nil),     // 1: api.permission.v1.PermissionTreeReply
 	(*PermissionGetRequest)(nil),    // 2: api.permission.v1.PermissionGetRequest
@@ -785,49 +1345,60 @@ var file_permission_v1_permission_proto_goTypes = []any{
 	(*PermissionUpdateReply)(nil),   // 7: api.permission.v1.PermissionUpdateReply
 	(*PermissionDeleteRequest)(nil), // 8: api.permission.v1.PermissionDeleteRequest
 	(*PermissionDeleteReply)(nil),   // 9: api.permission.v1.PermissionDeleteReply
-	(*PermissionEntity)(nil),        // 10: api.permission.v1.PermissionEntity
+	(*GetUserMenuRequest)(nil),      // 10: api.permission.v1.GetUserMenuRequest
+	(*GetUserMenuReply)(nil),        // 11: api.permission.v1.GetUserMenuReply
+	(*MenuItem)(nil),                // 12: api.permission.v1.MenuItem
+	(*MenuMeta)(nil),                // 13: api.permission.v1.MenuMeta
+	(*PermissionEntity)(nil),        // 14: api.permission.v1.PermissionEntity
+	nil,                             // 15: api.permission.v1.MenuMeta.TitleEntry
 }
-var file_permission_v1_permission_proto_depIdxs = []int32{
-	10, // 0: api.permission.v1.PermissionTreeReply.list:type_name -> api.permission.v1.PermissionEntity
-	10, // 1: api.permission.v1.PermissionGetReply.permission:type_name -> api.permission.v1.PermissionEntity
-	10, // 2: api.permission.v1.PermissionEntity.children:type_name -> api.permission.v1.PermissionEntity
-	0,  // 3: api.permission.v1.Permission.Tree:input_type -> api.permission.v1.PermissionTreeRequest
-	2,  // 4: api.permission.v1.Permission.Get:input_type -> api.permission.v1.PermissionGetRequest
-	4,  // 5: api.permission.v1.Permission.Create:input_type -> api.permission.v1.PermissionCreateRequest
-	6,  // 6: api.permission.v1.Permission.Update:input_type -> api.permission.v1.PermissionUpdateRequest
-	8,  // 7: api.permission.v1.Permission.Delete:input_type -> api.permission.v1.PermissionDeleteRequest
-	1,  // 8: api.permission.v1.Permission.Tree:output_type -> api.permission.v1.PermissionTreeReply
-	3,  // 9: api.permission.v1.Permission.Get:output_type -> api.permission.v1.PermissionGetReply
-	5,  // 10: api.permission.v1.Permission.Create:output_type -> api.permission.v1.PermissionCreateReply
-	7,  // 11: api.permission.v1.Permission.Update:output_type -> api.permission.v1.PermissionUpdateReply
-	9,  // 12: api.permission.v1.Permission.Delete:output_type -> api.permission.v1.PermissionDeleteReply
-	8,  // [8:13] is the sub-list for method output_type
-	3,  // [3:8] is the sub-list for method input_type
-	3,  // [3:3] is the sub-list for extension type_name
-	3,  // [3:3] is the sub-list for extension extendee
-	0,  // [0:3] is the sub-list for field type_name
+var file_api_permission_v1_permission_proto_depIdxs = []int32{
+	14, // 0: api.permission.v1.PermissionTreeReply.list:type_name -> api.permission.v1.PermissionEntity
+	14, // 1: api.permission.v1.PermissionGetReply.permission:type_name -> api.permission.v1.PermissionEntity
+	12, // 2: api.permission.v1.GetUserMenuReply.list:type_name -> api.permission.v1.MenuItem
+	13, // 3: api.permission.v1.MenuItem.meta:type_name -> api.permission.v1.MenuMeta
+	12, // 4: api.permission.v1.MenuItem.children:type_name -> api.permission.v1.MenuItem
+	15, // 5: api.permission.v1.MenuMeta.title:type_name -> api.permission.v1.MenuMeta.TitleEntry
+	14, // 6: api.permission.v1.PermissionEntity.children:type_name -> api.permission.v1.PermissionEntity
+	10, // 7: api.permission.v1.Permission.GetUserMenu:input_type -> api.permission.v1.GetUserMenuRequest
+	0,  // 8: api.permission.v1.Permission.Tree:input_type -> api.permission.v1.PermissionTreeRequest
+	2,  // 9: api.permission.v1.Permission.Get:input_type -> api.permission.v1.PermissionGetRequest
+	4,  // 10: api.permission.v1.Permission.Create:input_type -> api.permission.v1.PermissionCreateRequest
+	6,  // 11: api.permission.v1.Permission.Update:input_type -> api.permission.v1.PermissionUpdateRequest
+	8,  // 12: api.permission.v1.Permission.Delete:input_type -> api.permission.v1.PermissionDeleteRequest
+	11, // 13: api.permission.v1.Permission.GetUserMenu:output_type -> api.permission.v1.GetUserMenuReply
+	1,  // 14: api.permission.v1.Permission.Tree:output_type -> api.permission.v1.PermissionTreeReply
+	3,  // 15: api.permission.v1.Permission.Get:output_type -> api.permission.v1.PermissionGetReply
+	5,  // 16: api.permission.v1.Permission.Create:output_type -> api.permission.v1.PermissionCreateReply
+	7,  // 17: api.permission.v1.Permission.Update:output_type -> api.permission.v1.PermissionUpdateReply
+	9,  // 18: api.permission.v1.Permission.Delete:output_type -> api.permission.v1.PermissionDeleteReply
+	13, // [13:19] is the sub-list for method output_type
+	7,  // [7:13] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
-func init() { file_permission_v1_permission_proto_init() }
-func file_permission_v1_permission_proto_init() {
-	if File_permission_v1_permission_proto != nil {
+func init() { file_api_permission_v1_permission_proto_init() }
+func file_api_permission_v1_permission_proto_init() {
+	if File_api_permission_v1_permission_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_permission_v1_permission_proto_rawDesc), len(file_permission_v1_permission_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_permission_v1_permission_proto_rawDesc), len(file_api_permission_v1_permission_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   16,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_permission_v1_permission_proto_goTypes,
-		DependencyIndexes: file_permission_v1_permission_proto_depIdxs,
-		MessageInfos:      file_permission_v1_permission_proto_msgTypes,
+		GoTypes:           file_api_permission_v1_permission_proto_goTypes,
+		DependencyIndexes: file_api_permission_v1_permission_proto_depIdxs,
+		MessageInfos:      file_api_permission_v1_permission_proto_msgTypes,
 	}.Build()
-	File_permission_v1_permission_proto = out.File
-	file_permission_v1_permission_proto_goTypes = nil
-	file_permission_v1_permission_proto_depIdxs = nil
+	File_api_permission_v1_permission_proto = out.File
+	file_api_permission_v1_permission_proto_goTypes = nil
+	file_api_permission_v1_permission_proto_depIdxs = nil
 }

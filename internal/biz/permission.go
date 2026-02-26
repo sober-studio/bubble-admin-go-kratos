@@ -24,18 +24,28 @@ const (
 
 // SysPermission 权限领域模型
 type SysPermission struct {
-	ID        int64
-	ParentID  int64
-	Name      string
-	Code      string
-	Type      string
-	APIPath   string
-	APIMethod string
-	Sort      int32
-	TenantID  int64
-	CreatedAt int64
-	UpdatedAt int64
-	Children  []*SysPermission
+	ID         int64
+	ParentID   int64
+	Name       string
+	Code       string
+	Type       string
+	APIPath    string
+	APIMethod  string
+	Sort       int32
+	TenantID   int64
+	CreatedAt  int64
+	UpdatedAt  int64
+	Children   []*SysPermission
+	// 前端菜单字段
+	Path      string
+	Component string
+	Redirect  string
+	Icon      string
+	OrderNo   int32
+	Hidden    bool
+	KeepAlive bool
+	FrameSrc  string
+	FrameBlank bool
 }
 
 // SysPermissionRepo 权限仓储接口
@@ -47,6 +57,8 @@ type SysPermissionRepo interface {
 	Delete(ctx context.Context, id int64) error
 	List(ctx context.Context) ([]*SysPermission, error)
 	HasChildren(ctx context.Context, id int64) (bool, error)
+	// GetUserMenuByUserID 根据用户ID获取菜单权限
+	GetUserMenuByUserID(ctx context.Context, userID int64, tenantID int64) ([]*SysPermission, error)
 }
 
 // PermissionUseCase 权限业务逻辑
@@ -136,6 +148,18 @@ func (uc *PermissionUseCase) Delete(ctx context.Context, id int64) error {
 
 func (uc *PermissionUseCase) List(ctx context.Context) ([]*SysPermission, error) {
 	return uc.repo.List(ctx)
+}
+
+// GetUserMenuByUserID 根据用户ID获取菜单权限
+func (uc *PermissionUseCase) GetUserMenuByUserID(ctx context.Context, userID int64, tenantID int64) ([]*SysPermission, error) {
+	// 获取用户有权限访问的菜单
+	menus, err := uc.repo.GetUserMenuByUserID(ctx, userID, tenantID)
+	if err != nil {
+		return nil, err
+	}
+
+	// 构建树形结构
+	return uc.BuildTree(menus), nil
 }
 
 // BuildTree 构建权限树
