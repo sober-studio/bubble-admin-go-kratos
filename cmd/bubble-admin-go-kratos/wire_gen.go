@@ -34,7 +34,16 @@ func wireApp(confServer *conf.Server, confData *conf.Data, app *conf.App, logger
 	db := data.NewDB(confData, logger)
 	client := data.NewRedis(confData, logger)
 	idGenerator := data.NewIDGenerator(app)
-	dataData, cleanup, err := data.NewData(confData, logger, db, client, idGenerator)
+	model, err := data.NewCasbinModel()
+	if err != nil {
+		return nil, nil, err
+	}
+	adapter := data.NewSysPermissionAdapter(db)
+	syncedEnforcer, err := data.NewCasbinEnforcer(model, adapter)
+	if err != nil {
+		return nil, nil, err
+	}
+	dataData, cleanup, err := data.NewData(confData, logger, db, client, idGenerator, syncedEnforcer)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -50,27 +59,33 @@ func wireApp(confServer *conf.Server, confData *conf.Data, app *conf.App, logger
 	passportUseCase := biz.NewPassportUseCase(tokenService, sysUserRepo, app, logger)
 	publicService := service.NewPublicService(captchaUseCase, otpUseCase, passportUseCase, logger)
 	passportService := service.NewPassportService(passportUseCase, otpUseCase, captchaUseCase)
+	sysDeptRepo := data.NewSysDeptRepo(dataData, logger)
+	deptUseCase := biz.NewDeptUseCase(sysDeptRepo, logger)
+	deptService := service.NewDeptService(deptUseCase)
+	sysPermissionRepo := data.NewPermissionRepo(dataData, logger)
+	permissionUseCase := biz.NewPermissionUseCase(sysPermissionRepo, logger)
+	permissionService := service.NewPermissionService(permissionUseCase)
+	sysRoleRepo := data.NewRoleRepo(dataData, logger)
+	roleUseCase := biz.NewRoleUseCase(sysRoleRepo, sysPermissionRepo, logger)
+	roleService := service.NewRoleService(roleUseCase)
+	userUseCase := biz.NewUserUseCase(sysUserRepo, logger)
+	userService := service.NewUserService(userUseCase)
+	sysPackageRepo := data.NewPackageRepo(dataData, logger)
+	packageUseCase := biz.NewPackageUseCase(sysPackageRepo, logger)
+	packageService := service.NewPackageService(packageUseCase)
+	sysTenantRepo := data.NewTenantRepo(dataData, logger)
+	tenantUseCase := biz.NewTenantUseCase(sysTenantRepo, sysPackageRepo, logger)
+	tenantService := service.NewTenantService(tenantUseCase)
 	hub := ws.NewHub(logger)
 	chatRepo := data.NewChatRepo(dataData, logger)
 	chatUseCase := biz.NewChatUseCase(chatRepo, logger)
 	chatService := service.NewChatService(hub, chatUseCase)
 	websocketService := service.NewWebsocketService(hub, chatService, tokenService, logger)
-	model, err := data.NewCasbinModel()
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	adapter := data.NewSysPermissionAdapter(db)
-	syncedEnforcer, err := data.NewCasbinEnforcer(model, adapter)
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	permissionLoader := data.NewPermissionRepo(dataData, logger)
+	permissionLoader := data.NewPermissionLoader(dataData, logger)
 	permissionProvider := provider.NewPermissionProvider(permissionLoader)
-	packageLoader := data.NewTenantRepo(dataData, logger)
+	packageLoader := data.NewTenantPackageLoader(dataData, logger)
 	packageProvider := provider.NewPackageProvider(packageLoader)
-	httpServer := server.NewHTTPServer(confServer, app, publicService, passportService, tokenService, websocketService, syncedEnforcer, permissionProvider, packageProvider, logger)
+	httpServer := server.NewHTTPServer(confServer, app, publicService, passportService, deptService, permissionService, roleService, userService, packageService, tenantService, tokenService, websocketService, syncedEnforcer, permissionProvider, packageProvider, logger)
 	helloJob := job.NewHelloJob(logger)
 	cronServer := server.NewCronServer(confServer, logger, helloJob)
 	kratosApp := newApp(logger, grpcServer, httpServer, cronServer)

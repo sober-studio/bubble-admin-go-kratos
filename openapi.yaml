@@ -6,6 +6,269 @@ info:
     title: ""
     version: 0.0.1
 paths:
+    /api/v1/dept:
+        post:
+            tags:
+                - Dept
+            summary: 创建部门
+            description: 创建部门
+            operationId: Dept_Create
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.dept.v1.DeptCreateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.dept.v1.DeptCreateReply'
+    /api/v1/dept/list:
+        get:
+            tags:
+                - Dept
+            summary: 获取部门列表
+            description: 获取部门列表
+            operationId: Dept_List
+            parameters:
+                - name: name
+                  in: query
+                  description: 部门名称（模糊查询）
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  description: 状态：0=禁用，1=正常
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.dept.v1.DeptListReply'
+    /api/v1/dept/{id}:
+        get:
+            tags:
+                - Dept
+            summary: 获取部门详情
+            description: 获取部门详情
+            operationId: Dept_Get
+            parameters:
+                - name: id
+                  in: path
+                  description: 部门ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.dept.v1.DeptGetReply'
+        put:
+            tags:
+                - Dept
+            summary: 更新部门
+            description: 更新部门
+            operationId: Dept_Update
+            parameters:
+                - name: id
+                  in: path
+                  description: 部门ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.dept.v1.DeptUpdateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.dept.v1.DeptUpdateReply'
+        delete:
+            tags:
+                - Dept
+            summary: 删除部门
+            description: 删除部门
+            operationId: Dept_Delete
+            parameters:
+                - name: id
+                  in: path
+                  description: 部门ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.dept.v1.DeptDeleteReply'
+    /api/v1/package:
+        post:
+            tags:
+                - Package
+            summary: 创建套餐
+            description: 创建套餐
+            operationId: Package_Create
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.package.v1.PackageCreateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.package.v1.PackageCreateReply'
+    /api/v1/package/list:
+        get:
+            tags:
+                - Package
+            summary: 获取套餐列表
+            description: 获取套餐列表
+            operationId: Package_List
+            parameters:
+                - name: name
+                  in: query
+                  description: 套餐名称（模糊查询）
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  description: 状态：0=禁用，1=正常
+                  schema:
+                    type: integer
+                    format: int32
+                - name: page
+                  in: query
+                  description: 页码
+                  schema:
+                    type: string
+                - name: page_size
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.package.v1.PackageListReply'
+    /api/v1/package/{id}:
+        get:
+            tags:
+                - Package
+            summary: 获取套餐详情
+            description: 获取套餐详情
+            operationId: Package_Get
+            parameters:
+                - name: id
+                  in: path
+                  description: 套餐ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.package.v1.PackageGetReply'
+        put:
+            tags:
+                - Package
+            summary: 更新套餐
+            description: 更新套餐
+            operationId: Package_Update
+            parameters:
+                - name: id
+                  in: path
+                  description: 套餐ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.package.v1.PackageUpdateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.package.v1.PackageUpdateReply'
+        delete:
+            tags:
+                - Package
+            summary: 删除套餐
+            description: 删除套餐
+            operationId: Package_Delete
+            parameters:
+                - name: id
+                  in: path
+                  description: 套餐ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.package.v1.PackageDeleteReply'
+    /api/v1/package/{id}/permissions:
+        put:
+            tags:
+                - Package
+            summary: 分配套餐权限
+            description: 分配套餐权限
+            operationId: Package_AssignPermissions
+            parameters:
+                - name: id
+                  in: path
+                  description: 套餐ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.package.v1.PackageAssignPermissionsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.package.v1.PackageAssignPermissionsReply'
     /api/v1/passport/bind-mobile:
         post:
             tags:
@@ -160,6 +423,107 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.passport.v1.UserInfoReply'
+    /api/v1/permission:
+        post:
+            tags:
+                - Permission
+            summary: 创建权限
+            description: 创建权限
+            operationId: Permission_Create
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.permission.v1.PermissionCreateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.permission.v1.PermissionCreateReply'
+    /api/v1/permission/tree:
+        get:
+            tags:
+                - Permission
+            summary: 获取权限树
+            description: 获取权限树
+            operationId: Permission_Tree
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.permission.v1.PermissionTreeReply'
+    /api/v1/permission/{id}:
+        get:
+            tags:
+                - Permission
+            summary: 获取权限详情
+            description: 获取权限详情
+            operationId: Permission_Get
+            parameters:
+                - name: id
+                  in: path
+                  description: 权限ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.permission.v1.PermissionGetReply'
+        put:
+            tags:
+                - Permission
+            summary: 更新权限
+            description: 更新权限
+            operationId: Permission_Update
+            parameters:
+                - name: id
+                  in: path
+                  description: 权限ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.permission.v1.PermissionUpdateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.permission.v1.PermissionUpdateReply'
+        delete:
+            tags:
+                - Permission
+            summary: 删除权限
+            description: 删除权限
+            operationId: Permission_Delete
+            parameters:
+                - name: id
+                  in: path
+                  description: 权限ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.permission.v1.PermissionDeleteReply'
     /api/v1/public/captcha:
         get:
             tags:
@@ -194,6 +558,283 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.public.v1.SendSmsOtpReply'
+    /api/v1/role:
+        post:
+            tags:
+                - Role
+            summary: 创建角色
+            description: 创建角色
+            operationId: Role_Create
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.role.v1.RoleCreateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.role.v1.RoleCreateReply'
+    /api/v1/role/list:
+        get:
+            tags:
+                - Role
+            summary: 获取角色列表
+            description: 获取角色列表
+            operationId: Role_List
+            parameters:
+                - name: name
+                  in: query
+                  description: 角色名称（模糊查询）
+                  schema:
+                    type: string
+                - name: code
+                  in: query
+                  description: 角色编码（模糊查询）
+                  schema:
+                    type: string
+                - name: page
+                  in: query
+                  description: 页码
+                  schema:
+                    type: string
+                - name: page_size
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.role.v1.RoleListReply'
+    /api/v1/role/{id}:
+        get:
+            tags:
+                - Role
+            summary: 获取角色详情
+            description: 获取角色详情
+            operationId: Role_Get
+            parameters:
+                - name: id
+                  in: path
+                  description: 角色ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.role.v1.RoleGetReply'
+        put:
+            tags:
+                - Role
+            summary: 更新角色
+            description: 更新角色
+            operationId: Role_Update
+            parameters:
+                - name: id
+                  in: path
+                  description: 角色ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.role.v1.RoleUpdateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.role.v1.RoleUpdateReply'
+        delete:
+            tags:
+                - Role
+            summary: 删除角色
+            description: 删除角色
+            operationId: Role_Delete
+            parameters:
+                - name: id
+                  in: path
+                  description: 角色ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.role.v1.RoleDeleteReply'
+    /api/v1/role/{id}/permissions:
+        put:
+            tags:
+                - Role
+            summary: 分配角色权限
+            description: 分配角色权限
+            operationId: Role_AssignPermissions
+            parameters:
+                - name: id
+                  in: path
+                  description: 角色ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.role.v1.RoleAssignPermissionsRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.role.v1.RoleAssignPermissionsReply'
+    /api/v1/tenant:
+        post:
+            tags:
+                - Tenant
+            summary: 创建租户
+            description: 创建租户
+            operationId: Tenant_Create
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.tenant.v1.TenantCreateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.tenant.v1.TenantCreateReply'
+    /api/v1/tenant/list:
+        get:
+            tags:
+                - Tenant
+            summary: 获取租户列表
+            description: 获取租户列表
+            operationId: Tenant_List
+            parameters:
+                - name: name
+                  in: query
+                  description: 租户名称（模糊查询）
+                  schema:
+                    type: string
+                - name: code
+                  in: query
+                  description: 租户编码（模糊查询）
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  description: 状态：0=禁用，1=正常
+                  schema:
+                    type: integer
+                    format: int32
+                - name: page
+                  in: query
+                  description: 页码
+                  schema:
+                    type: string
+                - name: page_size
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.tenant.v1.TenantListReply'
+    /api/v1/tenant/{id}:
+        get:
+            tags:
+                - Tenant
+            summary: 获取租户详情
+            description: 获取租户详情
+            operationId: Tenant_Get
+            parameters:
+                - name: id
+                  in: path
+                  description: 租户ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.tenant.v1.TenantGetReply'
+        put:
+            tags:
+                - Tenant
+            summary: 更新租户
+            description: 更新租户
+            operationId: Tenant_Update
+            parameters:
+                - name: id
+                  in: path
+                  description: 租户ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.tenant.v1.TenantUpdateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.tenant.v1.TenantUpdateReply'
+        delete:
+            tags:
+                - Tenant
+            summary: 删除租户
+            description: 删除租户
+            operationId: Tenant_Delete
+            parameters:
+                - name: id
+                  in: path
+                  description: 租户ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.tenant.v1.TenantDeleteReply'
     /api/v1/upload:
         post:
             tags:
@@ -214,8 +855,424 @@ paths:
                         application/json:
                             schema:
                                 $ref: '#/components/schemas/api.upload.v1.UploadFileReply'
+    /api/v1/user:
+        post:
+            tags:
+                - User
+            summary: 创建用户
+            description: 创建用户
+            operationId: User_Create
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.user.v1.UserCreateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.UserCreateReply'
+    /api/v1/user/list:
+        get:
+            tags:
+                - User
+            summary: 获取用户列表
+            description: 获取用户列表
+            operationId: User_List
+            parameters:
+                - name: username
+                  in: query
+                  description: 用户名（模糊查询）
+                  schema:
+                    type: string
+                - name: mobile
+                  in: query
+                  description: 手机号（模糊查询）
+                  schema:
+                    type: string
+                - name: status
+                  in: query
+                  description: 状态：0=禁用，1=正常
+                  schema:
+                    type: integer
+                    format: int32
+                - name: dept_id
+                  in: query
+                  description: 部门ID
+                  schema:
+                    type: string
+                - name: page
+                  in: query
+                  description: 页码
+                  schema:
+                    type: string
+                - name: page_size
+                  in: query
+                  description: 每页数量
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.UserListReply'
+    /api/v1/user/{id}:
+        get:
+            tags:
+                - User
+            summary: 获取用户详情
+            description: 获取用户详情
+            operationId: User_Get
+            parameters:
+                - name: id
+                  in: path
+                  description: 用户ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.UserGetReply'
+        put:
+            tags:
+                - User
+            summary: 更新用户
+            description: 更新用户
+            operationId: User_Update
+            parameters:
+                - name: id
+                  in: path
+                  description: 用户ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.user.v1.UserUpdateRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.UserUpdateReply'
+        delete:
+            tags:
+                - User
+            summary: 删除用户
+            description: 删除用户
+            operationId: User_Delete
+            parameters:
+                - name: id
+                  in: path
+                  description: 用户ID
+                  required: true
+                  schema:
+                    type: string
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.UserDeleteReply'
+    /api/v1/user/{id}/reset-password:
+        put:
+            tags:
+                - User
+            summary: 重置密码
+            description: 重置密码
+            operationId: User_ResetPassword
+            parameters:
+                - name: id
+                  in: path
+                  description: 用户ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.user.v1.UserResetPasswordRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.UserResetPasswordReply'
+    /api/v1/user/{id}/roles:
+        put:
+            tags:
+                - User
+            summary: 分配用户角色
+            description: 分配用户角色
+            operationId: User_AssignRoles
+            parameters:
+                - name: id
+                  in: path
+                  description: 用户ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.user.v1.UserAssignRolesRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.UserAssignRolesReply'
+    /api/v1/user/{id}/status:
+        put:
+            tags:
+                - User
+            summary: 设置用户状态
+            description: 设置用户状态
+            operationId: User_SetStatus
+            parameters:
+                - name: id
+                  in: path
+                  description: 用户ID
+                  required: true
+                  schema:
+                    type: string
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.user.v1.UserSetStatusRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.user.v1.UserSetStatusReply'
 components:
     schemas:
+        api.dept.v1.DeptCreateReply:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 部门ID
+        api.dept.v1.DeptCreateRequest:
+            required:
+                - name
+            type: object
+            properties:
+                parent_id:
+                    type: string
+                    description: 父部门ID
+                name:
+                    type: string
+                    description: 部门名称
+                sort:
+                    type: integer
+                    description: 排序序号
+                    format: int32
+            description: ========== 创建部门 ==========
+        api.dept.v1.DeptDeleteReply:
+            type: object
+            properties: {}
+        api.dept.v1.DeptEntity:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 部门ID
+                parent_id:
+                    type: string
+                    description: 父部门ID
+                name:
+                    type: string
+                    description: 部门名称
+                ancestors:
+                    type: string
+                    description: 祖先路径
+                sort:
+                    type: integer
+                    description: 排序序号
+                    format: int32
+                created_at:
+                    type: string
+                    description: 创建时间
+                children:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.dept.v1.DeptEntity'
+                    description: 子部门
+            description: ========== 部门实体 ==========
+        api.dept.v1.DeptGetReply:
+            type: object
+            properties:
+                dept:
+                    allOf:
+                        - $ref: '#/components/schemas/api.dept.v1.DeptEntity'
+                    description: 部门信息
+        api.dept.v1.DeptListReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.dept.v1.DeptEntity'
+                    description: 部门列表
+        api.dept.v1.DeptUpdateReply:
+            type: object
+            properties: {}
+        api.dept.v1.DeptUpdateRequest:
+            required:
+                - id
+                - name
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 部门ID
+                parent_id:
+                    type: string
+                    description: 父部门ID
+                name:
+                    type: string
+                    description: 部门名称
+                sort:
+                    type: integer
+                    description: 排序序号
+                    format: int32
+            description: ========== 更新部门 ==========
+        api.package.v1.PackageAssignPermissionsReply:
+            type: object
+            properties: {}
+        api.package.v1.PackageAssignPermissionsRequest:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 套餐ID
+                permission_ids:
+                    type: array
+                    items:
+                        type: string
+                    description: 权限ID列表
+            description: ========== 分配套餐权限 ==========
+        api.package.v1.PackageCreateReply:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 套餐ID
+        api.package.v1.PackageCreateRequest:
+            required:
+                - name
+                - code
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 套餐名称
+                code:
+                    type: string
+                    description: 套餐编码
+                description:
+                    type: string
+                    description: 描述
+            description: ========== 创建套餐 ==========
+        api.package.v1.PackageDeleteReply:
+            type: object
+            properties: {}
+        api.package.v1.PackageEntity:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 套餐ID
+                name:
+                    type: string
+                    description: 套餐名称
+                code:
+                    type: string
+                    description: 套餐编码
+                description:
+                    type: string
+                    description: 描述
+                status:
+                    type: integer
+                    description: 状态：0=禁用，1=正常
+                    format: int32
+                created_at:
+                    type: string
+                    description: 创建时间
+            description: ========== 套餐实体 ==========
+        api.package.v1.PackageGetReply:
+            type: object
+            properties:
+                pkg:
+                    allOf:
+                        - $ref: '#/components/schemas/api.package.v1.PackageEntity'
+                    description: 套餐信息
+                permission_ids:
+                    type: array
+                    items:
+                        type: string
+                    description: 权限ID列表
+        api.package.v1.PackageListReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.package.v1.PackageEntity'
+                    description: 套餐列表
+                total:
+                    type: string
+                    description: 总数
+        api.package.v1.PackageUpdateReply:
+            type: object
+            properties: {}
+        api.package.v1.PackageUpdateRequest:
+            required:
+                - id
+                - name
+                - code
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 套餐ID
+                name:
+                    type: string
+                    description: 套餐名称
+                code:
+                    type: string
+                    description: 套餐编码
+                description:
+                    type: string
+                    description: 描述
+            description: ========== 更新套餐 ==========
         api.passport.v1.BindMobileReply:
             type: object
             properties: {}
@@ -361,6 +1418,134 @@ components:
                 tenant_id:
                     type: string
                     description: 租户ID
+        api.permission.v1.PermissionCreateReply:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 权限ID
+        api.permission.v1.PermissionCreateRequest:
+            required:
+                - name
+                - code
+                - type
+            type: object
+            properties:
+                parent_id:
+                    type: string
+                    description: 父权限ID
+                name:
+                    type: string
+                    description: 权限名称
+                code:
+                    type: string
+                    description: 权限编码
+                type:
+                    type: string
+                    description: 类型：MENU/BUTTON/API
+                api_path:
+                    type: string
+                    description: API路径
+                api_method:
+                    type: string
+                    description: API方法
+                sort:
+                    type: integer
+                    description: 排序
+                    format: int32
+            description: ========== 创建权限 ==========
+        api.permission.v1.PermissionDeleteReply:
+            type: object
+            properties: {}
+        api.permission.v1.PermissionEntity:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 权限ID
+                parent_id:
+                    type: string
+                    description: 父权限ID
+                name:
+                    type: string
+                    description: 权限名称
+                code:
+                    type: string
+                    description: 权限编码
+                type:
+                    type: string
+                    description: 类型：MENU/BUTTON/API
+                api_path:
+                    type: string
+                    description: API路径
+                api_method:
+                    type: string
+                    description: API方法
+                sort:
+                    type: integer
+                    description: 排序
+                    format: int32
+                created_at:
+                    type: string
+                    description: 创建时间
+                children:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.permission.v1.PermissionEntity'
+                    description: 子权限
+            description: ========== 权限实体 ==========
+        api.permission.v1.PermissionGetReply:
+            type: object
+            properties:
+                permission:
+                    allOf:
+                        - $ref: '#/components/schemas/api.permission.v1.PermissionEntity'
+                    description: 权限信息
+        api.permission.v1.PermissionTreeReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.permission.v1.PermissionEntity'
+                    description: 权限列表
+        api.permission.v1.PermissionUpdateReply:
+            type: object
+            properties: {}
+        api.permission.v1.PermissionUpdateRequest:
+            required:
+                - id
+                - name
+                - code
+                - type
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 权限ID
+                parent_id:
+                    type: string
+                    description: 父权限ID
+                name:
+                    type: string
+                    description: 权限名称
+                code:
+                    type: string
+                    description: 权限编码
+                type:
+                    type: string
+                    description: 类型：MENU/BUTTON/API
+                api_path:
+                    type: string
+                    description: API路径
+                api_method:
+                    type: string
+                    description: API方法
+                sort:
+                    type: integer
+                    description: 排序
+                    format: int32
+            description: ========== 更新权限 ==========
         api.public.v1.GetCaptchaReply:
             type: object
             properties:
@@ -397,6 +1582,214 @@ components:
                     type: integer
                     description: 短信验证码业务场景：REGISTER/LOGIN/BIND/RESET
                     format: enum
+        api.role.v1.RoleAssignPermissionsReply:
+            type: object
+            properties: {}
+        api.role.v1.RoleAssignPermissionsRequest:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 角色ID
+                permission_ids:
+                    type: array
+                    items:
+                        type: string
+                    description: 权限ID列表
+                data_scope:
+                    type: integer
+                    description: 数据范围：1=全部，2=自定义
+                    format: int32
+                dept_ids:
+                    type: array
+                    items:
+                        type: string
+                    description: 自定义部门ID列表
+            description: ========== 分配角色权限 ==========
+        api.role.v1.RoleCreateReply:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 角色ID
+        api.role.v1.RoleCreateRequest:
+            required:
+                - name
+                - code
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 角色名称
+                code:
+                    type: string
+                    description: 角色编码
+            description: ========== 创建角色 ==========
+        api.role.v1.RoleDeleteReply:
+            type: object
+            properties: {}
+        api.role.v1.RoleEntity:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 角色ID
+                name:
+                    type: string
+                    description: 角色名称
+                code:
+                    type: string
+                    description: 角色编码
+                created_at:
+                    type: string
+                    description: 创建时间
+            description: ========== 角色实体 ==========
+        api.role.v1.RoleGetReply:
+            type: object
+            properties:
+                role:
+                    allOf:
+                        - $ref: '#/components/schemas/api.role.v1.RoleEntity'
+                    description: 角色信息
+                permission_ids:
+                    type: array
+                    items:
+                        type: string
+                    description: 权限ID列表
+        api.role.v1.RoleListReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.role.v1.RoleEntity'
+                    description: 角色列表
+                total:
+                    type: string
+                    description: 总数
+        api.role.v1.RoleUpdateReply:
+            type: object
+            properties: {}
+        api.role.v1.RoleUpdateRequest:
+            required:
+                - id
+                - name
+                - code
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 角色ID
+                name:
+                    type: string
+                    description: 角色名称
+                code:
+                    type: string
+                    description: 角色编码
+            description: ========== 更新角色 ==========
+        api.tenant.v1.TenantCreateReply:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 租户ID
+        api.tenant.v1.TenantCreateRequest:
+            required:
+                - name
+                - code
+            type: object
+            properties:
+                name:
+                    type: string
+                    description: 租户名称
+                code:
+                    type: string
+                    description: 租户编码
+                package_id:
+                    type: string
+                    description: 套餐ID
+                expired_at:
+                    type: string
+                    description: 过期时间
+            description: ========== 创建租户 ==========
+        api.tenant.v1.TenantDeleteReply:
+            type: object
+            properties: {}
+        api.tenant.v1.TenantEntity:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 租户ID
+                name:
+                    type: string
+                    description: 租户名称
+                code:
+                    type: string
+                    description: 租户编码
+                status:
+                    type: integer
+                    description: 状态：0=禁用，1=正常
+                    format: int32
+                expired_at:
+                    type: string
+                    description: 过期时间
+                created_at:
+                    type: string
+                    description: 创建时间
+            description: ========== 租户实体 ==========
+        api.tenant.v1.TenantGetReply:
+            type: object
+            properties:
+                tenant:
+                    allOf:
+                        - $ref: '#/components/schemas/api.tenant.v1.TenantEntity'
+                    description: 租户信息
+                package_id:
+                    type: string
+                    description: 套餐ID
+                package_name:
+                    type: string
+                    description: 套餐名称
+        api.tenant.v1.TenantListReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.tenant.v1.TenantEntity'
+                    description: 租户列表
+                total:
+                    type: string
+                    description: 总数
+        api.tenant.v1.TenantUpdateReply:
+            type: object
+            properties: {}
+        api.tenant.v1.TenantUpdateRequest:
+            required:
+                - id
+                - name
+                - code
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 租户ID
+                name:
+                    type: string
+                    description: 租户名称
+                code:
+                    type: string
+                    description: 租户编码
+                package_id:
+                    type: string
+                    description: 套餐ID
+                expired_at:
+                    type: string
+                    description: 过期时间
+            description: ========== 更新租户 ==========
         api.upload.v1.UploadFileReply:
             type: object
             properties:
@@ -432,7 +1825,169 @@ components:
                 filename:
                     type: string
                     description: 原始文件名，用于获取文件扩展名，如：document.pdf
+        api.user.v1.UserAssignRolesReply:
+            type: object
+            properties: {}
+        api.user.v1.UserAssignRolesRequest:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 用户ID
+                role_ids:
+                    type: array
+                    items:
+                        type: string
+                    description: 角色ID列表
+            description: ========== 分配用户角色 ==========
+        api.user.v1.UserCreateReply:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 用户ID
+        api.user.v1.UserCreateRequest:
+            required:
+                - username
+                - password
+            type: object
+            properties:
+                username:
+                    type: string
+                    description: 用户名
+                password:
+                    type: string
+                    description: 密码
+                nickname:
+                    type: string
+                    description: 昵称
+                mobile:
+                    type: string
+                    description: 手机号
+                dept_id:
+                    type: string
+                    description: 部门ID
+                role_ids:
+                    type: array
+                    items:
+                        type: string
+                    description: 角色ID列表
+            description: ========== 创建用户 ==========
+        api.user.v1.UserDeleteReply:
+            type: object
+            properties: {}
+        api.user.v1.UserEntity:
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 用户ID
+                username:
+                    type: string
+                    description: 用户名
+                nickname:
+                    type: string
+                    description: 昵称
+                mobile:
+                    type: string
+                    description: 手机号
+                dept_id:
+                    type: string
+                    description: 部门ID
+                status:
+                    type: integer
+                    description: 状态：0=禁用，1=正常
+                    format: int32
+                created_at:
+                    type: string
+                    description: 创建时间
+            description: ========== 用户实体 ==========
+        api.user.v1.UserGetReply:
+            type: object
+            properties:
+                user:
+                    allOf:
+                        - $ref: '#/components/schemas/api.user.v1.UserEntity'
+                    description: 用户信息
+                role_ids:
+                    type: array
+                    items:
+                        type: string
+                    description: 角色ID列表
+        api.user.v1.UserListReply:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.user.v1.UserEntity'
+                    description: 用户列表
+                total:
+                    type: string
+                    description: 总数
+        api.user.v1.UserResetPasswordReply:
+            type: object
+            properties: {}
+        api.user.v1.UserResetPasswordRequest:
+            required:
+                - id
+                - password
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 用户ID
+                password:
+                    type: string
+                    description: 新密码
+            description: ========== 重置密码 ==========
+        api.user.v1.UserSetStatusReply:
+            type: object
+            properties: {}
+        api.user.v1.UserSetStatusRequest:
+            required:
+                - id
+                - status
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 用户ID
+                status:
+                    type: integer
+                    description: 状态：0=禁用，1=正常
+                    format: int32
+            description: ========== 设置用户状态 ==========
+        api.user.v1.UserUpdateReply:
+            type: object
+            properties: {}
+        api.user.v1.UserUpdateRequest:
+            required:
+                - id
+            type: object
+            properties:
+                id:
+                    type: string
+                    description: 用户ID
+                nickname:
+                    type: string
+                    description: 昵称
+                mobile:
+                    type: string
+                    description: 手机号
+                dept_id:
+                    type: string
+                    description: 部门ID
+            description: ========== 更新用户 ==========
 tags:
+    - name: Dept
+    - name: Package
     - name: Passport
+    - name: Permission
     - name: Public
+    - name: Role
+    - name: Tenant
     - name: Upload
+    - name: User

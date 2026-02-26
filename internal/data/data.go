@@ -42,8 +42,13 @@ var ProviderSet = wire.NewSet(
 	NewCasbinEnforcer,
 	// 数据存储
 	NewSysUserRepo,
+	NewSysDeptRepo,
+	NewRoleRepo,
 	NewPermissionRepo,
+	NewPermissionLoader,
+	NewPackageRepo,
 	NewTenantRepo,
+	NewTenantPackageLoader,
 	// Mock
 	NewChatRepo,
 )
@@ -51,14 +56,15 @@ var ProviderSet = wire.NewSet(
 // Data .
 // 注意：所有需要关闭的资源必须在 cleanup 中显式处理
 type Data struct {
-	db    *gorm.DB
-	rdb   *redis.Client
-	query *query.Query
+	db        *gorm.DB
+	rdb       *redis.Client
+	query     *query.Query
+	enforcer  *casbin.SyncedEnforcer
 	//oss   biz.OSS
 }
 
 // NewData .
-func NewData(c *conf.Data, logger log.Logger, db *gorm.DB, rdb *redis.Client, _ idgen.IDGenerator) (*Data, func(), error) {
+func NewData(c *conf.Data, logger log.Logger, db *gorm.DB, rdb *redis.Client, _ idgen.IDGenerator, enforcer *casbin.SyncedEnforcer) (*Data, func(), error) {
 	// 注册数据范围 GORM Hook
 	// 在数据库初始化完成后、AutoMigrate 之前注册
 	datascope.RegisterHooks(db)
@@ -73,9 +79,10 @@ func NewData(c *conf.Data, logger log.Logger, db *gorm.DB, rdb *redis.Client, _ 
 	}
 
 	return &Data{
-		db:    db,
-		rdb:   rdb,
-		query: query.Use(db),
+		db:        db,
+		rdb:       rdb,
+		query:     query.Use(db),
+		enforcer:  enforcer,
 		//oss:   oss,
 	}, cleanup, nil
 }
@@ -259,4 +266,12 @@ func NewCasbinEnforcer(m casbinModel.Model, a persist.Adapter) (*casbin.SyncedEn
 	}
 	log.NewHelper(log.With(log.GetLogger(), "module", "casbin")).Info("casbin loaded policy")
 	return e, nil
+}
+
+// RefreshCasbinPolicy 刷新 Casbin 策略
+func (d *Data) RefreshCasbinPolicy(ctx context.Context) error {
+	if d.enforcer == nil {
+		return nil
+	}
+	return d.enforcer.LoadPolicy()
 }

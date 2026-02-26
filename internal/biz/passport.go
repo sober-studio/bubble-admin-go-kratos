@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"strconv"
-	"time"
 
 	kerrors "github.com/go-kratos/kratos/v2/errors"
 	"github.com/go-kratos/kratos/v2/log"
@@ -29,9 +28,10 @@ type SysUser struct {
 	Nickname     string
 	DeptID       int64
 	TenantID     int64
+	Status       int32
 	IsAvailable  bool
-	CreatedAt    time.Time
-	UpdatedAt    time.Time
+	CreatedAt    int64
+	UpdatedAt    int64
 }
 
 type SysUserRepo interface {
@@ -41,6 +41,12 @@ type SysUserRepo interface {
 	GetUserByID(ctx context.Context, id int64) (*SysUser, error)
 	UpdatePassword(ctx context.Context, id int64, passwordHash string) error
 	UpdatePhone(ctx context.Context, id int64, phone string) error
+	UpdateUser(ctx context.Context, user *SysUser) error
+	List(ctx context.Context, username, mobile string, status int32, deptID int64, page, pageSize int64) ([]*SysUser, int64, error)
+	DeleteUser(ctx context.Context, id int64) error
+	SetStatus(ctx context.Context, id int64, status int32) error
+	GetUserRoles(ctx context.Context, userID int64) ([]int64, error)
+	AssignRoles(ctx context.Context, userID int64, roleIDs []int64) error
 }
 
 type PassportUseCase struct {

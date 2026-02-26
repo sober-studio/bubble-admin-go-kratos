@@ -1,0 +1,260 @@
+syntax = "proto3";
+
+package api.permission.v1;
+
+option go_package = "github.com/sober-studio/bubble-admin-go-kratos/api/permission/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.permission.v1";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "openapi/v3/annotations.proto";
+
+service Permission {
+	// 获取权限树
+	rpc Tree (PermissionTreeRequest) returns (PermissionTreeReply) {
+		option (google.api.http) = {
+			get: "/api/v1/permission/tree"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取权限树"
+		};
+	}
+
+	// 获取权限详情
+	rpc Get (PermissionGetRequest) returns (PermissionGetReply) {
+		option (google.api.http) = {
+			get: "/api/v1/permission/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取权限详情"
+		};
+	}
+
+	// 创建权限
+	rpc Create (PermissionCreateRequest) returns (PermissionCreateReply) {
+		option (google.api.http) = {
+			post: "/api/v1/permission"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "创建权限"
+		};
+	}
+
+	// 更新权限
+	rpc Update (PermissionUpdateRequest) returns (PermissionUpdateReply) {
+		option (google.api.http) = {
+			put: "/api/v1/permission/{id}"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "更新权限"
+		};
+	}
+
+	// 删除权限
+	rpc Delete (PermissionDeleteRequest) returns (PermissionDeleteReply) {
+		option (google.api.http) = {
+			delete: "/api/v1/permission/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "删除权限"
+		};
+	}
+}
+
+// ========== 权限树 ==========
+message PermissionTreeRequest {}
+
+message PermissionTreeReply {
+	// 权限列表
+	repeated PermissionEntity list = 1 [
+		json_name = "list",
+		(openapi.v3.property) = { description: "权限列表" }
+	];
+}
+
+// ========== 权限详情 ==========
+message PermissionGetRequest {
+	// 权限ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "权限ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message PermissionGetReply {
+	// 权限信息
+	PermissionEntity permission = 1 [
+		json_name = "permission",
+		(openapi.v3.property) = { description: "权限信息" }
+	];
+}
+
+// ========== 创建权限 ==========
+message PermissionCreateRequest {
+	// 父权限ID
+	int64 parent_id = 1 [
+		json_name = "parent_id",
+		(openapi.v3.property) = { description: "父权限ID" }
+	];
+	// 权限名称
+	string name = 2 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "权限名称" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 权限编码
+	string code = 3 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "权限编码" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 类型：MENU/BUTTON/API
+	string type = 4 [
+		json_name = "type",
+		(openapi.v3.property) = { description: "类型：MENU/BUTTON/API" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// API路径
+	string api_path = 5 [
+		json_name = "api_path",
+		(openapi.v3.property) = { description: "API路径" }
+	];
+	// API方法
+	string api_method = 6 [
+		json_name = "api_method",
+		(openapi.v3.property) = { description: "API方法" }
+	];
+	// 排序
+	int32 sort = 7 [
+		json_name = "sort",
+		(openapi.v3.property) = { description: "排序" }
+	];
+}
+
+message PermissionCreateReply {
+	// 权限ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "权限ID" }
+	];
+}
+
+// ========== 更新权限 ==========
+message PermissionUpdateRequest {
+	// 权限ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "权限ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 父权限ID
+	int64 parent_id = 2 [
+		json_name = "parent_id",
+		(openapi.v3.property) = { description: "父权限ID" }
+	];
+	// 权限名称
+	string name = 3 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "权限名称" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 权限编码
+	string code = 4 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "权限编码" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 类型：MENU/BUTTON/API
+	string type = 5 [
+		json_name = "type",
+		(openapi.v3.property) = { description: "类型：MENU/BUTTON/API" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// API路径
+	string api_path = 6 [
+		json_name = "api_path",
+		(openapi.v3.property) = { description: "API路径" }
+	];
+	// API方法
+	string api_method = 7 [
+		json_name = "api_method",
+		(openapi.v3.property) = { description: "API方法" }
+	];
+	// 排序
+	int32 sort = 8 [
+		json_name = "sort",
+		(openapi.v3.property) = { description: "排序" }
+	];
+}
+
+message PermissionUpdateReply {}
+
+// ========== 删除权限 ==========
+message PermissionDeleteRequest {
+	// 权限ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "权限ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message PermissionDeleteReply {}
+
+// ========== 权限实体 ==========
+message PermissionEntity {
+	// 权限ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "权限ID" }
+	];
+	// 父权限ID
+	int64 parent_id = 2 [
+		json_name = "parent_id",
+		(openapi.v3.property) = { description: "父权限ID" }
+	];
+	// 权限名称
+	string name = 3 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "权限名称" }
+	];
+	// 权限编码
+	string code = 4 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "权限编码" }
+	];
+	// 类型：MENU/BUTTON/API
+	string type = 5 [
+		json_name = "type",
+		(openapi.v3.property) = { description: "类型：MENU/BUTTON/API" }
+	];
+	// API路径
+	string api_path = 6 [
+		json_name = "api_path",
+		(openapi.v3.property) = { description: "API路径" }
+	];
+	// API方法
+	string api_method = 7 [
+		json_name = "api_method",
+		(openapi.v3.property) = { description: "API方法" }
+	];
+	// 排序
+	int32 sort = 8 [
+		json_name = "sort",
+		(openapi.v3.property) = { description: "排序" }
+	];
+	// 创建时间
+	int64 created_at = 9 [
+		json_name = "created_at",
+		(openapi.v3.property) = { description: "创建时间" }
+	];
+	// 子权限
+	repeated PermissionEntity children = 10 [
+		json_name = "children",
+		(openapi.v3.property) = { description: "子权限" }
+	];
+}

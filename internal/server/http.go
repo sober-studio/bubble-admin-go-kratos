@@ -13,8 +13,14 @@ import (
 	"github.com/go-kratos/kratos/v2/transport"
 	"github.com/go-kratos/kratos/v2/transport/http/binding"
 	jwtv5 "github.com/golang-jwt/jwt/v5"
+	deptV1 "github.com/sober-studio/bubble-admin-go-kratos/api/dept/v1"
 	passportV1 "github.com/sober-studio/bubble-admin-go-kratos/api/passport/v1"
+	permissionV1 "github.com/sober-studio/bubble-admin-go-kratos/api/permission/v1"
 	publicV1 "github.com/sober-studio/bubble-admin-go-kratos/api/public/v1"
+	roleV1 "github.com/sober-studio/bubble-admin-go-kratos/api/role/v1"
+	userV1 "github.com/sober-studio/bubble-admin-go-kratos/api/user/v1"
+	packageV1 "github.com/sober-studio/bubble-admin-go-kratos/api/package/v1"
+	tenantV1 "github.com/sober-studio/bubble-admin-go-kratos/api/tenant/v1"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/biz/provider"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/conf"
 	"github.com/sober-studio/bubble-admin-go-kratos/internal/pkg/auth"
@@ -35,6 +41,12 @@ func NewHTTPServer(
 	app *conf.App,
 	public *service.PublicService,
 	passport *service.PassportService,
+	dept *service.DeptService,
+	permission *service.PermissionService,
+	role *service.RoleService,
+	user *service.UserService,
+	pkg *service.PackageService,
+	tenant *service.TenantService,
 	tokenService auth.TokenService,
 	wsSvc *service.WebsocketService,
 	enforcer *casbin.SyncedEnforcer,
@@ -147,6 +159,12 @@ func NewHTTPServer(
 
 	passportV1.RegisterPassportHTTPServer(srv, passport)
 	publicV1.RegisterPublicHTTPServer(srv, public)
+	deptV1.RegisterDeptHTTPServer(srv, dept)
+	permissionV1.RegisterPermissionHTTPServer(srv, permission)
+	roleV1.RegisterRoleHTTPServer(srv, role)
+	userV1.RegisterUserHTTPServer(srv, user)
+	packageV1.RegisterPackageHTTPServer(srv, pkg)
+	tenantV1.RegisterTenantHTTPServer(srv, tenant)
 
 	return srv
 }

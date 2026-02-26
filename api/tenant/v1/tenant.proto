@@ -1,0 +1,249 @@
+syntax = "proto3";
+
+package api.tenant.v1;
+
+option go_package = "github.com/sober-studio/bubble-admin-go-kratos/api/tenant/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.tenant.v1";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "openapi/v3/annotations.proto";
+
+service Tenant {
+	// 获取租户列表
+	rpc List (TenantListRequest) returns (TenantListReply) {
+		option (google.api.http) = {
+			get: "/api/v1/tenant/list"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取租户列表"
+		};
+	}
+
+	// 获取租户详情
+	rpc Get (TenantGetRequest) returns (TenantGetReply) {
+		option (google.api.http) = {
+			get: "/api/v1/tenant/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取租户详情"
+		};
+	}
+
+	// 创建租户
+	rpc Create (TenantCreateRequest) returns (TenantCreateReply) {
+		option (google.api.http) = {
+			post: "/api/v1/tenant"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "创建租户"
+		};
+	}
+
+	// 更新租户
+	rpc Update (TenantUpdateRequest) returns (TenantUpdateReply) {
+		option (google.api.http) = {
+			put: "/api/v1/tenant/{id}"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "更新租户"
+		};
+	}
+
+	// 删除租户
+	rpc Delete (TenantDeleteRequest) returns (TenantDeleteReply) {
+		option (google.api.http) = {
+			delete: "/api/v1/tenant/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "删除租户"
+		};
+	}
+}
+
+// ========== 租户列表 ==========
+message TenantListRequest {
+	// 租户名称（模糊查询）
+	string name = 1 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "租户名称（模糊查询）" }
+	];
+	// 租户编码（模糊查询）
+	string code = 2 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "租户编码（模糊查询）" }
+	];
+	// 状态：0=禁用，1=正常
+	int32 status = 3 [
+		json_name = "status",
+		(openapi.v3.property) = { description: "状态：0=禁用，1=正常" }
+	];
+	// 页码
+	int64 page = 4 [
+		json_name = "page",
+		(openapi.v3.property) = { description: "页码" }
+	];
+	// 每页数量
+	int64 page_size = 5 [
+		json_name = "page_size",
+		(openapi.v3.property) = { description: "每页数量" }
+	];
+}
+
+message TenantListReply {
+	// 租户列表
+	repeated TenantEntity list = 1 [
+		json_name = "list",
+		(openapi.v3.property) = { description: "租户列表" }
+	];
+	// 总数
+	int64 total = 2 [
+		json_name = "total",
+		(openapi.v3.property) = { description: "总数" }
+	];
+}
+
+// ========== 租户详情 ==========
+message TenantGetRequest {
+	// 租户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "租户ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message TenantGetReply {
+	// 租户信息
+	TenantEntity tenant = 1 [
+		json_name = "tenant",
+		(openapi.v3.property) = { description: "租户信息" }
+	];
+	// 套餐ID
+	int64 package_id = 2 [
+		json_name = "package_id",
+		(openapi.v3.property) = { description: "套餐ID" }
+	];
+	// 套餐名称
+	string package_name = 3 [
+		json_name = "package_name",
+		(openapi.v3.property) = { description: "套餐名称" }
+	];
+}
+
+// ========== 创建租户 ==========
+message TenantCreateRequest {
+	// 租户名称
+	string name = 1 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "租户名称" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 租户编码
+	string code = 2 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "租户编码" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 套餐ID
+	int64 package_id = 3 [
+		json_name = "package_id",
+		(openapi.v3.property) = { description: "套餐ID" }
+	];
+	// 过期时间
+	int64 expired_at = 4 [
+		json_name = "expired_at",
+		(openapi.v3.property) = { description: "过期时间" }
+	];
+}
+
+message TenantCreateReply {
+	// 租户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "租户ID" }
+	];
+}
+
+// ========== 更新租户 ==========
+message TenantUpdateRequest {
+	// 租户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "租户ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 租户名称
+	string name = 2 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "租户名称" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 租户编码
+	string code = 3 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "租户编码" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 套餐ID
+	int64 package_id = 4 [
+		json_name = "package_id",
+		(openapi.v3.property) = { description: "套餐ID" }
+	];
+	// 过期时间
+	int64 expired_at = 5 [
+		json_name = "expired_at",
+		(openapi.v3.property) = { description: "过期时间" }
+	];
+}
+
+message TenantUpdateReply {}
+
+// ========== 删除租户 ==========
+message TenantDeleteRequest {
+	// 租户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "租户ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message TenantDeleteReply {}
+
+// ========== 租户实体 ==========
+message TenantEntity {
+	// 租户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "租户ID" }
+	];
+	// 租户名称
+	string name = 2 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "租户名称" }
+	];
+	// 租户编码
+	string code = 3 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "租户编码" }
+	];
+	// 状态：0=禁用，1=正常
+	int32 status = 4 [
+		json_name = "status",
+		(openapi.v3.property) = { description: "状态：0=禁用，1=正常" }
+	];
+	// 过期时间
+	int64 expired_at = 5 [
+		json_name = "expired_at",
+		(openapi.v3.property) = { description: "过期时间" }
+	];
+	// 创建时间
+	int64 created_at = 6 [
+		json_name = "created_at",
+		(openapi.v3.property) = { description: "创建时间" }
+	];
+}

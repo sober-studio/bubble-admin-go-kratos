@@ -56,7 +56,7 @@ func RegisterPassportHTTPServer(s *http.Server, srv PassportHTTPServer) {
 	r.POST("/api/v1/passport/update-password", _Passport_UpdatePassword0_HTTP_Handler(srv))
 	r.POST("/api/v1/passport/bind-mobile", _Passport_BindMobile0_HTTP_Handler(srv))
 	r.POST("/api/v1/passport/update-mobile", _Passport_UpdateMobile0_HTTP_Handler(srv))
-	r.POST("/api/v1/passport/reset-password", _Passport_ResetPassword0_HTTP_Handler(srv))
+	r.POST("/api/v1/passport/reset-password", _Passport_ResetPassword1_HTTP_Handler(srv))
 }
 
 func _Passport_LoginByPassword0_HTTP_Handler(srv PassportHTTPServer) func(ctx http.Context) error {
@@ -210,7 +210,7 @@ func _Passport_UpdateMobile0_HTTP_Handler(srv PassportHTTPServer) func(ctx http.
 	}
 }
 
-func _Passport_ResetPassword0_HTTP_Handler(srv PassportHTTPServer) func(ctx http.Context) error {
+func _Passport_ResetPassword1_HTTP_Handler(srv PassportHTTPServer) func(ctx http.Context) error {
 	return func(ctx http.Context) error {
 		var in ResetPasswordRequest
 		if err := ctx.Bind(&in); err != nil {

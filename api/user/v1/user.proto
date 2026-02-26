@@ -1,0 +1,343 @@
+syntax = "proto3";
+
+package api.user.v1;
+
+option go_package = "github.com/sober-studio/bubble-admin-go-kratos/api/user/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.user.v1";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "openapi/v3/annotations.proto";
+
+service User {
+	// 获取用户列表
+	rpc List (UserListRequest) returns (UserListReply) {
+		option (google.api.http) = {
+			get: "/api/v1/user/list"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取用户列表"
+		};
+	}
+
+	// 获取用户详情
+	rpc Get (UserGetRequest) returns (UserGetReply) {
+		option (google.api.http) = {
+			get: "/api/v1/user/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取用户详情"
+		};
+	}
+
+	// 创建用户
+	rpc Create (UserCreateRequest) returns (UserCreateReply) {
+		option (google.api.http) = {
+			post: "/api/v1/user"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "创建用户"
+		};
+	}
+
+	// 更新用户
+	rpc Update (UserUpdateRequest) returns (UserUpdateReply) {
+		option (google.api.http) = {
+			put: "/api/v1/user/{id}"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "更新用户"
+		};
+	}
+
+	// 删除用户
+	rpc Delete (UserDeleteRequest) returns (UserDeleteReply) {
+		option (google.api.http) = {
+			delete: "/api/v1/user/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "删除用户"
+		};
+	}
+
+	// 分配用户角色
+	rpc AssignRoles (UserAssignRolesRequest) returns (UserAssignRolesReply) {
+		option (google.api.http) = {
+			put: "/api/v1/user/{id}/roles"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "分配用户角色"
+		};
+	}
+
+	// 设置用户状态
+	rpc SetStatus (UserSetStatusRequest) returns (UserSetStatusReply) {
+		option (google.api.http) = {
+			put: "/api/v1/user/{id}/status"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "设置用户状态"
+		};
+	}
+
+	// 重置密码
+	rpc ResetPassword (UserResetPasswordRequest) returns (UserResetPasswordReply) {
+		option (google.api.http) = {
+			put: "/api/v1/user/{id}/reset-password"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "重置密码"
+		};
+	}
+}
+
+// ========== 用户列表 ==========
+message UserListRequest {
+	// 用户名（模糊查询）
+	string username = 1 [
+		json_name = "username",
+		(openapi.v3.property) = { description: "用户名（模糊查询）" }
+	];
+	// 手机号（模糊查询）
+	string mobile = 2 [
+		json_name = "mobile",
+		(openapi.v3.property) = { description: "手机号（模糊查询）" }
+	];
+	// 状态：0=禁用，1=正常
+	int32 status = 3 [
+		json_name = "status",
+		(openapi.v3.property) = { description: "状态：0=禁用，1=正常" }
+	];
+	// 部门ID
+	int64 dept_id = 4 [
+		json_name = "dept_id",
+		(openapi.v3.property) = { description: "部门ID" }
+	];
+	// 页码
+	int64 page = 5 [
+		json_name = "page",
+		(openapi.v3.property) = { description: "页码" }
+	];
+	// 每页数量
+	int64 page_size = 6 [
+		json_name = "page_size",
+		(openapi.v3.property) = { description: "每页数量" }
+	];
+}
+
+message UserListReply {
+	// 用户列表
+	repeated UserEntity list = 1 [
+		json_name = "list",
+		(openapi.v3.property) = { description: "用户列表" }
+	];
+	// 总数
+	int64 total = 2 [
+		json_name = "total",
+		(openapi.v3.property) = { description: "总数" }
+	];
+}
+
+// ========== 用户详情 ==========
+message UserGetRequest {
+	// 用户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "用户ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message UserGetReply {
+	// 用户信息
+	UserEntity user = 1 [
+		json_name = "user",
+		(openapi.v3.property) = { description: "用户信息" }
+	];
+	// 角色ID列表
+	repeated int64 role_ids = 2 [
+		json_name = "role_ids",
+		(openapi.v3.property) = { description: "角色ID列表" }
+	];
+}
+
+// ========== 创建用户 ==========
+message UserCreateRequest {
+	// 用户名
+	string username = 1 [
+		json_name = "username",
+		(openapi.v3.property) = { description: "用户名" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 密码
+	string password = 2 [
+		json_name = "password",
+		(openapi.v3.property) = { description: "密码" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 昵称
+	string nickname = 3 [
+		json_name = "nickname",
+		(openapi.v3.property) = { description: "昵称" }
+	];
+	// 手机号
+	string mobile = 4 [
+		json_name = "mobile",
+		(openapi.v3.property) = { description: "手机号" }
+	];
+	// 部门ID
+	int64 dept_id = 5 [
+		json_name = "dept_id",
+		(openapi.v3.property) = { description: "部门ID" }
+	];
+	// 角色ID列表
+	repeated int64 role_ids = 6 [
+		json_name = "role_ids",
+		(openapi.v3.property) = { description: "角色ID列表" }
+	];
+}
+
+message UserCreateReply {
+	// 用户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "用户ID" }
+	];
+}
+
+// ========== 更新用户 ==========
+message UserUpdateRequest {
+	// 用户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "用户ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 昵称
+	string nickname = 2 [
+		json_name = "nickname",
+		(openapi.v3.property) = { description: "昵称" }
+	];
+	// 手机号
+	string mobile = 3 [
+		json_name = "mobile",
+		(openapi.v3.property) = { description: "手机号" }
+	];
+	// 部门ID
+	int64 dept_id = 4 [
+		json_name = "dept_id",
+		(openapi.v3.property) = { description: "部门ID" }
+	];
+}
+
+message UserUpdateReply {}
+
+// ========== 删除用户 ==========
+message UserDeleteRequest {
+	// 用户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "用户ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message UserDeleteReply {}
+
+// ========== 分配用户角色 ==========
+message UserAssignRolesRequest {
+	// 用户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "用户ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 角色ID列表
+	repeated int64 role_ids = 2 [
+		json_name = "role_ids",
+		(openapi.v3.property) = { description: "角色ID列表" }
+	];
+}
+
+message UserAssignRolesReply {}
+
+// ========== 设置用户状态 ==========
+message UserSetStatusRequest {
+	// 用户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "用户ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 状态：0=禁用，1=正常
+	int32 status = 2 [
+		json_name = "status",
+		(openapi.v3.property) = { description: "状态：0=禁用，1=正常" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message UserSetStatusReply {}
+
+// ========== 重置密码 ==========
+message UserResetPasswordRequest {
+	// 用户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "用户ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 新密码
+	string password = 2 [
+		json_name = "password",
+		(openapi.v3.property) = { description: "新密码" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message UserResetPasswordReply {}
+
+// ========== 用户实体 ==========
+message UserEntity {
+	// 用户ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "用户ID" }
+	];
+	// 用户名
+	string username = 2 [
+		json_name = "username",
+		(openapi.v3.property) = { description: "用户名" }
+	];
+	// 昵称
+	string nickname = 3 [
+		json_name = "nickname",
+		(openapi.v3.property) = { description: "昵称" }
+	];
+	// 手机号
+	string mobile = 4 [
+		json_name = "mobile",
+		(openapi.v3.property) = { description: "手机号" }
+	];
+	// 部门ID
+	int64 dept_id = 5 [
+		json_name = "dept_id",
+		(openapi.v3.property) = { description: "部门ID" }
+	];
+	// 状态：0=禁用，1=正常
+	int32 status = 6 [
+		json_name = "status",
+		(openapi.v3.property) = { description: "状态：0=禁用，1=正常" }
+	];
+	// 创建时间
+	int64 created_at = 7 [
+		json_name = "created_at",
+		(openapi.v3.property) = { description: "创建时间" }
+	];
+}

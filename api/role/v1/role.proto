@@ -1,0 +1,247 @@
+syntax = "proto3";
+
+package api.role.v1;
+
+option go_package = "github.com/sober-studio/bubble-admin-go-kratos/api/role/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.role.v1";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "openapi/v3/annotations.proto";
+
+service Role {
+	// 获取角色列表
+	rpc List (RoleListRequest) returns (RoleListReply) {
+		option (google.api.http) = {
+			get: "/api/v1/role/list"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取角色列表"
+		};
+	}
+
+	// 获取角色详情
+	rpc Get (RoleGetRequest) returns (RoleGetReply) {
+		option (google.api.http) = {
+			get: "/api/v1/role/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取角色详情"
+		};
+	}
+
+	// 创建角色
+	rpc Create (RoleCreateRequest) returns (RoleCreateReply) {
+		option (google.api.http) = {
+			post: "/api/v1/role"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "创建角色"
+		};
+	}
+
+	// 更新角色
+	rpc Update (RoleUpdateRequest) returns (RoleUpdateReply) {
+		option (google.api.http) = {
+			put: "/api/v1/role/{id}"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "更新角色"
+		};
+	}
+
+	// 删除角色
+	rpc Delete (RoleDeleteRequest) returns (RoleDeleteReply) {
+		option (google.api.http) = {
+			delete: "/api/v1/role/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "删除角色"
+		};
+	}
+
+	// 分配角色权限
+	rpc AssignPermissions (RoleAssignPermissionsRequest) returns (RoleAssignPermissionsReply) {
+		option (google.api.http) = {
+			put: "/api/v1/role/{id}/permissions"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "分配角色权限"
+		};
+	}
+}
+
+// ========== 角色列表 ==========
+message RoleListRequest {
+	// 角色名称（模糊查询）
+	string name = 1 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "角色名称（模糊查询）" }
+	];
+	// 角色编码（模糊查询）
+	string code = 2 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "角色编码（模糊查询）" }
+	];
+	// 页码
+	int64 page = 3 [
+		json_name = "page",
+		(openapi.v3.property) = { description: "页码" }
+	];
+	// 每页数量
+	int64 page_size = 4 [
+		json_name = "page_size",
+		(openapi.v3.property) = { description: "每页数量" }
+	];
+}
+
+message RoleListReply {
+	// 角色列表
+	repeated RoleEntity list = 1 [
+		json_name = "list",
+		(openapi.v3.property) = { description: "角色列表" }
+	];
+	// 总数
+	int64 total = 2 [
+		json_name = "total",
+		(openapi.v3.property) = { description: "总数" }
+	];
+}
+
+// ========== 角色详情 ==========
+message RoleGetRequest {
+	// 角色ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "角色ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message RoleGetReply {
+	// 角色信息
+	RoleEntity role = 1 [
+		json_name = "role",
+		(openapi.v3.property) = { description: "角色信息" }
+	];
+	// 权限ID列表
+	repeated int64 permission_ids = 2 [
+		json_name = "permission_ids",
+		(openapi.v3.property) = { description: "权限ID列表" }
+	];
+}
+
+// ========== 创建角色 ==========
+message RoleCreateRequest {
+	// 角色名称
+	string name = 1 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "角色名称" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 角色编码
+	string code = 2 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "角色编码" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message RoleCreateReply {
+	// 角色ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "角色ID" }
+	];
+}
+
+// ========== 更新角色 ==========
+message RoleUpdateRequest {
+	// 角色ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "角色ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 角色名称
+	string name = 2 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "角色名称" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 角色编码
+	string code = 3 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "角色编码" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message RoleUpdateReply {}
+
+// ========== 删除角色 ==========
+message RoleDeleteRequest {
+	// 角色ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "角色ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message RoleDeleteReply {}
+
+// ========== 分配角色权限 ==========
+message RoleAssignPermissionsRequest {
+	// 角色ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "角色ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 权限ID列表
+	repeated int64 permission_ids = 2 [
+		json_name = "permission_ids",
+		(openapi.v3.property) = { description: "权限ID列表" }
+	];
+	// 数据范围：1=全部，2=自定义
+	int32 data_scope = 3 [
+		json_name = "data_scope",
+		(openapi.v3.property) = { description: "数据范围：1=全部，2=自定义" }
+	];
+	// 自定义部门ID列表（当 data_scope=2 时）
+	repeated int64 dept_ids = 4 [
+		json_name = "dept_ids",
+		(openapi.v3.property) = { description: "自定义部门ID列表" }
+	];
+}
+
+message RoleAssignPermissionsReply {}
+
+// ========== 角色实体 ==========
+message RoleEntity {
+	// 角色ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "角色ID" }
+	];
+	// 角色名称
+	string name = 2 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "角色名称" }
+	];
+	// 角色编码
+	string code = 3 [
+		json_name = "code",
+		(openapi.v3.property) = { description: "角色编码" }
+	];
+	// 创建时间
+	int64 created_at = 4 [
+		json_name = "created_at",
+		(openapi.v3.property) = { description: "创建时间" }
+	];
+}

@@ -1,0 +1,212 @@
+syntax = "proto3";
+
+package api.dept.v1;
+
+option go_package = "github.com/sober-studio/bubble-admin-go-kratos/api/dept/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.dept.v1";
+
+import "google/api/annotations.proto";
+import "google/api/field_behavior.proto";
+import "openapi/v3/annotations.proto";
+
+service Dept {
+	// 获取部门列表
+	rpc List (DeptListRequest) returns (DeptListReply) {
+		option (google.api.http) = {
+			get: "/api/v1/dept/list"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取部门列表"
+		};
+	}
+
+	// 获取部门详情
+	rpc Get (DeptGetRequest) returns (DeptGetReply) {
+		option (google.api.http) = {
+			get: "/api/v1/dept/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "获取部门详情"
+		};
+	}
+
+	// 创建部门
+	rpc Create (DeptCreateRequest) returns (DeptCreateReply) {
+		option (google.api.http) = {
+			post: "/api/v1/dept"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "创建部门"
+		};
+	}
+
+	// 更新部门
+	rpc Update (DeptUpdateRequest) returns (DeptUpdateReply) {
+		option (google.api.http) = {
+			put: "/api/v1/dept/{id}"
+			body: "*"
+		};
+		option(openapi.v3.operation) = {
+			summary: "更新部门"
+		};
+	}
+
+	// 删除部门
+	rpc Delete (DeptDeleteRequest) returns (DeptDeleteReply) {
+		option (google.api.http) = {
+			delete: "/api/v1/dept/{id}"
+		};
+		option(openapi.v3.operation) = {
+			summary: "删除部门"
+		};
+	}
+}
+
+// ========== 部门列表 ==========
+message DeptListRequest {
+	// 部门名称（模糊查询）
+	string name = 1 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "部门名称（模糊查询）" }
+	];
+	// 状态：0=禁用，1=正常
+	int32 status = 2 [
+		json_name = "status",
+		(openapi.v3.property) = { description: "状态：0=禁用，1=正常" }
+	];
+}
+
+message DeptListReply {
+	// 部门列表
+	repeated DeptEntity list = 1 [
+		json_name = "list",
+		(openapi.v3.property) = { description: "部门列表" }
+	];
+}
+
+// ========== 部门详情 ==========
+message DeptGetRequest {
+	// 部门ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "部门ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message DeptGetReply {
+	// 部门信息
+	DeptEntity dept = 1 [
+		json_name = "dept",
+		(openapi.v3.property) = { description: "部门信息" }
+	];
+}
+
+// ========== 创建部门 ==========
+message DeptCreateRequest {
+	// 父部门ID
+	int64 parent_id = 1 [
+		json_name = "parent_id",
+		(openapi.v3.property) = { description: "父部门ID" }
+	];
+	// 部门名称
+	string name = 2 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "部门名称" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 排序序号
+	int32 sort = 3 [
+		json_name = "sort",
+		(openapi.v3.property) = { description: "排序序号" }
+	];
+}
+
+message DeptCreateReply {
+	// 部门ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "部门ID" }
+	];
+}
+
+// ========== 更新部门 ==========
+message DeptUpdateRequest {
+	// 部门ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "部门ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 父部门ID
+	int64 parent_id = 2 [
+		json_name = "parent_id",
+		(openapi.v3.property) = { description: "父部门ID" }
+	];
+	// 部门名称
+	string name = 3 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "部门名称" },
+		(google.api.field_behavior) = REQUIRED
+	];
+	// 排序序号
+	int32 sort = 4 [
+		json_name = "sort",
+		(openapi.v3.property) = { description: "排序序号" }
+	];
+}
+
+message DeptUpdateReply {}
+
+// ========== 删除部门 ==========
+message DeptDeleteRequest {
+	// 部门ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "部门ID" },
+		(google.api.field_behavior) = REQUIRED
+	];
+}
+
+message DeptDeleteReply {}
+
+// ========== 部门实体 ==========
+message DeptEntity {
+	// 部门ID
+	int64 id = 1 [
+		json_name = "id",
+		(openapi.v3.property) = { description: "部门ID" }
+	];
+	// 父部门ID
+	int64 parent_id = 2 [
+		json_name = "parent_id",
+		(openapi.v3.property) = { description: "父部门ID" }
+	];
+	// 部门名称
+	string name = 3 [
+		json_name = "name",
+		(openapi.v3.property) = { description: "部门名称" }
+	];
+	// 祖先路径
+	string ancestors = 4 [
+		json_name = "ancestors",
+		(openapi.v3.property) = { description: "祖先路径" }
+	];
+	// 排序序号
+	int32 sort = 5 [
+		json_name = "sort",
+		(openapi.v3.property) = { description: "排序序号" }
+	];
+	// 创建时间
+	int64 created_at = 6 [
+		json_name = "created_at",
+		(openapi.v3.property) = { description: "创建时间" }
+	];
+	// 子部门
+	repeated DeptEntity children = 7 [
+		json_name = "children",
+		(openapi.v3.property) = { description: "子部门" }
+	];
+}

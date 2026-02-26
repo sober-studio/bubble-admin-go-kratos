@@ -26,6 +26,12 @@ var ProviderSet = wire.NewSet(
 	NewChatUseCase,
 	NewPassportUseCase,
 	NewUploadUseCase,
+	NewDeptUseCase,
+	NewPermissionUseCase,
+	NewRoleUseCase,
+	NewUserUseCase,
+	NewPackageUseCase,
+	NewTenantUseCase,
 )
 
 // Transaction 事务接口

@@ -6,6 +6,7 @@ type SysRolePermission struct {
 	RoleID       int64  `gorm:"column:role_id;type:bigint;not null;comment:角色 ID" json:"role_id"`
 	PermissionID int64  `gorm:"column:permission_id;type:bigint;not null;comment:权限 ID" json:"permission_id"`
 	DataScope    string `gorm:"column:data_scope;type:varchar(20);default:SELF;comment:数据范围: SELF(个人), DEPT(本部门), DEPT_SUB(本部门及下级), ALL(全租户)" json:"data_scope"`
+	DeptIDs      string `gorm:"column:dept_ids;type:varchar(512);comment:自定义部门ID列表" json:"dept_ids"`
 }
 
 func (*SysRolePermission) TableName() string {
