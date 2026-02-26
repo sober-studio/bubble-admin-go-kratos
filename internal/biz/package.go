@@ -16,12 +16,12 @@ var (
 
 // SysPackage 套餐领域模型
 type SysPackage struct {
-	ID          int64
-	Name        string
-	Code        string
-	Description string
-	Status      int32
-	TenantID    int64
+	ID       int64
+	Name     string
+	Code     string
+	Remark   string
+	Status   int32
+	TenantID int64
 	CreatedAt   int64
 	UpdatedAt   int64
 }
@@ -58,7 +58,7 @@ func NewPackageUseCase(repo SysPackageRepo, logger log.Logger) *PackageUseCase {
 	}
 }
 
-func (uc *PackageUseCase) Create(ctx context.Context, name, code, description string) (*SysPackage, error) {
+func (uc *PackageUseCase) Create(ctx context.Context, name, code, remark string) (*SysPackage, error) {
 	// 检查套餐编码是否已存在
 	existing, err := uc.repo.GetByCode(ctx, code)
 	if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
@@ -69,10 +69,10 @@ func (uc *PackageUseCase) Create(ctx context.Context, name, code, description st
 	}
 
 	pkg := &SysPackage{
-		Name:        name,
-		Code:        code,
-		Description: description,
-		Status:      1, // 默认正常
+		Name:   name,
+		Code:   code,
+		Remark: remark,
+		Status: 1, // 默认正常
 	}
 
 	return uc.repo.Create(ctx, pkg)
@@ -93,7 +93,7 @@ func (uc *PackageUseCase) GetByID(ctx context.Context, id int64) (*SysPackage, [
 	return pkg, permIDs, nil
 }
 
-func (uc *PackageUseCase) Update(ctx context.Context, id int64, name, code, description string) error {
+func (uc *PackageUseCase) Update(ctx context.Context, id int64, name, code, remark string) error {
 	// 检查套餐是否存在
 	existing, err := uc.repo.GetByID(ctx, id)
 	if err != nil {
@@ -116,7 +116,7 @@ func (uc *PackageUseCase) Update(ctx context.Context, id int64, name, code, desc
 
 	existing.Name = name
 	existing.Code = code
-	existing.Description = description
+	existing.Remark = remark
 
 	return uc.repo.Update(ctx, existing)
 }

@@ -53,7 +53,7 @@ func (s *PackageService) Get(ctx context.Context, req *pb.PackageGetRequest) (*p
 func (s *PackageService) Create(ctx context.Context, req *pb.PackageCreateRequest) (*pb.PackageCreateReply, error) {
 	tenantID := auth.GetTenantID(ctx)
 
-	pkg, err := s.uc.Create(ctx, req.Name, req.Code, req.Description)
+	pkg, err := s.uc.Create(ctx, req.Name, req.Code, req.Remark)
 	if err != nil {
 		return nil, err
 	}
@@ -67,7 +67,7 @@ func (s *PackageService) Create(ctx context.Context, req *pb.PackageCreateReques
 }
 
 func (s *PackageService) Update(ctx context.Context, req *pb.PackageUpdateRequest) (*pb.PackageUpdateReply, error) {
-	err := s.uc.Update(ctx, req.Id, req.Name, req.Code, req.Description)
+	err := s.uc.Update(ctx, req.Id, req.Name, req.Code, req.Remark)
 	if err != nil {
 		return nil, err
 	}
@@ -95,12 +95,12 @@ func (s *PackageService) AssignPermissions(ctx context.Context, req *pb.PackageA
 
 func (s *PackageService) convertToEntity(pkg *biz.SysPackage) *pb.PackageEntity {
 	return &pb.PackageEntity{
-		Id:          pkg.ID,
-		Name:        pkg.Name,
-		Code:        pkg.Code,
-		Description: pkg.Description,
-		Status:      pkg.Status,
-		CreatedAt:   pkg.CreatedAt,
+		Id:        pkg.ID,
+		Name:      pkg.Name,
+		Code:      pkg.Code,
+		Remark:    pkg.Remark,
+		Status:    pkg.Status,
+		CreatedAt: pkg.CreatedAt,
 	}
 }
 

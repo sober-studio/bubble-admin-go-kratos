@@ -150,8 +150,8 @@ message PackageCreateRequest {
 		(google.api.field_behavior) = REQUIRED
 	];
 	// 描述
-	string description = 3 [
-		json_name = "description",
+	string remark = 3 [
+		json_name = "remark",
 		(openapi.v3.property) = { description: "描述" }
 	];
 }
@@ -185,8 +185,8 @@ message PackageUpdateRequest {
 		(google.api.field_behavior) = REQUIRED
 	];
 	// 描述
-	string description = 4 [
-		json_name = "description",
+	string remark = 4 [
+		json_name = "remark",
 		(openapi.v3.property) = { description: "描述" }
 	];
 }
@@ -240,8 +240,8 @@ message PackageEntity {
 		(openapi.v3.property) = { description: "套餐编码" }
 	];
 	// 描述
-	string description = 4 [
-		json_name = "description",
+	string remark = 4 [
+		json_name = "remark",
 		(openapi.v3.property) = { description: "描述" }
 	];
 	// 状态：0=禁用，1=正常

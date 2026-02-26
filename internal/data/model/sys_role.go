@@ -3,8 +3,9 @@ package model
 // SysRole 角色表
 type SysRole struct {
 	BaseAuthModel
-	Name string `gorm:"column:name;type:varchar(64);not null;comment:角色名称" json:"name"`
-	Code string `gorm:"column:code;type:varchar(64);not null;comment:角色编码" json:"code"`
+	Name   string `gorm:"column:name;type:varchar(64);not null;comment:角色名称" json:"name"`
+	Code   string `gorm:"column:code;type:varchar(64);not null;comment:角色编码" json:"code"`
+	DeptID int64  `gorm:"column:dept_id;type:bigint;comment:部门ID" json:"dept_id"`
 }
 
 func (*SysRole) TableName() string {

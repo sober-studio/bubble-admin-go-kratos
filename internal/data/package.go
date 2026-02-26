@@ -28,10 +28,10 @@ func NewPackageRepo(data *Data, logger log.Logger) biz.SysPackageRepo {
 
 func (r *packageRepo) Create(ctx context.Context, pkg *biz.SysPackage) (*biz.SysPackage, error) {
 	m := &model.SysPackage{
-		Name:        pkg.Name,
-		Code:        pkg.Code,
-		Description: pkg.Description,
-		Status:      int16(pkg.Status),
+		Name:   pkg.Name,
+		Code:   pkg.Code,
+		Remark: pkg.Remark,
+		Status: int16(pkg.Status),
 		BaseAuthModel: model.BaseAuthModel{
 			AuthField: model.AuthField{
 				TenantID: pkg.TenantID,
@@ -73,9 +73,9 @@ func (r *packageRepo) Update(ctx context.Context, pkg *biz.SysPackage) error {
 		Model(&model.SysPackage{}).
 		Where("id = ?", pkg.ID).
 		Updates(map[string]interface{}{
-			"name":        pkg.Name,
-			"code":        pkg.Code,
-			"description": pkg.Description,
+			"name":   pkg.Name,
+			"code":   pkg.Code,
+			"remark": pkg.Remark,
 		}).Error
 }
 
@@ -155,12 +155,12 @@ func (r *packageRepo) AssignPermissions(ctx context.Context, packageID int64, pe
 
 func (r *packageRepo) toBiz(m *model.SysPackage) *biz.SysPackage {
 	return &biz.SysPackage{
-		ID:          m.ID,
-		Name:        m.Name,
-		Code:        m.Code,
-		Description: m.Description,
-		Status:      int32(m.Status),
-		TenantID:    m.TenantID,
+		ID:       m.ID,
+		Name:     m.Name,
+		Code:     m.Code,
+		Remark:   m.Remark,
+		Status:   int32(m.Status),
+		TenantID: m.TenantID,
 		CreatedAt:   m.CreatedAt.Unix(),
 		UpdatedAt:   m.UpdatedAt.Unix(),
 	}
