@@ -31,9 +31,11 @@ func newSysUserRole(db *gorm.DB, opts ...gen.DOOption) sysUserRole {
 	_sysUserRole.CreatedAt = field.NewTime(tableName, "created_at")
 	_sysUserRole.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysUserRole.DeletedAt = field.NewField(tableName, "deleted_at")
+	_sysUserRole.TenantID = field.NewInt64(tableName, "tenant_id")
+	_sysUserRole.CreatedBy = field.NewInt64(tableName, "created_by")
+	_sysUserRole.DeptID = field.NewInt64(tableName, "dept_id")
 	_sysUserRole.UserID = field.NewInt64(tableName, "user_id")
 	_sysUserRole.RoleID = field.NewInt64(tableName, "role_id")
-	_sysUserRole.TenantID = field.NewInt64(tableName, "tenant_id")
 
 	_sysUserRole.fillFieldMap()
 
@@ -48,9 +50,11 @@ type sysUserRole struct {
 	CreatedAt field.Time
 	UpdatedAt field.Time
 	DeletedAt field.Field
+	TenantID  field.Int64
+	CreatedBy field.Int64
+	DeptID    field.Int64
 	UserID    field.Int64
 	RoleID    field.Int64
-	TenantID  field.Int64
 
 	fieldMap map[string]field.Expr
 }
@@ -71,9 +75,11 @@ func (s *sysUserRole) updateTableName(table string) *sysUserRole {
 	s.CreatedAt = field.NewTime(table, "created_at")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
+	s.TenantID = field.NewInt64(table, "tenant_id")
+	s.CreatedBy = field.NewInt64(table, "created_by")
+	s.DeptID = field.NewInt64(table, "dept_id")
 	s.UserID = field.NewInt64(table, "user_id")
 	s.RoleID = field.NewInt64(table, "role_id")
-	s.TenantID = field.NewInt64(table, "tenant_id")
 
 	s.fillFieldMap()
 
@@ -90,14 +96,16 @@ func (s *sysUserRole) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysUserRole) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 7)
+	s.fieldMap = make(map[string]field.Expr, 9)
 	s.fieldMap["id"] = s.ID
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["updated_at"] = s.UpdatedAt
 	s.fieldMap["deleted_at"] = s.DeletedAt
+	s.fieldMap["tenant_id"] = s.TenantID
+	s.fieldMap["created_by"] = s.CreatedBy
+	s.fieldMap["dept_id"] = s.DeptID
 	s.fieldMap["user_id"] = s.UserID
 	s.fieldMap["role_id"] = s.RoleID
-	s.fieldMap["tenant_id"] = s.TenantID
 }
 
 func (s sysUserRole) clone(db *gorm.DB) sysUserRole {

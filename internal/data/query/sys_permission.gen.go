@@ -31,6 +31,9 @@ func newSysPermission(db *gorm.DB, opts ...gen.DOOption) sysPermission {
 	_sysPermission.CreatedAt = field.NewTime(tableName, "created_at")
 	_sysPermission.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysPermission.DeletedAt = field.NewField(tableName, "deleted_at")
+	_sysPermission.TenantID = field.NewInt64(tableName, "tenant_id")
+	_sysPermission.CreatedBy = field.NewInt64(tableName, "created_by")
+	_sysPermission.DeptID = field.NewInt64(tableName, "dept_id")
 	_sysPermission.ParentID = field.NewInt64(tableName, "parent_id")
 	_sysPermission.Name = field.NewString(tableName, "name")
 	_sysPermission.Code = field.NewString(tableName, "code")
@@ -38,6 +41,15 @@ func newSysPermission(db *gorm.DB, opts ...gen.DOOption) sysPermission {
 	_sysPermission.APIPath = field.NewString(tableName, "api_path")
 	_sysPermission.APIMethod = field.NewString(tableName, "api_method")
 	_sysPermission.Sort = field.NewInt32(tableName, "sort")
+	_sysPermission.Path = field.NewString(tableName, "path")
+	_sysPermission.Component = field.NewString(tableName, "component")
+	_sysPermission.Redirect = field.NewString(tableName, "redirect")
+	_sysPermission.Icon = field.NewString(tableName, "icon")
+	_sysPermission.OrderNo = field.NewInt32(tableName, "order_no")
+	_sysPermission.Hidden = field.NewBool(tableName, "hidden")
+	_sysPermission.KeepAlive = field.NewBool(tableName, "keep_alive")
+	_sysPermission.FrameSrc = field.NewString(tableName, "frame_src")
+	_sysPermission.FrameBlank = field.NewBool(tableName, "frame_blank")
 
 	_sysPermission.fillFieldMap()
 
@@ -47,18 +59,30 @@ func newSysPermission(db *gorm.DB, opts ...gen.DOOption) sysPermission {
 type sysPermission struct {
 	sysPermissionDo
 
-	ALL       field.Asterisk
-	ID        field.Int64
-	CreatedAt field.Time
-	UpdatedAt field.Time
-	DeletedAt field.Field
-	ParentID  field.Int64
-	Name      field.String
-	Code      field.String
-	Type      field.String
-	APIPath   field.String
-	APIMethod field.String
-	Sort      field.Int32
+	ALL        field.Asterisk
+	ID         field.Int64
+	CreatedAt  field.Time
+	UpdatedAt  field.Time
+	DeletedAt  field.Field
+	TenantID   field.Int64
+	CreatedBy  field.Int64
+	DeptID     field.Int64
+	ParentID   field.Int64
+	Name       field.String
+	Code       field.String
+	Type       field.String
+	APIPath    field.String
+	APIMethod  field.String
+	Sort       field.Int32
+	Path       field.String
+	Component  field.String
+	Redirect   field.String
+	Icon       field.String
+	OrderNo    field.Int32
+	Hidden     field.Bool
+	KeepAlive  field.Bool
+	FrameSrc   field.String
+	FrameBlank field.Bool
 
 	fieldMap map[string]field.Expr
 }
@@ -79,6 +103,9 @@ func (s *sysPermission) updateTableName(table string) *sysPermission {
 	s.CreatedAt = field.NewTime(table, "created_at")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
+	s.TenantID = field.NewInt64(table, "tenant_id")
+	s.CreatedBy = field.NewInt64(table, "created_by")
+	s.DeptID = field.NewInt64(table, "dept_id")
 	s.ParentID = field.NewInt64(table, "parent_id")
 	s.Name = field.NewString(table, "name")
 	s.Code = field.NewString(table, "code")
@@ -86,6 +113,15 @@ func (s *sysPermission) updateTableName(table string) *sysPermission {
 	s.APIPath = field.NewString(table, "api_path")
 	s.APIMethod = field.NewString(table, "api_method")
 	s.Sort = field.NewInt32(table, "sort")
+	s.Path = field.NewString(table, "path")
+	s.Component = field.NewString(table, "component")
+	s.Redirect = field.NewString(table, "redirect")
+	s.Icon = field.NewString(table, "icon")
+	s.OrderNo = field.NewInt32(table, "order_no")
+	s.Hidden = field.NewBool(table, "hidden")
+	s.KeepAlive = field.NewBool(table, "keep_alive")
+	s.FrameSrc = field.NewString(table, "frame_src")
+	s.FrameBlank = field.NewBool(table, "frame_blank")
 
 	s.fillFieldMap()
 
@@ -102,11 +138,14 @@ func (s *sysPermission) GetFieldByName(fieldName string) (field.OrderExpr, bool)
 }
 
 func (s *sysPermission) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 11)
+	s.fieldMap = make(map[string]field.Expr, 23)
 	s.fieldMap["id"] = s.ID
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["updated_at"] = s.UpdatedAt
 	s.fieldMap["deleted_at"] = s.DeletedAt
+	s.fieldMap["tenant_id"] = s.TenantID
+	s.fieldMap["created_by"] = s.CreatedBy
+	s.fieldMap["dept_id"] = s.DeptID
 	s.fieldMap["parent_id"] = s.ParentID
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["code"] = s.Code
@@ -114,6 +153,15 @@ func (s *sysPermission) fillFieldMap() {
 	s.fieldMap["api_path"] = s.APIPath
 	s.fieldMap["api_method"] = s.APIMethod
 	s.fieldMap["sort"] = s.Sort
+	s.fieldMap["path"] = s.Path
+	s.fieldMap["component"] = s.Component
+	s.fieldMap["redirect"] = s.Redirect
+	s.fieldMap["icon"] = s.Icon
+	s.fieldMap["order_no"] = s.OrderNo
+	s.fieldMap["hidden"] = s.Hidden
+	s.fieldMap["keep_alive"] = s.KeepAlive
+	s.fieldMap["frame_src"] = s.FrameSrc
+	s.fieldMap["frame_blank"] = s.FrameBlank
 }
 
 func (s sysPermission) clone(db *gorm.DB) sysPermission {

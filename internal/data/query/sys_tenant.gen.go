@@ -31,10 +31,11 @@ func newSysTenant(db *gorm.DB, opts ...gen.DOOption) sysTenant {
 	_sysTenant.CreatedAt = field.NewTime(tableName, "created_at")
 	_sysTenant.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysTenant.DeletedAt = field.NewField(tableName, "deleted_at")
+	_sysTenant.CreatedBy = field.NewInt64(tableName, "created_by")
 	_sysTenant.Code = field.NewString(tableName, "code")
 	_sysTenant.Name = field.NewString(tableName, "name")
 	_sysTenant.PackageID = field.NewInt64(tableName, "package_id")
-	_sysTenant.ExpireTime = field.NewTime(tableName, "expire_time")
+	_sysTenant.ExpiredAt = field.NewInt64(tableName, "expired_at")
 	_sysTenant.Status = field.NewInt16(tableName, "status")
 
 	_sysTenant.fillFieldMap()
@@ -45,16 +46,17 @@ func newSysTenant(db *gorm.DB, opts ...gen.DOOption) sysTenant {
 type sysTenant struct {
 	sysTenantDo
 
-	ALL        field.Asterisk
-	ID         field.Int64
-	CreatedAt  field.Time
-	UpdatedAt  field.Time
-	DeletedAt  field.Field
-	Code       field.String
-	Name       field.String
-	PackageID  field.Int64
-	ExpireTime field.Time
-	Status     field.Int16
+	ALL       field.Asterisk
+	ID        field.Int64
+	CreatedAt field.Time
+	UpdatedAt field.Time
+	DeletedAt field.Field
+	CreatedBy field.Int64
+	Code      field.String
+	Name      field.String
+	PackageID field.Int64
+	ExpiredAt field.Int64
+	Status    field.Int16
 
 	fieldMap map[string]field.Expr
 }
@@ -75,10 +77,11 @@ func (s *sysTenant) updateTableName(table string) *sysTenant {
 	s.CreatedAt = field.NewTime(table, "created_at")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
+	s.CreatedBy = field.NewInt64(table, "created_by")
 	s.Code = field.NewString(table, "code")
 	s.Name = field.NewString(table, "name")
 	s.PackageID = field.NewInt64(table, "package_id")
-	s.ExpireTime = field.NewTime(table, "expire_time")
+	s.ExpiredAt = field.NewInt64(table, "expired_at")
 	s.Status = field.NewInt16(table, "status")
 
 	s.fillFieldMap()
@@ -96,15 +99,16 @@ func (s *sysTenant) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysTenant) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 9)
+	s.fieldMap = make(map[string]field.Expr, 10)
 	s.fieldMap["id"] = s.ID
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["updated_at"] = s.UpdatedAt
 	s.fieldMap["deleted_at"] = s.DeletedAt
+	s.fieldMap["created_by"] = s.CreatedBy
 	s.fieldMap["code"] = s.Code
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["package_id"] = s.PackageID
-	s.fieldMap["expire_time"] = s.ExpireTime
+	s.fieldMap["expired_at"] = s.ExpiredAt
 	s.fieldMap["status"] = s.Status
 }
 

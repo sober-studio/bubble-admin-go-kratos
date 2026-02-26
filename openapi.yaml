@@ -1106,6 +1106,22 @@ components:
                     type: integer
                     description: 排序序号
                     format: int32
+                leader_user_id:
+                    type: string
+                    description: 负责人用户ID
+                leader_user_name:
+                    type: string
+                    description: 负责人姓名
+                phone:
+                    type: string
+                    description: 联系电话
+                email:
+                    type: string
+                    description: 邮箱
+                status:
+                    type: integer
+                    description: 状态：0=禁用，1=正常
+                    format: int32
             description: ========== 创建部门 ==========
         api.dept.v1.DeptDeleteReply:
             type: object
@@ -1128,6 +1144,22 @@ components:
                 sort:
                     type: integer
                     description: 排序序号
+                    format: int32
+                leader_user_id:
+                    type: string
+                    description: 负责人用户ID
+                leader_user_name:
+                    type: string
+                    description: 负责人姓名
+                phone:
+                    type: string
+                    description: 联系电话
+                email:
+                    type: string
+                    description: 邮箱
+                status:
+                    type: integer
+                    description: 状态：0=禁用，1=正常
                     format: int32
                 created_at:
                     type: string
@@ -1174,6 +1206,22 @@ components:
                 sort:
                     type: integer
                     description: 排序序号
+                    format: int32
+                leader_user_id:
+                    type: string
+                    description: 负责人用户ID
+                leader_user_name:
+                    type: string
+                    description: 负责人姓名
+                phone:
+                    type: string
+                    description: 联系电话
+                email:
+                    type: string
+                    description: 邮箱
+                status:
+                    type: integer
+                    description: 状态：0=禁用，1=正常
                     format: int32
             description: ========== 更新部门 ==========
         api.package.v1.PackageAssignPermissionsReply:

@@ -122,6 +122,31 @@ message DeptCreateRequest {
 		json_name = "sort",
 		(openapi.v3.property) = { description: "排序序号" }
 	];
+	// 负责人用户ID
+	int64 leader_user_id = 4 [
+		json_name = "leader_user_id",
+		(openapi.v3.property) = { description: "负责人用户ID" }
+	];
+	// 负责人姓名
+	string leader_user_name = 5 [
+		json_name = "leader_user_name",
+		(openapi.v3.property) = { description: "负责人姓名" }
+	];
+	// 联系电话
+	string phone = 6 [
+		json_name = "phone",
+		(openapi.v3.property) = { description: "联系电话" }
+	];
+	// 邮箱
+	string email = 7 [
+		json_name = "email",
+		(openapi.v3.property) = { description: "邮箱" }
+	];
+	// 状态：0=禁用，1=正常
+	int32 status = 8 [
+		json_name = "status",
+		(openapi.v3.property) = { description: "状态：0=禁用，1=正常" }
+	];
 }
 
 message DeptCreateReply {
@@ -155,6 +180,31 @@ message DeptUpdateRequest {
 	int32 sort = 4 [
 		json_name = "sort",
 		(openapi.v3.property) = { description: "排序序号" }
+	];
+	// 负责人用户ID
+	int64 leader_user_id = 5 [
+		json_name = "leader_user_id",
+		(openapi.v3.property) = { description: "负责人用户ID" }
+	];
+	// 负责人姓名
+	string leader_user_name = 6 [
+		json_name = "leader_user_name",
+		(openapi.v3.property) = { description: "负责人姓名" }
+	];
+	// 联系电话
+	string phone = 7 [
+		json_name = "phone",
+		(openapi.v3.property) = { description: "联系电话" }
+	];
+	// 邮箱
+	string email = 8 [
+		json_name = "email",
+		(openapi.v3.property) = { description: "邮箱" }
+	];
+	// 状态：0=禁用，1=正常
+	int32 status = 9 [
+		json_name = "status",
+		(openapi.v3.property) = { description: "状态：0=禁用，1=正常" }
 	];
 }
 
@@ -199,13 +249,38 @@ message DeptEntity {
 		json_name = "sort",
 		(openapi.v3.property) = { description: "排序序号" }
 	];
+	// 负责人用户ID
+	int64 leader_user_id = 6 [
+		json_name = "leader_user_id",
+		(openapi.v3.property) = { description: "负责人用户ID" }
+	];
+	// 负责人姓名
+	string leader_user_name = 7 [
+		json_name = "leader_user_name",
+		(openapi.v3.property) = { description: "负责人姓名" }
+	];
+	// 联系电话
+	string phone = 8 [
+		json_name = "phone",
+		(openapi.v3.property) = { description: "联系电话" }
+	];
+	// 邮箱
+	string email = 9 [
+		json_name = "email",
+		(openapi.v3.property) = { description: "邮箱" }
+	];
+	// 状态：0=禁用，1=正常
+	int32 status = 10 [
+		json_name = "status",
+		(openapi.v3.property) = { description: "状态：0=禁用，1=正常" }
+	];
 	// 创建时间
-	int64 created_at = 6 [
+	int64 created_at = 11 [
 		json_name = "created_at",
 		(openapi.v3.property) = { description: "创建时间" }
 	];
 	// 子部门
-	repeated DeptEntity children = 7 [
+	repeated DeptEntity children = 12 [
 		json_name = "children",
 		(openapi.v3.property) = { description: "子部门" }
 	];

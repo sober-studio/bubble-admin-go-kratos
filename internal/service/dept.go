@@ -45,7 +45,13 @@ func (s *DeptService) Get(ctx context.Context, req *pb.DeptGetRequest) (*pb.Dept
 func (s *DeptService) Create(ctx context.Context, req *pb.DeptCreateRequest) (*pb.DeptCreateReply, error) {
 	tenantID := auth.GetTenantID(ctx)
 
-	dept, err := s.uc.Create(ctx, req.ParentId, req.Name, req.Sort)
+	// 默认状态为 1（正常）
+	status := req.Status
+	if status == 0 {
+		status = 1
+	}
+
+	dept, err := s.uc.Create(ctx, req.ParentId, req.Name, req.Sort, req.LeaderUserId, req.LeaderUserName, req.Phone, req.Email, status)
 	if err != nil {
 		return nil, err
 	}
@@ -61,7 +67,7 @@ func (s *DeptService) Create(ctx context.Context, req *pb.DeptCreateRequest) (*p
 }
 
 func (s *DeptService) Update(ctx context.Context, req *pb.DeptUpdateRequest) (*pb.DeptUpdateReply, error) {
-	err := s.uc.Update(ctx, req.Id, req.ParentId, req.Name, req.Sort)
+	err := s.uc.Update(ctx, req.Id, req.ParentId, req.Name, req.Sort, req.LeaderUserId, req.LeaderUserName, req.Phone, req.Email, req.Status)
 	if err != nil {
 		return nil, err
 	}
@@ -80,13 +86,18 @@ func (s *DeptService) Delete(ctx context.Context, req *pb.DeptDeleteRequest) (*p
 
 func (s *DeptService) convertToEntity(dept *biz.SysDept) *pb.DeptEntity {
 	return &pb.DeptEntity{
-		Id:         dept.ID,
-		ParentId:   dept.ParentID,
-		Name:       dept.Name,
-		Ancestors:  dept.Ancestors,
-		Sort:       dept.Sort,
-		CreatedAt:  dept.CreatedAt,
-		Children:   s.convertToEntities(dept.Children),
+		Id:             dept.ID,
+		ParentId:       dept.ParentID,
+		Name:           dept.Name,
+		Ancestors:      dept.Ancestors,
+		Sort:           dept.Sort,
+		LeaderUserId:   dept.LeaderUserID,
+		LeaderUserName: dept.LeaderUserName,
+		Phone:          dept.Phone,
+		Email:          dept.Email,
+		Status:         dept.Status,
+		CreatedAt:      dept.CreatedAt,
+		Children:       s.convertToEntities(dept.Children),
 	}
 }
 

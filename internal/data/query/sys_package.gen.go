@@ -31,9 +31,13 @@ func newSysPackage(db *gorm.DB, opts ...gen.DOOption) sysPackage {
 	_sysPackage.CreatedAt = field.NewTime(tableName, "created_at")
 	_sysPackage.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysPackage.DeletedAt = field.NewField(tableName, "deleted_at")
+	_sysPackage.TenantID = field.NewInt64(tableName, "tenant_id")
+	_sysPackage.CreatedBy = field.NewInt64(tableName, "created_by")
+	_sysPackage.DeptID = field.NewInt64(tableName, "dept_id")
 	_sysPackage.Name = field.NewString(tableName, "name")
-	_sysPackage.Status = field.NewInt16(tableName, "status")
+	_sysPackage.Code = field.NewString(tableName, "code")
 	_sysPackage.Remark = field.NewString(tableName, "remark")
+	_sysPackage.Status = field.NewInt16(tableName, "status")
 
 	_sysPackage.fillFieldMap()
 
@@ -48,9 +52,13 @@ type sysPackage struct {
 	CreatedAt field.Time
 	UpdatedAt field.Time
 	DeletedAt field.Field
+	TenantID  field.Int64
+	CreatedBy field.Int64
+	DeptID    field.Int64
 	Name      field.String
-	Status    field.Int16
+	Code      field.String
 	Remark    field.String
+	Status    field.Int16
 
 	fieldMap map[string]field.Expr
 }
@@ -71,9 +79,13 @@ func (s *sysPackage) updateTableName(table string) *sysPackage {
 	s.CreatedAt = field.NewTime(table, "created_at")
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
+	s.TenantID = field.NewInt64(table, "tenant_id")
+	s.CreatedBy = field.NewInt64(table, "created_by")
+	s.DeptID = field.NewInt64(table, "dept_id")
 	s.Name = field.NewString(table, "name")
-	s.Status = field.NewInt16(table, "status")
+	s.Code = field.NewString(table, "code")
 	s.Remark = field.NewString(table, "remark")
+	s.Status = field.NewInt16(table, "status")
 
 	s.fillFieldMap()
 
@@ -90,14 +102,18 @@ func (s *sysPackage) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysPackage) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 7)
+	s.fieldMap = make(map[string]field.Expr, 11)
 	s.fieldMap["id"] = s.ID
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["updated_at"] = s.UpdatedAt
 	s.fieldMap["deleted_at"] = s.DeletedAt
+	s.fieldMap["tenant_id"] = s.TenantID
+	s.fieldMap["created_by"] = s.CreatedBy
+	s.fieldMap["dept_id"] = s.DeptID
 	s.fieldMap["name"] = s.Name
-	s.fieldMap["status"] = s.Status
+	s.fieldMap["code"] = s.Code
 	s.fieldMap["remark"] = s.Remark
+	s.fieldMap["status"] = s.Status
 }
 
 func (s sysPackage) clone(db *gorm.DB) sysPackage {

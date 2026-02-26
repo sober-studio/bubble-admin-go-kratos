@@ -222,7 +222,17 @@ type DeptCreateRequest struct {
 	// 部门名称
 	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
 	// 排序序号
-	Sort          int32 `protobuf:"varint,3,opt,name=sort,proto3" json:"sort,omitempty"`
+	Sort int32 `protobuf:"varint,3,opt,name=sort,proto3" json:"sort,omitempty"`
+	// 负责人用户ID
+	LeaderUserId int64 `protobuf:"varint,4,opt,name=leader_user_id,proto3" json:"leader_user_id,omitempty"`
+	// 负责人姓名
+	LeaderUserName string `protobuf:"bytes,5,opt,name=leader_user_name,proto3" json:"leader_user_name,omitempty"`
+	// 联系电话
+	Phone string `protobuf:"bytes,6,opt,name=phone,proto3" json:"phone,omitempty"`
+	// 邮箱
+	Email string `protobuf:"bytes,7,opt,name=email,proto3" json:"email,omitempty"`
+	// 状态：0=禁用，1=正常
+	Status        int32 `protobuf:"varint,8,opt,name=status,proto3" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -274,6 +284,41 @@ func (x *DeptCreateRequest) GetName() string {
 func (x *DeptCreateRequest) GetSort() int32 {
 	if x != nil {
 		return x.Sort
+	}
+	return 0
+}
+
+func (x *DeptCreateRequest) GetLeaderUserId() int64 {
+	if x != nil {
+		return x.LeaderUserId
+	}
+	return 0
+}
+
+func (x *DeptCreateRequest) GetLeaderUserName() string {
+	if x != nil {
+		return x.LeaderUserName
+	}
+	return ""
+}
+
+func (x *DeptCreateRequest) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *DeptCreateRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *DeptCreateRequest) GetStatus() int32 {
+	if x != nil {
+		return x.Status
 	}
 	return 0
 }
@@ -333,7 +378,17 @@ type DeptUpdateRequest struct {
 	// 部门名称
 	Name string `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
 	// 排序序号
-	Sort          int32 `protobuf:"varint,4,opt,name=sort,proto3" json:"sort,omitempty"`
+	Sort int32 `protobuf:"varint,4,opt,name=sort,proto3" json:"sort,omitempty"`
+	// 负责人用户ID
+	LeaderUserId int64 `protobuf:"varint,5,opt,name=leader_user_id,proto3" json:"leader_user_id,omitempty"`
+	// 负责人姓名
+	LeaderUserName string `protobuf:"bytes,6,opt,name=leader_user_name,proto3" json:"leader_user_name,omitempty"`
+	// 联系电话
+	Phone string `protobuf:"bytes,7,opt,name=phone,proto3" json:"phone,omitempty"`
+	// 邮箱
+	Email string `protobuf:"bytes,8,opt,name=email,proto3" json:"email,omitempty"`
+	// 状态：0=禁用，1=正常
+	Status        int32 `protobuf:"varint,9,opt,name=status,proto3" json:"status,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -392,6 +447,41 @@ func (x *DeptUpdateRequest) GetName() string {
 func (x *DeptUpdateRequest) GetSort() int32 {
 	if x != nil {
 		return x.Sort
+	}
+	return 0
+}
+
+func (x *DeptUpdateRequest) GetLeaderUserId() int64 {
+	if x != nil {
+		return x.LeaderUserId
+	}
+	return 0
+}
+
+func (x *DeptUpdateRequest) GetLeaderUserName() string {
+	if x != nil {
+		return x.LeaderUserName
+	}
+	return ""
+}
+
+func (x *DeptUpdateRequest) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *DeptUpdateRequest) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *DeptUpdateRequest) GetStatus() int32 {
+	if x != nil {
+		return x.Status
 	}
 	return 0
 }
@@ -527,10 +617,20 @@ type DeptEntity struct {
 	Ancestors string `protobuf:"bytes,4,opt,name=ancestors,proto3" json:"ancestors,omitempty"`
 	// 排序序号
 	Sort int32 `protobuf:"varint,5,opt,name=sort,proto3" json:"sort,omitempty"`
+	// 负责人用户ID
+	LeaderUserId int64 `protobuf:"varint,6,opt,name=leader_user_id,proto3" json:"leader_user_id,omitempty"`
+	// 负责人姓名
+	LeaderUserName string `protobuf:"bytes,7,opt,name=leader_user_name,proto3" json:"leader_user_name,omitempty"`
+	// 联系电话
+	Phone string `protobuf:"bytes,8,opt,name=phone,proto3" json:"phone,omitempty"`
+	// 邮箱
+	Email string `protobuf:"bytes,9,opt,name=email,proto3" json:"email,omitempty"`
+	// 状态：0=禁用，1=正常
+	Status int32 `protobuf:"varint,10,opt,name=status,proto3" json:"status,omitempty"`
 	// 创建时间
-	CreatedAt int64 `protobuf:"varint,6,opt,name=created_at,proto3" json:"created_at,omitempty"`
+	CreatedAt int64 `protobuf:"varint,11,opt,name=created_at,proto3" json:"created_at,omitempty"`
 	// 子部门
-	Children      []*DeptEntity `protobuf:"bytes,7,rep,name=children,proto3" json:"children,omitempty"`
+	Children      []*DeptEntity `protobuf:"bytes,12,rep,name=children,proto3" json:"children,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -600,6 +700,41 @@ func (x *DeptEntity) GetSort() int32 {
 	return 0
 }
 
+func (x *DeptEntity) GetLeaderUserId() int64 {
+	if x != nil {
+		return x.LeaderUserId
+	}
+	return 0
+}
+
+func (x *DeptEntity) GetLeaderUserName() string {
+	if x != nil {
+		return x.LeaderUserName
+	}
+	return ""
+}
+
+func (x *DeptEntity) GetPhone() string {
+	if x != nil {
+		return x.Phone
+	}
+	return ""
+}
+
+func (x *DeptEntity) GetEmail() string {
+	if x != nil {
+		return x.Email
+	}
+	return ""
+}
+
+func (x *DeptEntity) GetStatus() int32 {
+	if x != nil {
+		return x.Status
+	}
+	return 0
+}
+
 func (x *DeptEntity) GetCreatedAt() int64 {
 	if x != nil {
 		return x.CreatedAt
@@ -627,33 +762,49 @@ const file_dept_v1_dept_proto_rawDesc = "" +
 	"\x0eDeptGetRequest\x12\"\n" +
 	"\x02id\x18\x01 \x01(\x03B\x12\xe2A\x01\x02\xbaG\v\x92\x02\b部门IDR\x02id\"O\n" +
 	"\fDeptGetReply\x12?\n" +
-	"\x04dept\x18\x01 \x01(\v2\x17.api.dept.v1.DeptEntityB\x12\xbaG\x0f\x92\x02\f部门信息R\x04dept\"\x98\x01\n" +
+	"\x04dept\x18\x01 \x01(\v2\x17.api.dept.v1.DeptEntityB\x12\xbaG\x0f\x92\x02\f部门信息R\x04dept\"\xa6\x03\n" +
 	"\x11DeptCreateRequest\x12/\n" +
 	"\tparent_id\x18\x01 \x01(\x03B\x11\xbaG\x0e\x92\x02\v父部门IDR\tparent_id\x12*\n" +
 	"\x04name\x18\x02 \x01(\tB\x16\xe2A\x01\x02\xbaG\x0f\x92\x02\f部门名称R\x04name\x12&\n" +
-	"\x04sort\x18\x03 \x01(\x05B\x12\xbaG\x0f\x92\x02\f排序序号R\x04sort\"1\n" +
+	"\x04sort\x18\x03 \x01(\x05B\x12\xbaG\x0f\x92\x02\f排序序号R\x04sort\x12?\n" +
+	"\x0eleader_user_id\x18\x04 \x01(\x03B\x17\xbaG\x14\x92\x02\x11负责人用户IDR\x0eleader_user_id\x12A\n" +
+	"\x10leader_user_name\x18\x05 \x01(\tB\x15\xbaG\x12\x92\x02\x0f负责人姓名R\x10leader_user_name\x12(\n" +
+	"\x05phone\x18\x06 \x01(\tB\x12\xbaG\x0f\x92\x02\f联系电话R\x05phone\x12\"\n" +
+	"\x05email\x18\a \x01(\tB\f\xbaG\t\x92\x02\x06邮箱R\x05email\x12:\n" +
+	"\x06status\x18\b \x01(\x05B\"\xbaG\x1f\x92\x02\x1c状态：0=禁用，1=正常R\x06status\"1\n" +
 	"\x0fDeptCreateReply\x12\x1e\n" +
-	"\x02id\x18\x01 \x01(\x03B\x0e\xbaG\v\x92\x02\b部门IDR\x02id\"\xbc\x01\n" +
+	"\x02id\x18\x01 \x01(\x03B\x0e\xbaG\v\x92\x02\b部门IDR\x02id\"\xca\x03\n" +
 	"\x11DeptUpdateRequest\x12\"\n" +
 	"\x02id\x18\x01 \x01(\x03B\x12\xe2A\x01\x02\xbaG\v\x92\x02\b部门IDR\x02id\x12/\n" +
 	"\tparent_id\x18\x02 \x01(\x03B\x11\xbaG\x0e\x92\x02\v父部门IDR\tparent_id\x12*\n" +
 	"\x04name\x18\x03 \x01(\tB\x16\xe2A\x01\x02\xbaG\x0f\x92\x02\f部门名称R\x04name\x12&\n" +
-	"\x04sort\x18\x04 \x01(\x05B\x12\xbaG\x0f\x92\x02\f排序序号R\x04sort\"\x11\n" +
+	"\x04sort\x18\x04 \x01(\x05B\x12\xbaG\x0f\x92\x02\f排序序号R\x04sort\x12?\n" +
+	"\x0eleader_user_id\x18\x05 \x01(\x03B\x17\xbaG\x14\x92\x02\x11负责人用户IDR\x0eleader_user_id\x12A\n" +
+	"\x10leader_user_name\x18\x06 \x01(\tB\x15\xbaG\x12\x92\x02\x0f负责人姓名R\x10leader_user_name\x12(\n" +
+	"\x05phone\x18\a \x01(\tB\x12\xbaG\x0f\x92\x02\f联系电话R\x05phone\x12\"\n" +
+	"\x05email\x18\b \x01(\tB\f\xbaG\t\x92\x02\x06邮箱R\x05email\x12:\n" +
+	"\x06status\x18\t \x01(\x05B\"\xbaG\x1f\x92\x02\x1c状态：0=禁用，1=正常R\x06status\"\x11\n" +
 	"\x0fDeptUpdateReply\"7\n" +
 	"\x11DeptDeleteRequest\x12\"\n" +
 	"\x02id\x18\x01 \x01(\x03B\x12\xe2A\x01\x02\xbaG\v\x92\x02\b部门IDR\x02id\"\x11\n" +
-	"\x0fDeptDeleteReply\"\xd9\x02\n" +
+	"\x0fDeptDeleteReply\"\xe7\x04\n" +
 	"\n" +
 	"DeptEntity\x12\x1e\n" +
 	"\x02id\x18\x01 \x01(\x03B\x0e\xbaG\v\x92\x02\b部门IDR\x02id\x12/\n" +
 	"\tparent_id\x18\x02 \x01(\x03B\x11\xbaG\x0e\x92\x02\v父部门IDR\tparent_id\x12&\n" +
 	"\x04name\x18\x03 \x01(\tB\x12\xbaG\x0f\x92\x02\f部门名称R\x04name\x120\n" +
 	"\tancestors\x18\x04 \x01(\tB\x12\xbaG\x0f\x92\x02\f祖先路径R\tancestors\x12&\n" +
-	"\x04sort\x18\x05 \x01(\x05B\x12\xbaG\x0f\x92\x02\f排序序号R\x04sort\x122\n" +
+	"\x04sort\x18\x05 \x01(\x05B\x12\xbaG\x0f\x92\x02\f排序序号R\x04sort\x12?\n" +
+	"\x0eleader_user_id\x18\x06 \x01(\x03B\x17\xbaG\x14\x92\x02\x11负责人用户IDR\x0eleader_user_id\x12A\n" +
+	"\x10leader_user_name\x18\a \x01(\tB\x15\xbaG\x12\x92\x02\x0f负责人姓名R\x10leader_user_name\x12(\n" +
+	"\x05phone\x18\b \x01(\tB\x12\xbaG\x0f\x92\x02\f联系电话R\x05phone\x12\"\n" +
+	"\x05email\x18\t \x01(\tB\f\xbaG\t\x92\x02\x06邮箱R\x05email\x12:\n" +
+	"\x06status\x18\n" +
+	" \x01(\x05B\"\xbaG\x1f\x92\x02\x1c状态：0=禁用，1=正常R\x06status\x122\n" +
 	"\n" +
-	"created_at\x18\x06 \x01(\x03B\x12\xbaG\x0f\x92\x02\f创建时间R\n" +
+	"created_at\x18\v \x01(\x03B\x12\xbaG\x0f\x92\x02\f创建时间R\n" +
 	"created_at\x12D\n" +
-	"\bchildren\x18\a \x03(\v2\x17.api.dept.v1.DeptEntityB\x0f\xbaG\f\x92\x02\t子部门R\bchildren2\xc8\x04\n" +
+	"\bchildren\x18\f \x03(\v2\x17.api.dept.v1.DeptEntityB\x0f\xbaG\f\x92\x02\t子部门R\bchildren2\xc8\x04\n" +
 	"\x04Dept\x12r\n" +
 	"\x04List\x12\x1c.api.dept.v1.DeptListRequest\x1a\x1a.api.dept.v1.DeptListReply\"0\xbaG\x14\x12\x12获取部门列表\x82\xd3\xe4\x93\x02\x13\x12\x11/api/v1/dept/list\x12o\n" +
 	"\x03Get\x12\x1b.api.dept.v1.DeptGetRequest\x1a\x19.api.dept.v1.DeptGetReply\"0\xbaG\x14\x12\x12获取部门详情\x82\xd3\xe4\x93\x02\x13\x12\x11/api/v1/dept/{id}\x12p\n" +

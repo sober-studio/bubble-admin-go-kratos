@@ -19,15 +19,20 @@ var (
 
 // SysDept 部门领域模型
 type SysDept struct {
-	ID         int64
-	ParentID   int64
-	Name       string
-	Ancestors  string
-	Sort       int32
-	TenantID   int64
-	CreatedAt  int64
-	UpdatedAt  int64
-	Children   []*SysDept
+	ID             int64
+	ParentID       int64
+	Name           string
+	Ancestors      string
+	Sort           int32
+	LeaderUserID   int64
+	LeaderUserName string
+	Phone          string
+	Email          string
+	Status         int32
+	TenantID       int64
+	CreatedAt      int64
+	UpdatedAt      int64
+	Children       []*SysDept
 }
 
 // SysDeptRepo 部门仓储接口
@@ -54,7 +59,7 @@ func NewDeptUseCase(repo SysDeptRepo, logger log.Logger) *DeptUseCase {
 	}
 }
 
-func (uc *DeptUseCase) Create(ctx context.Context, parentID int64, name string, sort int32) (*SysDept, error) {
+func (uc *DeptUseCase) Create(ctx context.Context, parentID int64, name string, sort int32, leaderUserID int64, leaderUserName string, phone string, email string, status int32) (*SysDept, error) {
 	// 如果有父部门，检查父部门是否存在
 	if parentID > 0 {
 		parent, err := uc.repo.GetByID(ctx, parentID)
@@ -66,20 +71,30 @@ func (uc *DeptUseCase) Create(ctx context.Context, parentID int64, name string, 
 		}
 		// 构建 ancestors：父级的 ancestors + "," + 父级ID
 		dept := &SysDept{
-			ParentID:  parentID,
-			Name:       name,
-			Sort:       sort,
-			Ancestors:  parent.Ancestors + "," + formatInt64(parentID),
+			ParentID:       parentID,
+			Name:           name,
+			Sort:           sort,
+			Ancestors:      parent.Ancestors + "," + formatInt64(parentID),
+			LeaderUserID:   leaderUserID,
+			LeaderUserName: leaderUserName,
+			Phone:          phone,
+			Email:          email,
+			Status:         status,
 		}
 		return uc.repo.Create(ctx, dept)
 	}
 
 	// 顶级部门
 	dept := &SysDept{
-		ParentID:  0,
-		Name:      name,
-		Sort:      sort,
-		Ancestors: "0",
+		ParentID:       0,
+		Name:           name,
+		Sort:           sort,
+		Ancestors:      "0",
+		LeaderUserID:   leaderUserID,
+		LeaderUserName: leaderUserName,
+		Phone:          phone,
+		Email:          email,
+		Status:         status,
 	}
 	return uc.repo.Create(ctx, dept)
 }
@@ -88,7 +103,7 @@ func (uc *DeptUseCase) GetByID(ctx context.Context, id int64) (*SysDept, error) 
 	return uc.repo.GetByID(ctx, id)
 }
 
-func (uc *DeptUseCase) Update(ctx context.Context, id int64, parentID int64, name string, sort int32) error {
+func (uc *DeptUseCase) Update(ctx context.Context, id int64, parentID int64, name string, sort int32, leaderUserID int64, leaderUserName string, phone string, email string, status int32) error {
 	dept, err := uc.repo.GetByID(ctx, id)
 	if err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -119,6 +134,11 @@ func (uc *DeptUseCase) Update(ctx context.Context, id int64, parentID int64, nam
 
 	dept.Name = name
 	dept.Sort = sort
+	dept.LeaderUserID = leaderUserID
+	dept.LeaderUserName = leaderUserName
+	dept.Phone = phone
+	dept.Email = email
+	dept.Status = status
 
 	return uc.repo.Update(ctx, dept)
 }

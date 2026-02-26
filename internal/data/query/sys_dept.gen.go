@@ -32,10 +32,17 @@ func newSysDept(db *gorm.DB, opts ...gen.DOOption) sysDept {
 	_sysDept.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysDept.DeletedAt = field.NewField(tableName, "deleted_at")
 	_sysDept.TenantID = field.NewInt64(tableName, "tenant_id")
+	_sysDept.CreatedBy = field.NewInt64(tableName, "created_by")
+	_sysDept.DeptID = field.NewInt64(tableName, "dept_id")
 	_sysDept.ParentID = field.NewInt64(tableName, "parent_id")
 	_sysDept.Name = field.NewString(tableName, "name")
 	_sysDept.Ancestors = field.NewString(tableName, "ancestors")
 	_sysDept.Sort = field.NewInt32(tableName, "sort")
+	_sysDept.LeaderUserID = field.NewInt64(tableName, "leader_user_id")
+	_sysDept.LeaderUserName = field.NewString(tableName, "leader_user_name")
+	_sysDept.Phone = field.NewString(tableName, "phone")
+	_sysDept.Email = field.NewString(tableName, "email")
+	_sysDept.Status = field.NewInt32(tableName, "status")
 
 	_sysDept.fillFieldMap()
 
@@ -45,16 +52,23 @@ func newSysDept(db *gorm.DB, opts ...gen.DOOption) sysDept {
 type sysDept struct {
 	sysDeptDo
 
-	ALL       field.Asterisk
-	ID        field.Int64
-	CreatedAt field.Time
-	UpdatedAt field.Time
-	DeletedAt field.Field
-	TenantID  field.Int64
-	ParentID  field.Int64
-	Name      field.String
-	Ancestors field.String
-	Sort      field.Int32
+	ALL            field.Asterisk
+	ID             field.Int64
+	CreatedAt      field.Time
+	UpdatedAt      field.Time
+	DeletedAt      field.Field
+	TenantID       field.Int64
+	CreatedBy      field.Int64
+	DeptID         field.Int64
+	ParentID       field.Int64
+	Name           field.String
+	Ancestors      field.String
+	Sort           field.Int32
+	LeaderUserID   field.Int64
+	LeaderUserName field.String
+	Phone          field.String
+	Email          field.String
+	Status         field.Int32
 
 	fieldMap map[string]field.Expr
 }
@@ -76,10 +90,17 @@ func (s *sysDept) updateTableName(table string) *sysDept {
 	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.DeletedAt = field.NewField(table, "deleted_at")
 	s.TenantID = field.NewInt64(table, "tenant_id")
+	s.CreatedBy = field.NewInt64(table, "created_by")
+	s.DeptID = field.NewInt64(table, "dept_id")
 	s.ParentID = field.NewInt64(table, "parent_id")
 	s.Name = field.NewString(table, "name")
 	s.Ancestors = field.NewString(table, "ancestors")
 	s.Sort = field.NewInt32(table, "sort")
+	s.LeaderUserID = field.NewInt64(table, "leader_user_id")
+	s.LeaderUserName = field.NewString(table, "leader_user_name")
+	s.Phone = field.NewString(table, "phone")
+	s.Email = field.NewString(table, "email")
+	s.Status = field.NewInt32(table, "status")
 
 	s.fillFieldMap()
 
@@ -96,16 +117,23 @@ func (s *sysDept) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 }
 
 func (s *sysDept) fillFieldMap() {
-	s.fieldMap = make(map[string]field.Expr, 9)
+	s.fieldMap = make(map[string]field.Expr, 16)
 	s.fieldMap["id"] = s.ID
 	s.fieldMap["created_at"] = s.CreatedAt
 	s.fieldMap["updated_at"] = s.UpdatedAt
 	s.fieldMap["deleted_at"] = s.DeletedAt
 	s.fieldMap["tenant_id"] = s.TenantID
+	s.fieldMap["created_by"] = s.CreatedBy
+	s.fieldMap["dept_id"] = s.DeptID
 	s.fieldMap["parent_id"] = s.ParentID
 	s.fieldMap["name"] = s.Name
 	s.fieldMap["ancestors"] = s.Ancestors
 	s.fieldMap["sort"] = s.Sort
+	s.fieldMap["leader_user_id"] = s.LeaderUserID
+	s.fieldMap["leader_user_name"] = s.LeaderUserName
+	s.fieldMap["phone"] = s.Phone
+	s.fieldMap["email"] = s.Email
+	s.fieldMap["status"] = s.Status
 }
 
 func (s sysDept) clone(db *gorm.DB) sysDept {
