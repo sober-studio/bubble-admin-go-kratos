@@ -1211,7 +1211,7 @@ components:
                 code:
                     type: string
                     description: 套餐编码
-                description:
+                remark:
                     type: string
                     description: 描述
             description: ========== 创建套餐 ==========
@@ -1230,7 +1230,7 @@ components:
                 code:
                     type: string
                     description: 套餐编码
-                description:
+                remark:
                     type: string
                     description: 描述
                 status:
@@ -1283,7 +1283,7 @@ components:
                 code:
                     type: string
                     description: 套餐编码
-                description:
+                remark:
                     type: string
                     description: 描述
             description: ========== 更新套餐 ==========
